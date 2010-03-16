@@ -25,6 +25,13 @@ public class XMLManager {
 	 private ArrayList<Tramo> listadoVerticales;
 	 private ArrayList<Tramo> listadoCallejones;
 	 private ArrayList<Atributo> listadoAtributos;
+	 private ArrayList<Contenido> listadoCampos;
+	 private ArrayList<Contenido> listadoEdificios;
+	 private ArrayList<Punto> listadoStops;
+	 private ArrayList<Punto> listadoCedas;
+	 private ArrayList<Tramo> listadoSemaforos;
+	 private ArrayList<Punto> listadoCrucesSimples;
+	 private ArrayList<Contenido> listadoCruces;
 	
 	public XMLManager() {
 		
@@ -36,12 +43,13 @@ public class XMLManager {
 		listadoVerticales = new ArrayList<Tramo>();
 		listadoCallejones = new ArrayList<Tramo>();
 		listadoAtributos = new ArrayList<Atributo>();
-	}
-	
-	public void lanzarManager(String file) {
-		
-		parsearArchivoXml(file);
-        parsearDocumento();
+		listadoCampos = new ArrayList<Contenido>();
+		listadoEdificios = new ArrayList<Contenido>();
+		listadoStops = new ArrayList<Punto>();
+		listadoCedas = new ArrayList<Punto>();
+		listadoSemaforos = new ArrayList<Tramo>();
+		listadoCrucesSimples = new ArrayList<Punto>();
+		listadoCruces = new ArrayList<Contenido>();
 	}
 	
 	public void lanzarManager(File file) {
@@ -52,24 +60,6 @@ public class XMLManager {
 	
 	private void parsearArchivoXml(File file) {
 	    	
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	     try {
-	    	 DocumentBuilder db = dbf.newDocumentBuilder();
-	         dom = db.parse(file);
-	     } 
-	     catch (ParserConfigurationException pce) { 	
-	    	 pce.printStackTrace();
-	     } 
-	     catch (SAXException se) {
-	         se.printStackTrace();
-	     }
-	     catch (IOException ioe) {
-	         ioe.printStackTrace();
-	     }
-	}  
-	
-	private void parsearArchivoXml(String file) {
-    	
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	     try {
 	    	 DocumentBuilder db = dbf.newDocumentBuilder();
@@ -152,10 +142,66 @@ public class XMLManager {
 	                Atributo atributo = obtenerAtributo(elemento);
 	                listadoAtributos.add(atributo);
 	         }
-	     }  
+	     } 
+	     nl = docEle.getElementsByTagName("edificio");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Contenido edificio = obtenerContenido(elemento);
+	                listadoEdificios.add(edificio);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("campo");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Contenido campo = obtenerContenido(elemento);
+	                listadoCampos.add(campo);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("semaforo");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Tramo semaforo = obtenerTramo(elemento);
+	                listadoSemaforos.add(semaforo);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("stop");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Punto stop = obtenerPunto(elemento);
+	                listadoStops.add(stop);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("ceda");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Punto ceda = obtenerPunto(elemento);
+	                listadoCedas.add(ceda);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("cruceS");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Punto cruceS = obtenerPunto(elemento);
+	                listadoCrucesSimples.add(cruceS);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("cruce");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Contenido cruce = obtenerContenido(elemento);
+	                listadoCruces.add(cruce);
+	         }
+	     } 
 	 }
 	    
-	 public Tramo obtenerTramo(Element elemento) {
+	 private Tramo obtenerTramo(Element elemento) {
 	   
 		 int sentido = obtenerEntero(elemento,"sentido");
 	     int posX1 = obtenerEntero(elemento, "posX1");
@@ -165,7 +211,7 @@ public class XMLManager {
 	     return d;   
 	 }
 	    
-	 public Acceso obtenerEntrada(Element elemento) {
+	 private Acceso obtenerEntrada(Element elemento) {
 	 
 	     int posX1 = obtenerEntero(elemento, "posX1");
 	     int posX2 = obtenerEntero(elemento, "posX2");
@@ -177,7 +223,7 @@ public class XMLManager {
 	     return d;    
 	 }
 	    
-	 public Acceso obtenerSalida(Element elemento) {
+	 private Acceso obtenerSalida(Element elemento) {
 	    	
 		 int posX1 = obtenerEntero(elemento, "posX1");
 	     int posX2 = obtenerEntero(elemento, "posX2");
@@ -189,15 +235,33 @@ public class XMLManager {
 	     return d;  
 	 }   
 	    
-	 public Atributo obtenerAtributo(Element elemento) {
+	private Atributo obtenerAtributo(Element elemento) {
 		 
 		 int longitud = obtenerEntero(elemento, "longitud");
 		 int limite1 = obtenerEntero(elemento, "limite1");
 		 int limite2 = obtenerEntero(elemento, "limite2");
 		 Atributo d = new Atributo(longitud,limite1,limite2);
 		 return d;
-	 }
-	    
+	}
+	 
+	private Contenido obtenerContenido(Element elemento) {
+		
+		int x1 = obtenerEntero(elemento, "posX1");
+		int x2 = obtenerEntero(elemento, "posX2");
+		int y1 = obtenerEntero(elemento, "posY1");
+		int y2 = obtenerEntero(elemento, "posY2");
+		Contenido d = new Contenido(x1,x2,y1,y2);
+		return d;
+	}
+	
+	private Punto obtenerPunto(Element elemento) {
+		
+		int x = obtenerEntero(elemento, "posX");
+		int y = obtenerEntero(elemento, "posY");
+		Punto d = new Punto(x,y);
+		return d;
+	}
+
 	private int obtenerEntero(Element elemento, String nombreEtiqueta) {
 	    	
 		 return Integer.parseInt(obtenerTexto(elemento, nombreEtiqueta));
@@ -253,5 +317,35 @@ public class XMLManager {
 	public ArrayList<Atributo> getAtributos() {
 		
 		return listadoAtributos;
+	}
+	
+	public ArrayList<Contenido> getCampos() {
+		
+		return listadoCampos;
+	}
+	
+	public ArrayList<Contenido> getEdificios() {
+		
+		return listadoEdificios;
+	}
+	
+	public ArrayList<Punto> getStops() {
+		return listadoStops;
+	}
+
+	public ArrayList<Punto> getCedas() {
+		return listadoCedas;
+	}
+
+	public ArrayList<Tramo> getSemaforos() {
+		return listadoSemaforos;
+	}
+
+	public ArrayList<Punto> getCrucesSimples() {
+		return listadoCrucesSimples;
+	}
+
+	public ArrayList<Contenido> getCruces() {
+		return listadoCruces;
 	}
 }

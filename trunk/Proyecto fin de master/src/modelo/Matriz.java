@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -89,7 +90,8 @@ public class Matriz extends Observable {
 		
 		parar = false;
 		manager = new XMLManager();
-		manager.lanzarManager("mapa.xml");
+		File ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
+		manager.lanzarManager(ficheroMapa);
 		int longitud = 0;
 		int limite1 = 0;
 		int limite2 = 0;
@@ -131,6 +133,15 @@ public class Matriz extends Observable {
 		ArrayList<Tramo> horizontales = manager.getHorizontales();
 		ArrayList<Tramo> verticales = manager.getVerticales();
 		ArrayList<Tramo> callejones = manager.getCallejones();
+		ArrayList<Tramo> semaforos = manager.getSemaforos();
+		ArrayList<Punto> stops = manager.getStops();
+		ArrayList<Punto> cedas = manager.getCedas();
+		ArrayList<Punto> crucesS = manager.getCrucesSimples();
+		ArrayList<Contenido> cruces = manager.getCruces(); 
+		File ficheroCampo = new File("./xml/mapas/Paisaje1.xml");
+		manager.lanzarManager(ficheroCampo);
+		ArrayList<Contenido> campos = manager.getCampos();
+		ArrayList<Contenido> edificios = manager.getEdificios();
 		switch(tipo) {
 		case 0:
 			for (int i=0;i<principales.size();i++) {
@@ -149,13 +160,40 @@ public class Matriz extends Observable {
 				Tramo tramo = callejones.get(i);
 				callejon(tramo.getX1(),tramo.getX2(),tramo.getY(),tramo.getSentido());
 			}
-			ponerSemaforos();
+			for (int i=0;i<semaforos.size();i++) {
+				Tramo tramo = semaforos.get(i);
+				semaforos(tramo.getX1(),tramo.getX2(),tramo.getY(),tramo.getSentido());
+			}
+			for (int i=0;i<stops.size();i++) {
+				Punto punto = stops.get(i);
+				stops(punto.getX(),punto.getY());
+			}
+			for (int i=0;i<cedas.size();i++) {
+				Punto punto = cedas.get(i);
+				cedas(punto.getX(),punto.getY());
+			}
+			for (int i=0;i<crucesS.size();i++) {
+				Punto punto = crucesS.get(i);
+				crucesS(punto.getX(),punto.getY());
+			}
+			for (int i=0;i<cruces.size();i++) {
+				Contenido contenido = cruces.get(i);
+				cruces(contenido.getX1(),contenido.getX2(),contenido.getY1(),contenido.getY2());
+			}
+			/*ponerSemaforos();
 			ponerStops();
 			ponerCedas();
-			ponerCruces();
+			ponerCruces();*/
 			break;
 		case 1:
-			construirPaisajeCampo();
+			for (int i=0;i<campos.size();i++) {
+				Contenido contenido = campos.get(i);
+				construirCampo(contenido.getX1(),contenido.getX2(),contenido.getY1(),contenido.getY2());
+			}
+			for (int i=0;i<edificios.size();i++) {
+				Contenido contenido = edificios.get(i);
+				construirEdificio(contenido.getX1(),contenido.getX2(),contenido.getY1(),contenido.getY2());
+			}
 			for (int i=0;i<tramos.size();i++) {
 				Tramo tramo = tramos.get(i);
 				autovia(tramo.getX1(),tramo.getX2(),tramo.getY(),tramo.getSentido());
@@ -172,7 +210,14 @@ public class Matriz extends Observable {
 			}
 			break;
 		case 2:
-			construirPaisajeCampo();
+			for (int i=0;i<campos.size();i++) {
+				Contenido contenido = campos.get(i);
+				construirCampo(contenido.getX1(),contenido.getX2(),contenido.getY1(),contenido.getY2());
+			}
+			for (int i=0;i<edificios.size();i++) {
+				Contenido contenido = edificios.get(i);
+				construirEdificio(contenido.getX1(),contenido.getX2(),contenido.getY1(),contenido.getY2());
+			}
 			for (int i=0;i<tramos.size();i++) {
 				Tramo tramo = tramos.get(i);
 				secundaria(tramo.getX1(),tramo.getX2(),tramo.getY(),tramo.getSentido());
@@ -192,37 +237,17 @@ public class Matriz extends Observable {
 		actualizar();
 	}
 	
-	private void construirPaisajeCampo() {
+	private void construirCampo(int x1,int x2,int y1,int y2) {
 		
-		for (int i=60;i<70;i++)
-			for(int j=60;j<75;j++)
+		for (int i=x1;i<x2;i++)
+			for(int j=y1;j<y2;j++)
 				contenido[i][j] = CAMPO;
-		for (int i=80;i<90;i++)
-			for(int j=20;j<25;j++)
-				contenido[i][j] = CAMPO;
-		for (int i=20;i<50;i++)
-			for (int j=10;j<30;j++)
-				contenido[i][j] = CAMPO;
-		for (int i=40;i<79;i++)
-			for (int j=24;j<70;j++)
-				contenido[i][j] = CAMPO;
-		for (int i=30;i<50;i++)
-				for (int j=60;j<80;j++)
-					contenido[i][j] = CAMPO;
-		for (int i=8;i<20;i++)
-			for (int j=70;j<91;j++)
-				contenido[i][j] = CAMPO;
-		for (int i=70;i<85;i++)
-			for (int j=80;j<89;j++) 
-				contenido[i][j] = EDIFICIO;
-		for (int i=9;i<18;i++)
-			for (int j=20;j<50;j++)
-				contenido[i][j] = EDIFICIO;
-		for (int i=27;i<43;i++)
-			for (int j=84;j<89;j++)
-				contenido[i][j] = EDIFICIO;
-		for (int i=80;i<90;i++)
-			for (int j=40;j<67;j++)
+	}
+	
+	private void construirEdificio(int x1,int x2,int y1,int y2) {
+		
+		for (int i=x1;i<x2;i++)
+			for(int j=y1;j<y2;j++)
 				contenido[i][j] = EDIFICIO;
 	}
 	
@@ -449,8 +474,8 @@ public class Matriz extends Observable {
 		else if (sentido == 2) 
 			//x1=53;x2=92;y=80;
 			//x1=7;x2=48;y=40
-			for (int j=53;j<92;j++)
-				contenido[80][j] = CALLEJON_HD;
+			for (int j=x1;j<x2;j++)
+				contenido[y][j] = CALLEJON_HD;
 		else if (sentido == 3)
 			//x1=53;x2=92;y=30;
 			//x1=7;x2=48;y=40;
@@ -461,6 +486,39 @@ public class Matriz extends Observable {
 			//x1=7;x2=48;y=72
 			for (int i=x1;i<x2;i++) 
 				contenido[i][y] = CALLEJON_VB;
+	}
+	
+	private void semaforos(int x1,int x2,int y,int sentido) {
+		
+		if (sentido == 1)
+			for (int i=x1;i<x2;i++)
+				contenido[i][y] = SEMAFORO_VERDE;
+		else if (sentido == 2)
+			for (int j=x1;j<x2;j++)
+				contenido[y][j] = SEMAFORO_VERDE;
+	}
+	
+	private void stops(int x,int y) {
+		
+		contenido[x][y] = STOP;
+	}
+	
+	private void cedas(int x,int y) {
+		
+		contenido[x][y] = CEDA_EL_PASO;
+	}
+	
+	private void crucesS(int x,int y) {
+		
+		contenido[x][y] = CRUCE;
+	}
+	
+	private void cruces(int x1,int x2,int y1,int y2) {
+		
+		for (int i=x1;i<x2;i++) 
+			for(int j=y1;j<y2;j++)
+				contenido[i][j] = CRUCE;
+		
 	}
 	
 	private void ponerSemaforos() {
@@ -501,7 +559,7 @@ public class Matriz extends Observable {
 	
 	private void ponerCruces() {
 		
-		for (int i=48;i<53 ;i++) 
+		for (int i=48;i<53;i++) 
 			for(int j=48;j<53;j++)
 				contenido[i][j] = CRUCE;
 		
