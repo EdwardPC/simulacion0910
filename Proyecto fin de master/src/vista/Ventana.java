@@ -171,7 +171,7 @@ public class Ventana extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent arg0) {
 			
 			JFileChooser chooser = new JFileChooser();
-		    chooser.setCurrentDirectory(new java.io.File("."));
+		    chooser.setCurrentDirectory(new java.io.File("./xml"));
 		    chooser.setDialogTitle("Seleccione fichero XML:");
 		    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		    FileFilter filter1 = new ExtensionFileFilter("xml", new String[] { "XML" });
