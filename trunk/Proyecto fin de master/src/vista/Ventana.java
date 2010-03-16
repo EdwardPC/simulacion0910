@@ -6,16 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
 
 import controlador.Controlador;
 
@@ -167,14 +170,27 @@ public class Ventana extends JFrame implements Observer {
 		
 		public void actionPerformed(ActionEvent arg0) {
 			
-			Cargador cargador = new Cargador();
-			JOptionPane.showMessageDialog(null,cargador,"Cargar simulacion",JOptionPane.INFORMATION_MESSAGE);
-			Integer eleccion = cargador.getEleccion();
-			if (eleccion >= 0) {
-				controlador.rellenarMatriz(eleccion);
+			JFileChooser chooser = new JFileChooser();
+		    chooser.setCurrentDirectory(new java.io.File("."));
+		    chooser.setDialogTitle("Seleccione fichero XML:");
+		    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		    FileFilter filter1 = new ExtensionFileFilter("xml", new String[] { "XML" });
+		    chooser.setFileFilter(filter1);
+		    chooser.setAcceptAllFileFilterUsed(false);  
+		    if (chooser.showOpenDialog(getParent()) == JFileChooser.APPROVE_OPTION) { 
+		    	File fichero = chooser.getSelectedFile();
+		    	int eleccion = 0;
+		    	if (fichero.getName().contains("Autovia"))
+		    		eleccion = 1;
+		    	else if (fichero.getName().contains("Secundaria"))
+		    		eleccion = 2;
+		    	controlador.rellenarMatriz(eleccion,fichero);
 				controlador.getMatriz().setParar(true);
 				controlador.finalizar();
-			}
+		    }
+		    else {
+		      System.out.println("No Selection ");
+		    }
 			//comenzar.setEnabled(true);
 			//cargar.setEnabled(false);
 		}
@@ -232,7 +248,7 @@ public class Ventana extends JFrame implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		
-		System.out.println("Actualizo update");
+		//System.out.println("Actualizo update");
 		trafico.dibujarMapa();
 		
 	}

@@ -68,13 +68,12 @@ public class Coche extends Thread {
 	
 	public void avanzar() {
 		
-		System.out.println("Avanzo:");
 		contenido[antX][antY] = aux;
-		System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
+		//System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
 		aux = contenido[x][y];
-		System.out.println("Aux nuevo: "+aux);
+		//System.out.println("Aux nuevo: "+aux);
 		contenido[x][y] = AUTOMOVIL;
-		System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
+		//System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
 		antX = x;
 		antY = y;
 		if (aux.contains("HD")) {
@@ -93,7 +92,7 @@ public class Coche extends Thread {
 			x = x+1;
 			direccion = "Abajo";
 		}
-		else if (aux.contains("Cruce") || aux.contains("Semaforo ")) {
+		else if (aux.contains("Cruce") || aux.contains("Semaforo")) {
 			if (direccion.equals("Abajo"))
 				x = x+1;
 			else if (direccion.equals("Arriba"))

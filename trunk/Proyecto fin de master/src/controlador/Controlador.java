@@ -1,5 +1,7 @@
 package controlador;
 
+import java.io.File;
+
 import modelo.Matriz;
 
 public class Controlador {
@@ -22,10 +24,10 @@ public class Controlador {
 		matriz = mapa;
 	}
 	
-	public void rellenarMatriz(Integer opcion) {
+	public void rellenarMatriz(Integer opcion,File fichero) {
 		
 		matriz.inicializar();
-		matriz.rellenarMatriz(opcion);
+		matriz.rellenarMatriz(opcion,fichero);
 	}
 
 	public void simular() {
