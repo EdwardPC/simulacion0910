@@ -3,6 +3,7 @@ package vista;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -35,10 +36,10 @@ public class Trafico extends JPanel {
 			}
 	}
 	
-	public void cargarSimulacion(Integer opcion) {
+	/*public void cargarSimulacion(Integer opcion,File fichero) {
 		
-		controlador.rellenarMatriz(opcion);
-	}
+		controlador.rellenarMatriz(opcion,fichero);
+	}*/
 	
 	public void dibujarMapa() {
 		
