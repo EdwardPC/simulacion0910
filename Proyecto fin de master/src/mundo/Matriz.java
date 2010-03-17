@@ -1,9 +1,16 @@
-package modelo;
+package mundo;
 
 import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Observable;
+
+import managerXML.Acceso;
+import managerXML.Contenido;
+import managerXML.Punto;
+import managerXML.Tramo;
+import managerXML.XMLManager;
+import managerXML.Atributo;
 
 //enum movimientos {DERECHA,IZQUIERDA,ARRIBA,ABAJO};
 
@@ -521,54 +528,6 @@ public class Matriz extends Observable {
 		
 	}
 	
-	private void ponerSemaforos() {
-		
-		for (int i=48;i<50;i++)
-			contenido[i][53] = SEMAFORO_VERDE;
-		for (int i=51;i<53;i++)
-			contenido[i][47] = SEMAFORO_VERDE;
-		for (int j=48;j<50;j++)
-			contenido[47][j] = SEMAFORO_VERDE;
-		for (int j=51;j<53;j++)
-			contenido[53][j] = SEMAFORO_VERDE;
-	}
-	
-	private void ponerStops() {
-		
-		contenido[47][72] = STOP;
-		contenido[53][80] = STOP;
-		contenido[53][30] = STOP;
-		contenido[47][40] = STOP;
-		contenido[80][53] = STOP;
-		contenido[30][53] = STOP;
-		contenido[72][47] = STOP;
-		contenido[40][47] = STOP;
-	}
-	
-	private void ponerCedas() {
-		
-		contenido[7][72] = CEDA_EL_PASO;
-		contenido[91][80] = CEDA_EL_PASO;
-		contenido[91][30] = CEDA_EL_PASO;
-		contenido[7][40] = CEDA_EL_PASO;
-		contenido[80][91] = CEDA_EL_PASO;
-		contenido[30][91] = CEDA_EL_PASO;
-		contenido[72][7] = CEDA_EL_PASO;
-		contenido[40][7] = CEDA_EL_PASO;
-	}
-	
-	private void ponerCruces() {
-		
-		for (int i=48;i<53;i++) 
-			for(int j=48;j<53;j++)
-				contenido[i][j] = CRUCE;
-		
-		contenido[72][30] = CRUCE;
-		contenido[40][40] = CRUCE;
-		contenido[30][72] = CRUCE;
-		contenido[80][80] = CRUCE;
-	}
-	
 	public String[][] getContenido() {
 	
 		return contenido;
@@ -622,6 +581,12 @@ public class Matriz extends Observable {
 		
 		Coche coche = new Coche(this,i,j,velocidad);
 		coches.add(coche);	
+	}
+
+	public void obtenerConductores(Integer agresivos, Integer normales,
+			Integer moderados) {
+		
+		
 	}
 	
 	

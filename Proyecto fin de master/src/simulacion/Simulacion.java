@@ -3,7 +3,7 @@ package simulacion;
 import javax.swing.UIManager;
 
 import controlador.Controlador;
-import modelo.Matriz;
+import mundo.Matriz;
 import vista.Ventana;
 
 public class Simulacion {
