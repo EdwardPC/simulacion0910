@@ -281,17 +281,17 @@ public class Matriz extends Observable {
 	private void autovia(int x1,int x2,int y,int sentido) {
 		//x1=5;x2=93;y=91;sentido=1;
 		if (sentido == 1) { //Izquierda
-			for (int j=x1;j<x2;j++)
+			for (int j=x1;j<x2-1;j++)
 				contenido[y][j] = AUTOVIA_D_HI_1;
 			for (int j=x1-1;j<x2;j++)
 				contenido[y+1][j] = AUTOVIA_D_HI_2;
 			
-			for(int j=x1-1;j<x2+1;j++)
+			for(int j=x1-2;j<x2+1;j++)
 				contenido[y+2][j] = SEPARACION;
 			
-			for (int j=x1-2;j<x2+1;j++) 
+			for (int j=x1-4;j<x2+1;j++) 
 				contenido[y+3][j] = AUTOVIA_I_HD_2;
-			for (int j=x1-2;j<x2+2;j++) 
+			for (int j=x1-5;j<x2+2;j++) 
 				contenido[y+4][j] = AUTOVIA_I_HD_1;
 		}
 		//x1=4;x2=96;y=3;sentido=2;
@@ -304,9 +304,9 @@ public class Matriz extends Observable {
 			for(int j=x1+1;j<x2-2;j++)
 				contenido[y+2][j] = SEPARACION;
 			
-			for (int j=x1+2;j<92;j++) 
+			for (int j=x1+2;j<x2-4;j++) 
 				contenido[y+3][j] = AUTOVIA_D_HD_2;
-			for (int j=x1+3;j<91;j++) 
+			for (int j=x1+3;j<x2-5;j++) 
 				contenido[y+4][j] = AUTOVIA_D_HD_1;
 		}
 		else if (sentido == 3) {
@@ -341,24 +341,24 @@ public class Matriz extends Observable {
 		}
 		else if (sentido == 5) {
 			//x1=7;x2=91;y=91;sentido=4;
-			for (int i=x1;i<x2;i++) 
+			for (int i=x1;i<x2+5;i++) 
 				contenido[i][y] = AUTOVIA_D_VB_1;
-			for (int i=x1-1;i<x2+1;i++) 
+			for (int i=x1-1;i<x2+4;i++) 
 				contenido[i][y+1] = AUTOVIA_D_VB_2;
 			
-			for (int i=x1-1;i<x2+2;i++) 
+			for (int i=x1-1;i<x2+4;i++) 
 				contenido[i][y+2] = SEPARACION;
 			
-			for (int i=x1-2;i<x2+4;i++) 
+			for (int i=x1-2;i<x2+3;i++) 
 				contenido[i][y+3] = AUTOVIA_I_VA_2;
-			for (int i=x1-3;i<x2+5;i++)
+			for (int i=x1-3;i<x2+2;i++)
 				contenido[i][y+4] = AUTOVIA_I_VA_1;
 		}
 		else if (sentido == 6) {
 			//x1=7;x2=91;y=91;sentido=4;
-			for (int i=x1;i<x2;i++) 
+			for (int i=x1-4;i<x2;i++) 
 				contenido[i][y] = AUTOVIA_D_VB_1;
-			for (int i=x1-1;i<x2+1;i++) 
+			for (int i=x1-3;i<x2+1;i++) 
 				contenido[i][y+1] = AUTOVIA_D_VB_2;
 			
 			for (int i=x1-1;i<x2+2;i++) 
