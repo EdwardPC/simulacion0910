@@ -2,21 +2,30 @@ package mundo;
 
 public class ItemsMundo {
 
-	private String informacion;
+	private String tipo;
+	private String direccion;
 	private boolean inicio;
 	
 	public ItemsMundo(String info,boolean start) {
 		
-		informacion = info;
+		tipo = info;
 		inicio = start; 
 	}
 
-	public String getInformacion() {
-		return informacion;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setInformacion(String informacion) {
-		this.informacion = informacion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String informacion) {
+		this.tipo = informacion;
 	}
 
 	public boolean isInicio() {

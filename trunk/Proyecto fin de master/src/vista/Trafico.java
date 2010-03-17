@@ -46,7 +46,7 @@ public class Trafico extends JPanel {
 		String contenido;
 		for (int i=0;i<99;i++)
 			for (int j=0;j<99;j++) {
-				contenido = controlador.getMatriz().getPosicion(i, j);
+				contenido = controlador.getMatriz().getTipo(i, j);
 				if(!tablero[i][j].getContenido().equals(contenido))
 					tablero[i][j].setContenido(contenido);
 					tablero[i][j].pintarCasilla();
