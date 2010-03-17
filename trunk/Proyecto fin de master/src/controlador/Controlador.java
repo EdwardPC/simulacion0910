@@ -34,11 +34,6 @@ public class Controlador {
 		
 		matriz.simular();
 	}
-	
-	public void finalizar() {
-		
-		matriz.finalizar();
-	}
 
 	public void pasarConductores(Double numAgresivos, Double numNormales,
 			Double numModerados) {

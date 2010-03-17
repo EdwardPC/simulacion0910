@@ -18,7 +18,7 @@ public class Casilla extends JPanel {
 	
 	public void pintarCasilla() {
 		
-	if (contenido.contains("HD"))
+	/*if (contenido.contains("HD"))
 			this.setBackground(Color.BLACK);
 		else if (contenido.contains("HI"))
 			this.setBackground(Color.PINK);
@@ -52,8 +52,8 @@ public class Casilla extends JPanel {
 			this.setBackground(Color.MAGENTA);
 		else if (contenido.equals("Ceda"))
 			this.setBackground(Color.BLUE);
-	/*	else
-			this.setBackground(Color.BLACK);*/
+		else
+			this.setBackground(Color.BLACK);
 	}
 	
 	public String getContenido() {

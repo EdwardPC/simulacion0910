@@ -3,7 +3,7 @@ package mundo;
 
 public class Coche extends Thread {
 	
-	private String[][] contenido;
+	private ItemsMundo[][] contenido;
 	
 	private Matriz matriz;
 	
@@ -32,8 +32,8 @@ public class Coche extends Thread {
 		x = antX;
 		y = antY;
 		velocidad = velocidadIni;
-		aux = contenido[antX][antY];
-		contenido[antX][antY] = AUTOMOVIL;
+		aux = contenido[antX][antY].getInformacion();
+		contenido[antX][antY].setInformacion(AUTOMOVIL);
 	}
 	
 	public Integer getVelocidad() {
@@ -68,11 +68,11 @@ public class Coche extends Thread {
 	
 	public void avanzar() {
 		
-		contenido[antX][antY] = aux;
+		contenido[antX][antY].setInformacion(aux);
 		//System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
-		aux = contenido[x][y];
+		aux = contenido[x][y].getInformacion();
 		//System.out.println("Aux nuevo: "+aux);
-		contenido[x][y] = AUTOMOVIL;
+		contenido[x][y].setInformacion(AUTOMOVIL);
 		//System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
 		antX = x;
 		antY = y;
@@ -102,6 +102,8 @@ public class Coche extends Thread {
 			else if (direccion.equals("Izquierda"))
 				y = y-1;
 		}
+		else if (aux.contains("Carril_entrada")) 
+			y = y-1;
 	}
 	
 	public void run() {
@@ -112,10 +114,11 @@ public class Coche extends Thread {
 			try {
 					Coche.sleep(300-velocidad);
 				}
-				catch(Exception e) {
+			catch(Exception e) {
 				e.printStackTrace();
-				}
+			}
 		}
+		finalizar();
 	}
 	
 	public void finalizar() {
