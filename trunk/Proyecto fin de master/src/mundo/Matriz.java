@@ -339,6 +339,36 @@ public class Matriz extends Observable {
 			for (int i=x1-3;i<x2+5;i++)
 				contenido[i][y+4] = AUTOVIA_I_VA_1;
 		}
+		else if (sentido == 5) {
+			//x1=7;x2=91;y=91;sentido=4;
+			for (int i=x1;i<x2;i++) 
+				contenido[i][y] = AUTOVIA_D_VB_1;
+			for (int i=x1-1;i<x2+1;i++) 
+				contenido[i][y+1] = AUTOVIA_D_VB_2;
+			
+			for (int i=x1-1;i<x2+2;i++) 
+				contenido[i][y+2] = SEPARACION;
+			
+			for (int i=x1-2;i<x2+4;i++) 
+				contenido[i][y+3] = AUTOVIA_I_VA_2;
+			for (int i=x1-3;i<x2+5;i++)
+				contenido[i][y+4] = AUTOVIA_I_VA_1;
+		}
+		else if (sentido == 6) {
+			//x1=7;x2=91;y=91;sentido=4;
+			for (int i=x1;i<x2;i++) 
+				contenido[i][y] = AUTOVIA_D_VB_1;
+			for (int i=x1-1;i<x2+1;i++) 
+				contenido[i][y+1] = AUTOVIA_D_VB_2;
+			
+			for (int i=x1-1;i<x2+2;i++) 
+				contenido[i][y+2] = SEPARACION;
+			
+			for (int i=x1-2;i<x2+4;i++) 
+				contenido[i][y+3] = AUTOVIA_I_VA_2;
+			for (int i=x1-3;i<x2+5;i++)
+				contenido[i][y+4] = AUTOVIA_I_VA_1;
+		}
 	}
 	
 	private void secundaria(int x1,int x2,int y,int sentido) {
@@ -369,6 +399,20 @@ public class Matriz extends Observable {
 			for (int i=x1;i<x2;i++) 
 				contenido[i][y] = SECUNDARIA_I_VB;
 			for (int i=x1+2;i<x2;i++) 
+				contenido[i][y+1] = SECUNDARIA_D_VA;
+		}
+		else if (sentido == 5) {
+			//x1=3;x2=95;y=3;sentido=4;
+			for (int i=x1;i<x2;i++) 
+				contenido[i][y] = SECUNDARIA_I_VB;
+			for (int i=x1;i<x2;i++) 
+				contenido[i][y+1] = SECUNDARIA_D_VA;
+		}
+		else if (sentido == 6) {
+			//x1=3;x2=95;y=3;sentido=4;
+			for (int i=x1;i<x2;i++) 
+				contenido[i][y] = SECUNDARIA_I_VB;
+			for (int i=x1+2;i<x2+2;i++) 
 				contenido[i][y+1] = SECUNDARIA_D_VA;
 		}
 	}
