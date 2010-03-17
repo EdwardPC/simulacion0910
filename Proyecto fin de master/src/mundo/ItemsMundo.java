@@ -4,12 +4,22 @@ public class ItemsMundo {
 
 	private String tipo;
 	private String direccion;
+	private Integer colorSemaforo;
 	private boolean inicio;
 	
 	public ItemsMundo(String info,boolean start) {
 		
 		tipo = info;
 		inicio = start; 
+		colorSemaforo = 0;
+	}
+
+	public Integer getColorSemaforo() {
+		return colorSemaforo;
+	}
+
+	public void setColorSemaforo(Integer colorSemaforo) {
+		this.colorSemaforo = colorSemaforo;
 	}
 
 	public String getDireccion() {
