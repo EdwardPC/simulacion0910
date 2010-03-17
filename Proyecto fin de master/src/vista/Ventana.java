@@ -194,7 +194,6 @@ public class Ventana extends JFrame implements Observer {
 		    		eleccion = 2;
 		    	controlador.rellenarMatriz(eleccion,fichero);
 				controlador.getMatriz().setParar(true);
-				controlador.finalizar();
 		    }
 		    else {
 		      System.out.println("No Selection ");
@@ -230,7 +229,6 @@ public class Ventana extends JFrame implements Observer {
 			
 			System.out.println("Finalizar");
 			controlador.getMatriz().setParar(true);
-			controlador.finalizar();
 			//finalizar.setEnabled(false);
 			//cargar.setEnabled(true);
 		}
