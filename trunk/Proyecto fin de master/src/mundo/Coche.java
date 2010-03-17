@@ -4,14 +4,9 @@ package mundo;
 public class Coche extends Thread {
 	
 	
-	private static final String ARRIBA = "Arriba";
-	private static final String ABAJO = "Abajo";
-	private static final String DERECHA = "Derecha";
-	private static final String IZQUIERDA = "Izquierda";
 	
 	private ItemsMundo[][] contenido;
 	private Matriz matriz;
-	private static String AUTOMOVIL = "Automovil";
 	private ItemsMundo anterior;
 	private Integer x;
 	private Integer y;
@@ -31,7 +26,7 @@ public class Coche extends Thread {
 		velocidad = velocidadIni;
 		direccion = contenido[antX][antY].getDireccion();
 		anterior = new ItemsMundo(contenido[antX][antY].getTipo(),contenido[antX][antY].isInicio());
-		contenido[antX][antY].setTipo(AUTOMOVIL);
+		contenido[antX][antY].setTipo(Constantes.AUTOMOVIL);
 	}
 	
 	public Integer getVelocidad() {
@@ -70,41 +65,49 @@ public class Coche extends Thread {
 		//System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
 		anterior.setTipo(contenido[x][y].getTipo());
 		//System.out.println("Aux nuevo: "+aux);
-		contenido[x][y].setTipo(AUTOMOVIL);
+		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
 		//System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
 		antX = x;
 		antY = y;
 		if (anterior.getTipo().contains("Autovia") || anterior.getTipo().contains("Secundaria") || 
 				anterior.getTipo().contains("Calle")) {
-			if (contenido[x][y].getDireccion().equals(DERECHA)) 
+			if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
 				y = y+1;
-			else if (contenido[x][y].getDireccion().equals(IZQUIERDA)) 
+				direccion = Constantes.DERECHA;
+			}
+			else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
 				y = y-1;
-			else if (contenido[x][y].getDireccion().equals(ARRIBA)) 
+				direccion = Constantes.IZQUIERDA;
+			}
+			else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
 				x = x-1;
-			else if (contenido[x][y].getDireccion().equals(ABAJO)) 
+				direccion = Constantes.ARRIBA;
+			}
+			else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
 				x = x+1;
+				direccion = Constantes.ABAJO;
+			}
 		}
 		else if (anterior.getTipo().contains("Cruce") || anterior.getTipo().contains("Semaforo")) {
-			if (anterior.getDireccion().equals(ABAJO))
+			if (anterior.getDireccion().equals(Constantes.ABAJO))
 				x = x+1;
-			else if (direccion.equals(ARRIBA))
+			else if (direccion.equals(Constantes.ARRIBA))
 				x = x-1;
-			else if (direccion.equals(DERECHA))
+			else if (direccion.equals(Constantes.DERECHA))
 				y = y+1;
-			else if (direccion.equals(IZQUIERDA))
+			else if (direccion.equals(Constantes.IZQUIERDA))
 				y = y-1;
 		}
-		else if (anterior.getTipo().contains("Carril_entrada")) {
-			if (!(contenido[x-1][y].getTipo().contains("Carril_entrada")) &&
-					!(contenido[x-1][y].getTipo().equals(AUTOMOVIL)) && 
-					!(contenido[x][y-1].getTipo().equals(AUTOMOVIL)))
+		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+			if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
+					!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
+					!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)))
 				y = y-1;
-			else if (!(contenido[x-1][y].getTipo().equals(AUTOMOVIL)) && 
-					(contenido[x-1][y].getDireccion().equals(ARRIBA)))
+			else if (!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
+					(contenido[x-1][y].getDireccion().equals(Constantes.ARRIBA)))
 				x = x-1;
-			else if (!(contenido[x][y-1].getTipo().equals(AUTOMOVIL)) &&
-					(contenido[x][y-1].getDireccion().equals(IZQUIERDA)))
+			else if (!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)) &&
+					(contenido[x][y-1].getDireccion().equals(Constantes.IZQUIERDA)))
 				y = y-1;
 		}
 		/*else if (siguiente.equals(AUTOMOVIL))
@@ -114,13 +117,13 @@ public class Coche extends Thread {
 	
 	private void tratarAdelantamiento() {
 		
-		if (direccion.equals(ABAJO))
+		if (direccion.equals(Constantes.ABAJO))
 			y = y+1;
-		else if (direccion.equals(ARRIBA))
+		else if (direccion.equals(Constantes.ARRIBA))
 			y = y-1;
-		else if (direccion.equals(DERECHA))
+		else if (direccion.equals(Constantes.DERECHA))
 			x = x-1;
-		else if (direccion.equals(IZQUIERDA))
+		else if (direccion.equals(Constantes.IZQUIERDA))
 			x = x+1;
 		
 	}
