@@ -1,44 +1,63 @@
 package vista;
 
-import javax.swing.ButtonGroup;
+import java.awt.GridLayout;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class Cargador extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private ButtonGroup grupo;
-	private JRadioButton ciudad;
-	private JRadioButton autovia;
-	private JRadioButton secundaria;
+	private JLabel agresivos;
+	private JLabel normales;
+	private JLabel moderados;
+	private JSpinner numAgresivos;
+	private JSpinner numNormales;
+	private JSpinner numModerados;
 	
 	public Cargador() {
 		
-		grupo = new ButtonGroup();
-		ciudad = new JRadioButton("Ciudad");
-		autovia = new JRadioButton("Autovía");
-		secundaria = new JRadioButton("Secundaria");
-		ciudad.setSelected(true);
-		grupo.add(ciudad);
-		grupo.add(autovia);
-		grupo.add(secundaria);
-		add(ciudad);
-		add(autovia);
-		add(secundaria);
+		setLayout(new GridLayout(3,2));
+		agresivos = new JLabel("Número de agresivos: ");
+		normales = new JLabel("Número de normales: ");
+		moderados = new JLabel("Número de moderados: ");
+		Double current = new Double(1);
+	    Double min = new Double(1);
+	    Double max = new Double(20);
+	    Double step = new Double(1);
+		SpinnerNumberModel numberSpinnerModel1 = new SpinnerNumberModel(current, min, max, step);
+		SpinnerNumberModel numberSpinnerModel2 = new SpinnerNumberModel(current, min, max, step);
+		SpinnerNumberModel numberSpinnerModel3 = new SpinnerNumberModel(current, min, max, step);
+		numAgresivos = new JSpinner(numberSpinnerModel1);
+		numNormales = new JSpinner(numberSpinnerModel2);
+		numModerados = new JSpinner(numberSpinnerModel3);
+		add(agresivos);
+		add(numAgresivos);
+		add(normales);
+		add(numNormales);
+		add(moderados);
+		add(numModerados);
 	}
-	
-	public Integer getEleccion() {
+
+	public Double getNumAgresivos() {
 		
-		Integer resultado = -1;
-		if (ciudad.isSelected())
-			resultado = 0;
-		else if (autovia.isSelected())
-				resultado = 1;
-		else if (secundaria.isSelected())
-				resultado = 2;
-		return resultado;
+		Double valor = new Double(numAgresivos.getValue().toString());
+		return valor;
+	}
+
+	public Double getNumNormales() {
 		
+		Double valor = new Double(numNormales.getValue().toString());
+		return valor;
+	}
+
+	public Double getNumModerados() {
+		
+		Double valor = new Double(numModerados.getValue().toString());
+		return valor;
 	}
 
 }

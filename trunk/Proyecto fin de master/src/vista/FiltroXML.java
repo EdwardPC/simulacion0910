@@ -4,18 +4,18 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-public class ExtensionFileFilter extends FileFilter {
+public class FiltroXML extends FileFilter {
 	
 		private String description;
 
 		private String extensions[];
 
-		public ExtensionFileFilter(String description, String extension) {
+		public FiltroXML(String description, String extension) {
 			
 			this(description, new String[] { extension });
 		}
 
-		public ExtensionFileFilter(String description, String extensions[]) {
+		public FiltroXML(String description, String extensions[]) {
 			if (description == null) 
 				this.description = extensions[0];
 			else 
