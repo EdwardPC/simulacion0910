@@ -21,11 +21,6 @@ public class GeneradorVehiculos extends Thread {
 	private Integer longitud;
 	private Integer vIni;
 	
-	
-	public GeneradorVehiculos() {
-		
-	}
-	
 	public GeneradorVehiculos(Matriz mundo,ItemsMundo[][] cont,Integer elec,Integer tam,
 			Integer mod,Integer norm,Integer agre) {
 		
@@ -41,8 +36,8 @@ public class GeneradorVehiculos extends Thread {
 	
 	public void run() {
 		
-		for (int i=0;i<longitud;i++)
-			for (int j=0;j<longitud;j++) 
+		for (int i=longitud-1;i>=0;i--)
+			for (int j=longitud-1;j>=0;j--) 
 				if (contenido[i][j].isInicio()) {
 					if (moderados > 0) {
 						if (eleccion == 0)
@@ -57,13 +52,13 @@ public class GeneradorVehiculos extends Thread {
 						matriz.actualizar();
 						coche.start();
 						try {
-							GeneradorVehiculos.sleep(1000);
+							GeneradorVehiculos.sleep(1500);
 						}
 						catch(Exception e) {
 							e.printStackTrace();
 						}
 					}
-					else if (normales >0) {
+					else if (normales > 0) {
 						if (eleccion == 0)
 							vIni = VNormCiudad;
 						else if (eleccion == 1) 
@@ -76,13 +71,13 @@ public class GeneradorVehiculos extends Thread {
 						matriz.actualizar();
 						coche.start();
 						try {
-							GeneradorVehiculos.sleep(1000);
+							GeneradorVehiculos.sleep(1500);
 						}
 						catch(Exception e) {
 							e.printStackTrace();
 						}
 					}
-					else if (agresivos >0) {
+					else if (agresivos > 0) {
 						if (eleccion == 0)
 							vIni = VAgreCiudad;
 						else if (eleccion == 1) 
@@ -95,7 +90,7 @@ public class GeneradorVehiculos extends Thread {
 						matriz.actualizar();
 						coche.start();
 						try {
-							GeneradorVehiculos.sleep(1000);
+							GeneradorVehiculos.sleep(1500);
 						}
 						catch(Exception e) {
 							e.printStackTrace();
