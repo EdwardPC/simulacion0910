@@ -1,4 +1,4 @@
-package modelo;
+package mundo;
 
 
 public class Coche extends Thread {
