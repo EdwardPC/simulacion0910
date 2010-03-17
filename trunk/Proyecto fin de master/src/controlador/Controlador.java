@@ -2,7 +2,7 @@ package controlador;
 
 import java.io.File;
 
-import modelo.Matriz;
+import mundo.Matriz;
 
 public class Controlador {
 
@@ -38,5 +38,14 @@ public class Controlador {
 	public void finalizar() {
 		
 		matriz.finalizar();
+	}
+
+	public void pasarConductores(Double numAgresivos, Double numNormales,
+			Double numModerados) {
+		
+		Integer agresivos = numAgresivos.intValue();
+		Integer normales = numNormales.intValue();
+		Integer moderados = numModerados.intValue();
+		matriz.obtenerConductores(agresivos,normales,moderados);
 	}
 }
