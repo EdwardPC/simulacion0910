@@ -57,6 +57,8 @@ public class Ventana extends JFrame implements Observer {
 	
 	private JButton finalizar;
 	
+	private JButton coches;
+	
 	private JPanel botones;
 	
 	private OyenteComenzar oyenteComenzar;
@@ -64,6 +66,8 @@ public class Ventana extends JFrame implements Observer {
 	private OyenteFinalizar oyenteFinalizar;
 	
 	private OyenteCargar oyenteCargar;
+	
+	private OyenteCoches oyenteCoches;
 	
 	private OyenteEstadisticas oyenteEstadisticas;
 	
@@ -84,6 +88,8 @@ public class Ventana extends JFrame implements Observer {
 		});
     	
     	botones = new JPanel();
+    	add(botones,BorderLayout.NORTH);
+		add(trafico,BorderLayout.CENTER);
     	inicializarMenu();
     	inicializarBotones();
     	inicializarOyentes();
@@ -91,8 +97,6 @@ public class Ventana extends JFrame implements Observer {
 		setSize(700,600);
 		setVisible(true);
 		this.setLocation(150,100);
-		add(botones,BorderLayout.NORTH);
-		add(trafico,BorderLayout.CENTER);
 	}
 	
 	private void inicializarMenu() {
@@ -127,9 +131,11 @@ public class Ventana extends JFrame implements Observer {
 		cargar = new JButton("Cargar");
 		comenzar = new JButton("Simular");
 		finalizar = new JButton("Finalizar");
+		coches = new JButton("Coches");
 		//comenzar.setEnabled(false);
 		//finalizar.setEnabled(false);
 		botones.add(cargar);
+		botones.add(coches);
 		botones.add(comenzar);
 		botones.add(finalizar);
 	}
@@ -139,6 +145,7 @@ public class Ventana extends JFrame implements Observer {
 		oyenteComenzar = new OyenteComenzar();
 		oyenteFinalizar = new OyenteFinalizar();
 		oyenteCargar = new OyenteCargar();
+		oyenteCoches = new OyenteCoches();
 		oyenteEstadisticas = new OyenteEstadisticas();
 		oyenteAyuda = new OyenteAyuda();
 		oyenteCreditos = new OyenteCreditos();
@@ -148,6 +155,7 @@ public class Ventana extends JFrame implements Observer {
 		mostrarAyuda.addActionListener(oyenteAyuda);
 		mostrarCreditos.addActionListener(oyenteCreditos);
 		cargar.addActionListener(oyenteCargar);
+		coches.addActionListener(oyenteCoches);
 		comenzar.addActionListener(oyenteComenzar);
 		finalizar.addActionListener(oyenteFinalizar);
 		lanzarSimulacion.addActionListener(oyenteComenzar);
@@ -174,7 +182,7 @@ public class Ventana extends JFrame implements Observer {
 		    chooser.setCurrentDirectory(new java.io.File("./xml"));
 		    chooser.setDialogTitle("Seleccione fichero XML:");
 		    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		    FileFilter filter1 = new ExtensionFileFilter("xml", new String[] { "XML" });
+		    FileFilter filter1 = new FiltroXML("xml", new String[] { "XML" });
 		    chooser.setFileFilter(filter1);
 		    chooser.setAcceptAllFileFilterUsed(false);  
 		    if (chooser.showOpenDialog(getParent()) == JFileChooser.APPROVE_OPTION) { 
@@ -195,7 +203,15 @@ public class Ventana extends JFrame implements Observer {
 			//cargar.setEnabled(false);
 		}
 	}
-	
+	class OyenteCoches implements ActionListener {
+		
+		public void actionPerformed(ActionEvent arg0) {
+			
+			Cargador cargador = new Cargador();
+			JOptionPane.showMessageDialog(getParent(),cargador,"Elegir los conductores: ",JOptionPane.INFORMATION_MESSAGE);
+			controlador.pasarConductores(cargador.getNumAgresivos(),cargador.getNumNormales(),cargador.getNumModerados());
+		}
+	}
 	class OyenteComenzar implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
