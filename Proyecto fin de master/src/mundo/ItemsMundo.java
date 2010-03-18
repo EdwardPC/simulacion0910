@@ -4,21 +4,21 @@ public class ItemsMundo {
 
 	private String tipo;
 	private String direccion;
-	private Integer colorSemaforo;
+	private String colorSemaforo;
 	private boolean inicio;
 	
 	public ItemsMundo(String info,boolean start) {
 		
 		tipo = info;
 		inicio = start; 
-		colorSemaforo = 0;
+		colorSemaforo = Constantes.VERDE;
 	}
 
-	public Integer getColorSemaforo() {
+	public String getColorSemaforo() {
 		return colorSemaforo;
 	}
 
-	public void setColorSemaforo(Integer colorSemaforo) {
+	public void setColorSemaforo(String colorSemaforo) {
 		this.colorSemaforo = colorSemaforo;
 	}
 

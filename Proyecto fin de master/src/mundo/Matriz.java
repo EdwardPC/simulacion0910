@@ -84,6 +84,11 @@ public class Matriz extends Observable {
 		ArrayList<Contenido> edificios = manager.getEdificios();
 		switch(tipo) {
 		case 0:
+			for (int i=0;i<entradas.size();i++) {
+				Acceso entrada = entradas.get(i);
+				entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
+						entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
+			}
 			for (int i=0;i<principales.size();i++) {
 				Tramo tramo = principales.get(i);
 				callePrincipal(tramo.getX1(),tramo.getX2(),tramo.getY(),tramo.getSentido());
@@ -137,12 +142,12 @@ public class Matriz extends Observable {
 			for (int i=0;i<entradas.size();i++) {
 				Acceso entrada = entradas.get(i);
 				entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
-						entrada.getY1(),entrada.getY2());
+						entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
 			}
 			for (int i=0;i<salidas.size();i++) {
 				Acceso salida = salidas.get(i);
 				salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
-						salida.getY1(),salida.getY2());
+						salida.getY1(),salida.getY2(),salida.getDir1(),salida.getDir2());
 			}
 			break;
 		case 2:
@@ -161,12 +166,12 @@ public class Matriz extends Observable {
 			for (int i=0;i<entradas.size();i++) {
 				Acceso entrada = entradas.get(i);
 				entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
-						entrada.getY1(),entrada.getY2());
+						entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
 			}
 			for (int i=0;i<salidas.size();i++) {
 				Acceso salida = salidas.get(i);
 				salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
-						salida.getY1(),salida.getY2());
+						salida.getY1(),salida.getY2(),salida.getDir1(),salida.getDir2());
 			}
 			break;
 		}
@@ -187,32 +192,55 @@ public class Matriz extends Observable {
 				contenido[i][j].setTipo(Constantes.EDIFICIO);
 	}
 	
-	private void salida(int x1,int x2,int x3,int x4,int y1,int y2) {
+	private void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
+			int dir2) {
 		
 		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA_V);
-			contenido[i][y1].setDireccion(Constantes.ARRIBA);
+			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
-			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA_H);
-			contenido[y2][j].setDireccion(Constantes.IZQUIERDA);
+			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
 	}
 	
-	private void entrada(int x1,int x2,int x3,int x4,int y1,int y2) {
+	private void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
+			int dir2) {
+		
 		
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA);
 			contenido[i][y1].setInicio(true);
-			contenido[i][y1].setDireccion(Constantes.ARRIBA);
+			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
 			contenido[y2][j].setInicio(true);
-			contenido[y2][j].setDireccion(Constantes.IZQUIERDA);
+			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
+	}
+		
+	private String obtenerDireccion(int dir) {
+		
+		String valor = null;
+		switch(dir) {
+		case 0:
+			valor = Constantes.ARRIBA;
+			break;
+		case 1:
+			valor = Constantes.ABAJO;
+			break;
+		case 2:
+			valor = Constantes.IZQUIERDA;
+			break;
+		case 3:
+			valor = Constantes.DERECHA;
+			break;
+		}
+		return valor;
 	}
 	
 	private void autovia(int x1,int x2,int y,int sentido) {

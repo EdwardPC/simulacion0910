@@ -24,8 +24,9 @@ public class Coche extends Thread {
 		x = antX;
 		y = antY;
 		velocidad = velocidadIni;
-		direccion = contenido[antX][antY].getDireccion();
+		//direccion = contenido[antX][antY].getDireccion();
 		anterior = new ItemsMundo(contenido[antX][antY].getTipo(),contenido[antX][antY].isInicio());
+		anterior.setDireccion(contenido[antX][antY].getDireccion());
 		contenido[antX][antY].setTipo(Constantes.AUTOMOVIL);
 	}
 	
@@ -64,6 +65,7 @@ public class Coche extends Thread {
 		contenido[antX][antY].setTipo(anterior.getTipo());
 		//System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
 		anterior.setTipo(contenido[x][y].getTipo());
+		anterior.setDireccion(contenido[x][y].getDireccion());
 		//System.out.println("Aux nuevo: "+aux);
 		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
 		//System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
@@ -73,42 +75,80 @@ public class Coche extends Thread {
 				anterior.getTipo().contains("Calle")) {
 			if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
 				y = y+1;
-				direccion = Constantes.DERECHA;
 			}
 			else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
 				y = y-1;
-				direccion = Constantes.IZQUIERDA;
 			}
 			else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
 				x = x-1;
-				direccion = Constantes.ARRIBA;
 			}
 			else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
 				x = x+1;
-				direccion = Constantes.ABAJO;
 			}
 		}
-		else if (anterior.getTipo().contains("Cruce") || anterior.getTipo().contains("Semaforo")) {
+		else if (anterior.getTipo().equals(Constantes.CRUCE)) {
 			if (anterior.getDireccion().equals(Constantes.ABAJO))
 				x = x+1;
-			else if (direccion.equals(Constantes.ARRIBA))
+			else if (anterior.getDireccion().equals(Constantes.ARRIBA))
 				x = x-1;
-			else if (direccion.equals(Constantes.DERECHA))
+			else if (anterior.getDireccion().equals(Constantes.DERECHA))
 				y = y+1;
-			else if (direccion.equals(Constantes.IZQUIERDA))
+			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
 				y = y-1;
 		}
+		else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
+				if (anterior.getColorSemaforo().equals(Constantes.VERDE)) {
+					if (anterior.getDireccion().equals(Constantes.ABAJO))
+						x = x+1;
+					else if (anterior.getDireccion().equals(Constantes.ARRIBA))
+						x = x-1;
+					else if (anterior.getDireccion().equals(Constantes.DERECHA))
+						y = y+1;
+					else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
+						y = y-1;
+				}
+		}
 		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
-			if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
-					!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
-					!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)))
-				y = y-1;
-			else if (!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
-					(contenido[x-1][y].getDireccion().equals(Constantes.ARRIBA)))
-				x = x-1;
-			else if (!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)) &&
-					(contenido[x][y-1].getDireccion().equals(Constantes.IZQUIERDA)))
-				y = y-1;
+			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
+				if (!(contenido[x][y+1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
+						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL)) && 
+						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
+					x = x-1;
+				}
+				else if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+					y = y+1;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
+				if (!(contenido[x][y-1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
+						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)) && 
+						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
+					x = x-1;
+				}
+				else if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+					y = y-1;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
+				if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
+						!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
+						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL))) {
+					y = y-1;
+				}
+				else if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+					x = x-1;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
+				if (!(contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
+						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
+						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL))) {
+					y = y+1;
+				}
+				else if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+					x = x+1;
+				}
+			}
 		}
 		/*else if (siguiente.equals(AUTOMOVIL))
 			tratarAdelantamiento();

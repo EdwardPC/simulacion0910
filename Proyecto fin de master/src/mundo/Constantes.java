@@ -16,8 +16,7 @@ public class Constantes {
 	
 	public static final String CARRIL_ENTRADA = "Carril_entrada";
 	
-	public static final String CARRIL_SALIDA_H = "Carril_salida_H";
-	public static final String CARRIL_SALIDA_V = "Carril_salida_V";
+	public static final String CARRIL_SALIDA = "Carril_salida";
 	
 	public static final String CALLE_PRINCIPAL_1 = "Calle_principal_1";
 	public static final String CALLE_PRINCIPAL_2 = "Calle_principal_2";
@@ -40,5 +39,9 @@ public class Constantes {
 	public static final String EMERGENCIA = "Emergencia";
 	public static final String BORDE = "Borde";
 	public static final  String SEPARACION = "Separacion";
+	
+	public static final  String VERDE = "Verde";
+	public static final  String AMARILLO = "Amarillo";
+	public static final  String ROJO = "Rojo";
 	
 }

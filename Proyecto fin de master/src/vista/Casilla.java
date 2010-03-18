@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
+import mundo.Constantes;
+
 public class Casilla extends JPanel {
 	
 	
@@ -30,27 +32,23 @@ public class Casilla extends JPanel {
 		this.setBackground(Color.BLACK);
 	else if (contenido.contains("2"))
 		this.setBackground(Color.PINK);*/
-		if (contenido.equals("Edificio")) 
+		if (contenido.equals(Constantes.EDIFICIO)) 
 			this.setBackground(Color.DARK_GRAY);
-		else if (contenido.equals("Separacion"))
+		else if (contenido.equals(Constantes.SEPARACION))
 			this.setBackground(Color.GRAY);
-		else if (contenido.equals("Campo")) 
+		else if (contenido.equals(Constantes.CAMPO)) 
 			this.setBackground(Color.GREEN);
-		else if (contenido.equals("Tierra"))
+		else if (contenido.equals(Constantes.TIERRA))
 			this.setBackground(new Color(100,50,5));
-		else if (contenido.equals("Borde"))
+		else if (contenido.equals(Constantes.BORDE))
 				this.setBackground(Color.ORANGE);
-		else if (contenido.equals("Automovil"))
+		else if (contenido.equals(Constantes.AUTOMOVIL))
 			this.setBackground(new Color(255,255,255));
-		else if (contenido.equals("Semaforo_Verde"))
+		else if (contenido.equals(Constantes.SEMAFORO))
 			this.setBackground(Color.GREEN);
-		else if (contenido.equals("Semaforo_Amarillo"))
-			this.setBackground(Color.YELLOW);
-		else if (contenido.equals("Semaforo_Rojo"))
-			this.setBackground(Color.RED);
-		else if (contenido.equals("Stop"))
+		else if (contenido.equals(Constantes.STOP))
 			this.setBackground(Color.MAGENTA);
-		else if (contenido.equals("Ceda"))
+		else if (contenido.equals(Constantes.CEDA_EL_PASO))
 			this.setBackground(Color.BLUE);
 		else
 			this.setBackground(Color.BLACK);
