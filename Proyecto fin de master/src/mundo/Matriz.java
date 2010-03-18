@@ -738,10 +738,11 @@ public class Matriz extends Observable {
 	public void simular() {
 		
 		generador = new GeneradorVehiculos(this);
-		semaforos = new SemaforosManager(this);
 		generador.start();
-		semaforos.start();
-		
+		if (eleccion == 0) {
+			semaforos = new SemaforosManager(this);
+			semaforos.start();
+		}
 	}
 	
 	public void actualizar() {
