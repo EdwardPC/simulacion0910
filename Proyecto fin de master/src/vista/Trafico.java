@@ -7,6 +7,9 @@ import java.io.File;
 
 import javax.swing.JPanel;
 
+import mundo.Constantes;
+import mundo.ItemsMundo;
+
 import controlador.Controlador;
 
 public class Trafico extends JPanel {
@@ -43,12 +46,14 @@ public class Trafico extends JPanel {
 	
 	public void dibujarMapa() {
 		
-		String contenido;
+		ItemsMundo contenido;
 		for (int i=0;i<99;i++)
 			for (int j=0;j<99;j++) {
-				contenido = controlador.getMatriz().getTipo(i, j);
-				if(!tablero[i][j].getContenido().equals(contenido))
-					tablero[i][j].setContenido(contenido);
+				contenido = controlador.getMatriz().getItem(i, j);
+				if(!tablero[i][j].getTipo().equals(contenido.getTipo()))
+					tablero[i][j].setTipo(contenido.getTipo());
+					if (contenido.getTipo().equals(Constantes.SEMAFORO))
+						tablero[i][j].setColorSemaforo(contenido.getColorSemaforo());
 					tablero[i][j].pintarCasilla();
 			}
 		repaint();

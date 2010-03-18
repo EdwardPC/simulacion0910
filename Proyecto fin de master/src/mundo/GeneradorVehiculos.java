@@ -21,16 +21,15 @@ public class GeneradorVehiculos extends Thread {
 	private Integer longitud;
 	private Integer vIni;
 	
-	public GeneradorVehiculos(Matriz mundo,ItemsMundo[][] cont,Integer elec,Integer tam,
-			Integer mod,Integer norm,Integer agre) {
+	public GeneradorVehiculos(Matriz mundo) {
 		
 		matriz = mundo;
-		contenido = cont;
-		eleccion = elec;
-		longitud = tam;
-		moderados = mod;
-		normales = norm;
-		agresivos = agre;
+		contenido = mundo.getContenido();
+		eleccion = mundo.getEleccion();
+		longitud = mundo.getLongitud();
+		moderados = mundo.getModerados();
+		normales = mundo.getNormales();
+		agresivos = mundo.getAgresivos();
 		vIni = 0;
 	}
 	
