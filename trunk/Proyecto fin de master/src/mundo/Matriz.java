@@ -18,6 +18,7 @@ public class Matriz extends Observable {
 	private ItemsMundo[][] contenido;
 	private ArrayList<Coche> coches;
 	private GeneradorVehiculos generador;
+	private SemaforosManager semaforos;
 	private Boolean parar;
 	private Integer eleccion;
 	private XMLManager manager;
@@ -178,6 +179,90 @@ public class Matriz extends Observable {
 		actualizar();
 	}
 	
+	public GeneradorVehiculos getGenerador() {
+		return generador;
+	}
+
+	public void setGenerador(GeneradorVehiculos generador) {
+		this.generador = generador;
+	}
+
+	public Integer getEleccion() {
+		return eleccion;
+	}
+
+	public void setEleccion(Integer eleccion) {
+		this.eleccion = eleccion;
+	}
+
+	public XMLManager getManager() {
+		return manager;
+	}
+
+	public void setManager(XMLManager manager) {
+		this.manager = manager;
+	}
+
+	public Integer getAgresivos() {
+		return agresivos;
+	}
+
+	public void setAgresivos(Integer agresivos) {
+		this.agresivos = agresivos;
+	}
+
+	public Integer getNormales() {
+		return normales;
+	}
+
+	public void setNormales(Integer normales) {
+		this.normales = normales;
+	}
+
+	public Integer getModerados() {
+		return moderados;
+	}
+
+	public void setModerados(Integer moderados) {
+		this.moderados = moderados;
+	}
+
+	public Integer getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(Integer longitud) {
+		this.longitud = longitud;
+	}
+
+	public Integer getLimite1() {
+		return limite1;
+	}
+
+	public void setLimite1(Integer limite1) {
+		this.limite1 = limite1;
+	}
+
+	public Integer getLimite2() {
+		return limite2;
+	}
+
+	public void setLimite2(Integer limite2) {
+		this.limite2 = limite2;
+	}
+
+	public void setContenido(ItemsMundo[][] contenido) {
+		this.contenido = contenido;
+	}
+
+	public void setCoches(ArrayList<Coche> coches) {
+		this.coches = coches;
+	}
+
+	public void setParar(Boolean parar) {
+		this.parar = parar;
+	}
+
 	private void construirCampo(int x1,int x2,int y1,int y2) {
 		
 		for (int i=x1;i<x2;i++)
@@ -640,9 +725,9 @@ public class Matriz extends Observable {
 		return contenido;
 	}
 	
-	public String getTipo(int i,int j) {
+	public ItemsMundo getItem(int i,int j) {
 		
-		return contenido[i][j].getTipo();
+		return contenido[i][j];
 	}
 	
 	public ArrayList<Coche> getCoches() {
@@ -652,9 +737,10 @@ public class Matriz extends Observable {
 
 	public void simular() {
 		
-		generador = new GeneradorVehiculos(this,contenido,eleccion,longitud,
-				moderados,normales,agresivos);
+		generador = new GeneradorVehiculos(this);
+		semaforos = new SemaforosManager(this);
 		generador.start();
+		semaforos.start();
 		
 	}
 	

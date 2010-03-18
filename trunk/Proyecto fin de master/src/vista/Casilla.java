@@ -11,13 +11,15 @@ public class Casilla extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
-	private String contenido;
+	private String tipo;
+	private String colorSemaforo;
 	
 	public Casilla() {
 	
-		contenido = "";
+		tipo = "";
+		colorSemaforo = "";
 	}
-	
+
 	public void pintarCasilla() {
 		
 	/*if (contenido.contains("HD"))
@@ -32,35 +34,49 @@ public class Casilla extends JPanel {
 		this.setBackground(Color.BLACK);
 	else if (contenido.contains("2"))
 		this.setBackground(Color.PINK);*/
-		if (contenido.equals(Constantes.EDIFICIO)) 
+		if (tipo.equals(Constantes.EDIFICIO)) 
 			this.setBackground(Color.DARK_GRAY);
-		else if (contenido.equals(Constantes.SEPARACION))
+		else if (tipo.equals(Constantes.SEPARACION))
 			this.setBackground(Color.GRAY);
-		else if (contenido.equals(Constantes.CAMPO)) 
+		else if (tipo.equals(Constantes.CAMPO)) 
 			this.setBackground(Color.GREEN);
-		else if (contenido.equals(Constantes.TIERRA))
+		else if (tipo.equals(Constantes.TIERRA))
 			this.setBackground(new Color(100,50,5));
-		else if (contenido.equals(Constantes.BORDE))
+		else if (tipo.equals(Constantes.BORDE))
 				this.setBackground(Color.ORANGE);
-		else if (contenido.equals(Constantes.AUTOMOVIL))
+		else if (tipo.equals(Constantes.AUTOMOVIL))
 			this.setBackground(new Color(255,255,255));
-		else if (contenido.equals(Constantes.SEMAFORO))
-			this.setBackground(Color.GREEN);
-		else if (contenido.equals(Constantes.STOP))
+		else if (tipo.equals(Constantes.SEMAFORO)) {
+			if (colorSemaforo.equals(Constantes.VERDE))
+				this.setBackground(Color.GREEN);
+			else if (colorSemaforo.equals(Constantes.AMARILLO))
+				this.setBackground(Color.YELLOW);
+			else if (colorSemaforo.equals(Constantes.ROJO))
+				this.setBackground(Color.RED);
+		}
+		else if (tipo.equals(Constantes.STOP))
 			this.setBackground(Color.MAGENTA);
-		else if (contenido.equals(Constantes.CEDA_EL_PASO))
+		else if (tipo.equals(Constantes.CEDA_EL_PASO))
 			this.setBackground(Color.BLUE);
 		else
 			this.setBackground(Color.BLACK);
 	}
 	
-	public String getContenido() {
+	public String getTipo() {
 		
-		return contenido;
+		return tipo;
 	}
 	
-	public void setContenido(String datos) {
+	public void setTipo(String datos) {
 		
-		contenido = datos;
+		tipo = datos;
+	}
+	
+	public String getColorSemaforo() {
+		return colorSemaforo;
+	}
+
+	public void setColorSemaforo(String colorSemaforo) {
+		this.colorSemaforo = colorSemaforo;
 	}
 }

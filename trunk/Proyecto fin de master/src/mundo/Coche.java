@@ -24,7 +24,6 @@ public class Coche extends Thread {
 		x = antX;
 		y = antY;
 		velocidad = velocidadIni;
-		//direccion = contenido[antX][antY].getDireccion();
 		anterior = new ItemsMundo(contenido[antX][antY].getTipo(),contenido[antX][antY].isInicio());
 		anterior.setDireccion(contenido[antX][antY].getDireccion());
 		contenido[antX][antY].setTipo(Constantes.AUTOMOVIL);
@@ -63,12 +62,9 @@ public class Coche extends Thread {
 	public void avanzar() {
 		
 		contenido[antX][antY].setTipo(anterior.getTipo());
-		//System.out.println("X: "+ antX+" Y: "+antY+ "Aux: "+aux);
 		anterior.setTipo(contenido[x][y].getTipo());
 		anterior.setDireccion(contenido[x][y].getDireccion());
-		//System.out.println("Aux nuevo: "+aux);
 		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
-		//System.out.println("X actual: "+ x+" Y actual: "+y+ ": "+contenido[x][y].toString());
 		antX = x;
 		antY = y;
 		if (anterior.getTipo().contains("Autovia") || anterior.getTipo().contains("Secundaria") || 
