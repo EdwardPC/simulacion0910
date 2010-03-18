@@ -28,9 +28,21 @@ public class SemaforosManager extends Thread {
 						item.setColorSemaforo(Constantes.ROJO);
 			}
 	}
+	
+	public void finalizar() {
+		
+		try {
+			this.finalize();
+		}
+		catch (Throwable t) {
+			t.printStackTrace();
+		}
+	}
+	
 	public void run() {
 		
 		while (!matriz.getParar()) {
+			System.out.println("OKOK");
 			try {
 				SemaforosManager.sleep(4000);
 			}
@@ -116,5 +128,6 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.VERDE);
 				}
 		}
+		finalizar();
 	}
 }
