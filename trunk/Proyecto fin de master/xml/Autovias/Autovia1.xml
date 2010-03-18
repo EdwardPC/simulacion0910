@@ -30,6 +30,8 @@
 	<posX4>90</posX4>
 	<posY1>90</posY1>
 	<posY2>44</posY2>
+	<direccion1>1</direccion1>
+	<direccion2>2</direccion2>
 </salida>
 <entrada>
 	<posX1>50</posX1>
@@ -38,5 +40,7 @@
 	<posX4>14</posX4>
 	<posY1>8</posY1>
 	<posY2>69</posY2>
+	<direccion1>0</direccion1>
+	<direccion2>2</direccion2>
 </entrada>
 </autovia>

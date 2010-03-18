@@ -30,6 +30,8 @@
 		<posX4>11</posX4>
 		<posY1>5</posY1>
 		<posY2>69</posY2>
+		<direccion1>0</direccion1>
+		<direccion2>2</direccion2>
 	</entrada>
 	<salida>
 		<posX1>25</posX1>
@@ -38,5 +40,7 @@
 		<posX4>93</posX4>
 		<posY1>93</posY1>
 		<posY2>44</posY2>
+		<direccion1>1</direccion1>
+		<direccion2>2</direccion2>
 	</salida>
 </secundaria>
