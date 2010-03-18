@@ -42,7 +42,6 @@ public class SemaforosManager extends Thread {
 	public void run() {
 		
 		while (!matriz.getParar()) {
-			System.out.println("OKOK");
 			try {
 				SemaforosManager.sleep(4000);
 			}
