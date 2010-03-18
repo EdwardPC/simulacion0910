@@ -296,14 +296,16 @@ public class Matriz extends Observable {
 		
 		
 		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA);
+			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
 			contenido[i][y1].setInicio(true);
+			contenido[i][y1].setTramo1(1);
 			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
 			contenido[y2][j].setInicio(true);
+			contenido[y2][j].setTramo2(2);
 			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
 	}
@@ -332,133 +334,181 @@ public class Matriz extends Observable {
 
 		if (sentido == 1) { //Izquierda
 			for (int j=x1;j<x2-1;j++) {
-				contenido[y][j].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[y][j].setTipo(Constantes.AUTOVIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.DERECHA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1-1;j<x2;j++) {
-				contenido[y+1][j].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[y+1][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y+1][j].setSentido(Constantes.DERECHA);
+				contenido[y+1][j].setNumCarril(2);
 			}
 			
 			for(int j=x1-2;j<x2+1;j++)
 				contenido[y+2][j].setTipo(Constantes.SEPARACION);
 			
 			for (int j=x1-4;j<x2+1;j++) {
-				contenido[y+3][j].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[y+3][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
+				contenido[y+3][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y+3][j].setNumCarril(2);
 			}
 			for (int j=x1-5;j<x2+2;j++) {
-				contenido[y+4][j].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[y+4][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
+				contenido[y+4][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y+4][j].setNumCarril(1);
 			}
 		}
 		else if (sentido == 2) { //Derecha
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[y][j].setTipo(Constantes.AUTOVIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1+1;j<x2;j++) {
-				contenido[y+1][j].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[y+1][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y+1][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y+1][j].setNumCarril(2);
 			}
 			for(int j=x1+1;j<x2-2;j++)
 				contenido[y+2][j].setTipo(Constantes.SEPARACION);
 			
 			for (int j=x1+2;j<x2-4;j++) {
-				contenido[y+3][j].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[y+3][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
+				contenido[y+3][j].setSentido(Constantes.DERECHA);
+				contenido[y+3][j].setNumCarril(2);
 			}
 			for (int j=x1+3;j<x2-5;j++) {
-				contenido[y+4][j].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[y+4][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
+				contenido[y+4][j].setSentido(Constantes.DERECHA);
+				contenido[y+4][j].setNumCarril(1);
 			}
 		}
 		else if (sentido == 3) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[i][y].setTipo(Constantes.AUTOVIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1+1;i<x2-1;i++) {
-				contenido[i][y+1].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+1].setNumCarril(2);
 			}
 			
 			for (int i=x1+2;i<x2-1;i++) 
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);
 			
 			for (int i=x1+4;i<x2-2;i++) {
-				contenido[i][y+3].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[i][y+3].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+3].setSentido(Constantes.DERECHA);
+				contenido[i][y+3].setNumCarril(2);
 			}
 			for (int i=x1+5;i<x2-3;i++) {
-				contenido[i][y+4].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+4].setSentido(Constantes.DERECHA);
+				contenido[i][y+4].setNumCarril(1);
 			}
 		}
 		else if (sentido == 4) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[i][y].setTipo(Constantes.AUTOVIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.DERECHA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y+1].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
+				contenido[i][y+1].setNumCarril(2);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++) 
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);
 			
 			for (int i=x1-2;i<x2+4;i++) {
-				contenido[i][y+3].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[i][y+3].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+3].setNumCarril(2);
 			}
 			for (int i=x1-3;i<x2+5;i++) {
-				contenido[i][y+4].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+4].setNumCarril(1);
 			}
 		}
 		else if (sentido == 5) {
 			for (int i=x1;i<x2+5;i++) {
-				contenido[i][y].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[i][y].setTipo(Constantes.AUTOVIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.DERECHA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+4;i++) {
-				contenido[i][y+1].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
+				contenido[i][y+1].setNumCarril(2);
 			}
 			
 			for (int i=x1-1;i<x2+4;i++) 
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);
 			
 			for (int i=x1-2;i<x2+3;i++) {
-				contenido[i][y+3].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[i][y+3].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+3].setNumCarril(2);
 			}
 			for (int i=x1-3;i<x2+2;i++) {
-				contenido[i][y+4].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+4].setNumCarril(1);
 			}
 		}
 		else if (sentido == 6) {
 			for (int i=x1-4;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.AUTOVIA_D_1);
+				contenido[i][y].setTipo(Constantes.AUTOVIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.DERECHA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-3;i<x2+1;i++) {
-				contenido[i][y+1].setTipo(Constantes.AUTOVIA_D_2);
+				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
+				contenido[i][y+1].setNumCarril(2);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++) 
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);
 			
 			for (int i=x1-2;i<x2+4;i++) {
-				contenido[i][y+3].setTipo(Constantes.AUTOVIA_I_2);
+				contenido[i][y+3].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+3].setNumCarril(2);
 			}
 			for (int i=x1-3;i<x2+5;i++) {
-				contenido[i][y+4].setTipo(Constantes.AUTOVIA_I_1);
+				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
+				contenido[i][y+4].setNumCarril(1);
 			}
 		}
 	}
@@ -467,62 +517,74 @@ public class Matriz extends Observable {
 		
 		if (sentido == 1) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.SECUNDARIA_D);
+				contenido[y][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.DERECHA);
 			}
 			for (int j=x1-2;j<x2;j++) {
-				contenido[y+1][j].setTipo(Constantes.SECUNDARIA_I);
+				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
+				contenido[y+1][j].setSentido(Constantes.IZQUIERDA);
 			}
 		}
 		else if (sentido == 2) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.SECUNDARIA_I);
+				contenido[y][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.IZQUIERDA);
 			}
 			for (int j=x1;j<x2-2;j++) {
-				contenido[y+1][j].setTipo(Constantes.SECUNDARIA_D);
+				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
+				contenido[y+1][j].setSentido(Constantes.DERECHA);
 			}
 		}
 		else if (sentido == 3) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.SECUNDARIA_D);
+				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.DERECHA);
 			}
 			for (int i=x1;i<x2+2;i++) {
-				contenido[i][y+1].setTipo(Constantes.SECUNDARIA_I);
+				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+1].setSentido(Constantes.IZQUIERDA);
 			}
 		}
 		else if (sentido == 4) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.SECUNDARIA_I);
+				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
 			for (int i=x1+2;i<x2;i++) {
-				contenido[i][y+1].setTipo(Constantes.SECUNDARIA_D);
+				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
 			}
 		}
 		else if (sentido == 5) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.SECUNDARIA_I);
+				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y+1].setTipo(Constantes.SECUNDARIA_D);
+				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
 			}
 		}
 		else if (sentido == 6) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.SECUNDARIA_I);
+				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
 			for (int i=x1+2;i<x2+2;i++) {
-				contenido[i][y+1].setTipo(Constantes.SECUNDARIA_D);
+				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+1].setSentido(Constantes.DERECHA);
 			}
 		}
 	}
@@ -531,46 +593,54 @@ public class Matriz extends Observable {
 		
 		if (sentido == 1) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE_PRINCIPAL_1);
+				contenido[y][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y+1][j].setTipo(Constantes.CALLE_PRINCIPAL_2);
+				contenido[y+1][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y+1][j].setNumCarril(2);
 			}
 			
 			for (int j=x1-2;j<x2+1;j++)
 				contenido[y+2][j].setTipo(Constantes.SEPARACION);	
 			
 			for (int j=x1-2;j<x2;j++) {
-				contenido[y+3][j].setTipo(Constantes.CALLE_PRINCIPAL_2);
+				contenido[y+3][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
+				contenido[y+3][j].setNumCarril(2);
 			}
 			for (int j=x1-1;j<x2-1;j++) {
-				contenido[y+4][j].setTipo(Constantes.CALLE_PRINCIPAL_1);
+				contenido[y+4][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
+				contenido[y+4][j].setNumCarril(1);
 			}
 		}
 		else if (sentido == 2) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE_PRINCIPAL_1);
+				contenido[i][y].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y+1].setTipo(Constantes.CALLE_PRINCIPAL_2);
+				contenido[i][y+1].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setNumCarril(2);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++)
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);	
 			
 			for (int i=x1;i<x2+2;i++) {
-				contenido[i][y+3].setTipo(Constantes.CALLE_PRINCIPAL_2);
+				contenido[i][y+3].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+3].setNumCarril(2);
 			}
 			for (int i=x1+1;i<x2+1;i++) {
-				contenido[i][y+4].setTipo(Constantes.CALLE_PRINCIPAL_1);
+				contenido[i][y+4].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
+				contenido[i][y+4].setNumCarril(1);
 			}
 		}
 	}
@@ -579,42 +649,50 @@ public class Matriz extends Observable {
 		
 		if (sentido == 1) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE_2);
+				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.DERECHA);
+				contenido[y][j].setNumCarril(2);
 			}
 			for (int j=x1+1;j<x2-1;j++) {
-				contenido[y+1][j].setTipo(Constantes.CALLE_1);
+				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
+				contenido[y+1][j].setNumCarril(1);
 			}
 		}
 		else if (sentido == 2) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE_1);
+				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y+1][j].setTipo(Constantes.CALLE_2);
+				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y+1][j].setNumCarril(2);
 			}
 		}
 		else if (sentido == 3) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE_1);
+				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.DERECHA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y-1][j].setTipo(Constantes.CALLE_2);
+				contenido[y-1][j].setTipo(Constantes.CALLE);
 				contenido[y-1][j].setDireccion(Constantes.DERECHA);
+				contenido[y-1][j].setNumCarril(2);
 			}
 		}
 		else if (sentido == 4) {
 			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE_1);
+				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setNumCarril(1);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y+1][j].setTipo(Constantes.CALLE_2);
+				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y+1][j].setNumCarril(2);
 			}
 		}
 	}
@@ -623,42 +701,50 @@ public class Matriz extends Observable {
 		
 		if (sentido == 1) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE_1);
+				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ARRIBA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y-1].setTipo(Constantes.CALLE_2);
+				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y-1].setNumCarril(2);
 			}
 		}
 		else if (sentido == 2) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE_2);
+				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setNumCarril(2);
 			}
 			for (int i=x1+1;i<x2-1;i++) {
-				contenido[i][y-1].setTipo(Constantes.CALLE_1);
+				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ABAJO);
+				contenido[i][y-1].setNumCarril(1);
 			}
 		}
 		else if (sentido == 3) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE_1);
+				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ARRIBA);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y-1].setTipo(Constantes.CALLE_2);
+				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ARRIBA);
+				contenido[i][y-1].setNumCarril(2);
 			}
 		}
 		else if (sentido == 4) {
 			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE_1);
+				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setNumCarril(1);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y+1].setTipo(Constantes.CALLE_2);
+				contenido[i][y+1].setTipo(Constantes.CALLE);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
+				contenido[i][y+1].setNumCarril(2);
 			}
 		}
 	}

@@ -109,7 +109,10 @@ public class Coche extends Thread {
 				if (!(contenido[x][y+1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
-					x = x-1;
+					if (anterior.getTramo1() == 1)
+						x = x-1;
+					else 
+						x = x+1;
 				}
 				else if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
 					y = y+1;
@@ -119,7 +122,10 @@ public class Coche extends Thread {
 				if (!(contenido[x][y-1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
-					x = x-1;
+					if (anterior.getTramo1() == 1)
+						x = x-1;
+					else 
+						x = x+1;
 				}
 				else if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
 					y = y-1;
@@ -129,7 +135,10 @@ public class Coche extends Thread {
 				if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL))) {
-					y = y-1;
+					if (anterior.getTramo1() == 1)
+						y = y+1;
+					else 
+						y = y-1;
 				}
 				else if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
 					x = x-1;
@@ -139,7 +148,10 @@ public class Coche extends Thread {
 				if (!(contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL))) {
-					y = y+1;
+					if (anterior.getTramo1() == 1)
+						y = y-1;
+					else 
+						y = y+1;
 				}
 				else if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
 					x = x+1;
