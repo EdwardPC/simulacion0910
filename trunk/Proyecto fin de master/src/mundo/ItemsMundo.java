@@ -6,9 +6,12 @@ public class ItemsMundo {
 	private String direccion;
 	private String colorSemaforo;
 	private String sentido;
+	private String conductor;
+
 	private Integer tramo;
 	private Integer numCarril;
-	private boolean inicio;
+	
+	private Boolean inicio;
 	
 	public ItemsMundo(String info,boolean start) {
 		
@@ -16,6 +19,17 @@ public class ItemsMundo {
 		inicio = start; 
 		colorSemaforo = Constantes.VERDE;
 		tramo = 0;
+		numCarril = 0;
+		conductor = "";
+		sentido = "";
+	}
+	
+	public String getConductor() {
+		return conductor;
+	}
+
+	public void setConductor(String conductor) {
+		this.conductor = conductor;
 	}
 
 	public Integer getNumCarril() {
@@ -58,11 +72,11 @@ public class ItemsMundo {
 		this.tipo = informacion;
 	}
 
-	public boolean isInicio() {
+	public Boolean isInicio() {
 		return inicio;
 	}
 
-	public void setInicio(boolean inicio) {
+	public void setInicio(Boolean inicio) {
 		this.inicio = inicio;
 	}
 	

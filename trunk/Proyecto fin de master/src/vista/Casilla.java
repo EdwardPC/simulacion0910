@@ -13,11 +13,21 @@ public class Casilla extends JPanel {
 
 	private String tipo;
 	private String colorSemaforo;
+	private String tipoConductor;
 	
 	public Casilla() {
 	
 		tipo = "";
 		colorSemaforo = "";
+		tipoConductor = "";
+	}
+
+	public String getTipoConductor() {
+		return tipoConductor;
+	}
+
+	public void setTipoConductor(String tipoConductor) {
+		this.tipoConductor = tipoConductor;
 	}
 
 	public void pintarCasilla() {
@@ -44,8 +54,14 @@ public class Casilla extends JPanel {
 			this.setBackground(new Color(100,50,5));
 		else if (tipo.equals(Constantes.BORDE))
 				this.setBackground(Color.ORANGE);
-		else if (tipo.equals(Constantes.AUTOMOVIL))
-			this.setBackground(new Color(255,255,255));
+		else if (tipo.equals(Constantes.AUTOMOVIL)) {
+			if (tipoConductor.equals(Constantes.AGRESIVO))
+				this.setBackground(new Color(255,150,200));
+			else if (tipoConductor.equals(Constantes.NORMAL))
+				this.setBackground(new Color(100,100,200));
+			else if (tipoConductor.equals(Constantes.MODERADO))
+				this.setBackground(new Color(80,250,100));
+		}
 		else if (tipo.equals(Constantes.SEMAFORO)) {
 			if (colorSemaforo.equals(Constantes.VERDE))
 				this.setBackground(Color.GREEN);
