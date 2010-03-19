@@ -24,8 +24,8 @@ public class Cargador extends JPanel {
 		agresivos = new JLabel("Número de agresivos: ");
 		normales = new JLabel("Número de normales: ");
 		moderados = new JLabel("Número de moderados: ");
-		Double current = new Double(1);
-	    Double min = new Double(1);
+		Double current = new Double(0);
+	    Double min = new Double(0);
 	    Double max = new Double(20);
 	    Double step = new Double(1);
 		SpinnerNumberModel numberSpinnerModel1 = new SpinnerNumberModel(current, min, max, step);

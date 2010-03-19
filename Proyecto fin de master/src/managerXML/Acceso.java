@@ -10,7 +10,20 @@ public class Acceso {
 	private int y2;
 	private int dir1;
 	private int dir2;
-	
+
+	public Acceso(int posX1,int posX2,int posX3,int posX4,int posY1,int posY2,
+			int dire1,int dire2) {
+		
+		x1 = posX1;
+		x2 = posX2;
+		x3 = posX3;
+		x4 = posX4;
+		y1 = posY1;
+		y2 = posY2;
+		dir1 = dire1;
+		dir2 = dire2;
+	}
+
 	public int getDir1() {
 		return dir1;
 	}
@@ -26,20 +39,7 @@ public class Acceso {
 	public void setDir2(int dir2) {
 		this.dir2 = dir2;
 	}
-
-	public Acceso(int posX1,int posX2,int posX3,int posX4,int posY1,int posY2,
-			int dire1,int dire2) {
-		
-		x1 = posX1;
-		x2 = posX2;
-		x3 = posX3;
-		x4 = posX4;
-		y1 = posY1;
-		y2 = posY2;
-		dir1 = dire1;
-		dir2 = dire2;
-	}
-
+	
 	public int getX1() {
 		return x1;
 	}

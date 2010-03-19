@@ -34,70 +34,71 @@ public class GeneradorVehiculos extends Thread {
 	}
 	
 	public void run() {
-		
-		for (int i=longitud-1;i>=0;i--)
-			for (int j=longitud-1;j>=0;j--) 
-				if (contenido[i][j].isInicio()) {
-					if (moderados > 0) {
-						if (eleccion == 0)
-							vIni = VModCiudad;
-						else if (eleccion == 1) 
-							vIni = VModAuto;
-						else if (eleccion == 2)
-							vIni = VModSec;
-						Coche coche = new Coche(matriz,i,j,vIni);
-						matriz.getCoches().add(coche);
-						moderados = moderados - 1;
-						matriz.actualizar();
-						coche.start();
-						try {
-							GeneradorVehiculos.sleep(1500);
+			for (int i=longitud-1;i>=0;i--)
+				for (int j=longitud-1;j>=0;j--) 
+					if (contenido[i][j].isInicio()) {
+						if (moderados > 0) {
+							if (eleccion == 0)
+								vIni = VModCiudad;
+							else if (eleccion == 1) 
+								vIni = VModAuto;
+							else if (eleccion == 2)
+								vIni = VModSec;
+							Coche coche = new Coche(matriz,i,j,vIni);
+							matriz.getCoches().add(coche);
+							moderados = moderados - 1;
+							matriz.actualizar();
+							coche.start();
+							try {
+								GeneradorVehiculos.sleep(1500 -
+									matriz.getVelocidadSimulacion());
+							}
+							catch(Exception e) {
+								e.printStackTrace();
+							}
 						}
-						catch(Exception e) {
-							e.printStackTrace();
+						else if (normales > 0) {
+							if (eleccion == 0)
+								vIni = VNormCiudad;
+							else if (eleccion == 1) 
+								vIni = VNormAuto;
+							else if (eleccion == 2)
+								vIni = VNormSec;
+							Coche coche = new Coche(matriz,i,j,vIni);
+							matriz.getCoches().add(coche);
+							normales = normales - 1;
+							matriz.actualizar();
+							coche.start();
+							try {
+								GeneradorVehiculos.sleep(1500 - 
+									matriz.getVelocidadSimulacion());
+							}
+							catch(Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-					else if (normales > 0) {
-						if (eleccion == 0)
-							vIni = VNormCiudad;
-						else if (eleccion == 1) 
-							vIni = VNormAuto;
-						else if (eleccion == 2)
-							vIni = VNormSec;
-						Coche coche = new Coche(matriz,i,j,vIni);
-						matriz.getCoches().add(coche);
-						normales = normales - 1;
-						matriz.actualizar();
-						coche.start();
-						try {
-							GeneradorVehiculos.sleep(1500);
+						else if (agresivos > 0) {
+							if (eleccion == 0)
+								vIni = VAgreCiudad;
+							else if (eleccion == 1) 
+								vIni = VAgreAuto;
+							else if (eleccion == 2)
+								vIni = VAgreSec;
+							Coche coche = new Coche(matriz,i,j,vIni);
+							matriz.getCoches().add(coche);
+							agresivos = agresivos - 1;
+							matriz.actualizar();
+							coche.start();
+							try {
+								GeneradorVehiculos.sleep(1500 - 
+									matriz.getVelocidadSimulacion());
+							}
+							catch(Exception e) {
+								e.printStackTrace();
+							}
 						}
-						catch(Exception e) {
-							e.printStackTrace();
-						}
-					}
-					else if (agresivos > 0) {
-						if (eleccion == 0)
-							vIni = VAgreCiudad;
-						else if (eleccion == 1) 
-							vIni = VAgreAuto;
-						else if (eleccion == 2)
-							vIni = VAgreSec;
-						Coche coche = new Coche(matriz,i,j,vIni);
-						matriz.getCoches().add(coche);
-						agresivos = agresivos - 1;
-						matriz.actualizar();
-						coche.start();
-						try {
-							GeneradorVehiculos.sleep(1500);
-						}
-						catch(Exception e) {
-							e.printStackTrace();
-						}
-					}
 					
 				}
-		finalizar();
 	}
 	
 	public void finalizar() {

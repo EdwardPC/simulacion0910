@@ -64,6 +64,7 @@ public class Coche extends Thread {
 		contenido[antX][antY].setTipo(anterior.getTipo());
 		anterior.setTipo(contenido[x][y].getTipo());
 		anterior.setDireccion(contenido[x][y].getDireccion());
+		anterior.setTramo(contenido[x][y].getTramo());
 		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
 		antX = x;
 		antY = y;
@@ -109,7 +110,7 @@ public class Coche extends Thread {
 				if (!(contenido[x][y+1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
-					if (anterior.getTramo1() == 1)
+					if (anterior.getTramo() == 2)
 						x = x-1;
 					else 
 						x = x+1;
@@ -119,10 +120,11 @@ public class Coche extends Thread {
 				}
 			}
 			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
+				System.out.println(anterior.getTramo());
 				if (!(contenido[x][y-1].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
-					if (anterior.getTramo1() == 1)
+					if (anterior.getTramo() == 2)
 						x = x-1;
 					else 
 						x = x+1;
@@ -132,10 +134,11 @@ public class Coche extends Thread {
 				}
 			}
 			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
+				System.out.println(anterior.getTramo());
 				if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL))) {
-					if (anterior.getTramo1() == 1)
+					if (anterior.getTramo() == 2)
 						y = y+1;
 					else 
 						y = y-1;
@@ -148,7 +151,7 @@ public class Coche extends Thread {
 				if (!(contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
 						!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL)) && 
 						!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL))) {
-					if (anterior.getTramo1() == 1)
+					if (anterior.getTramo() == 2)
 						y = y-1;
 					else 
 						y = y+1;
@@ -178,17 +181,17 @@ public class Coche extends Thread {
 	
 	public void run() {
 		
-		while(!matriz.getParar()) {
-			avanzar();
-			matriz.actualizar();
-			try {
-					Coche.sleep(300-velocidad);
+		while (!matriz.getFinalizar())
+			while(!matriz.getParar()) {
+				avanzar();
+				matriz.actualizar();
+				try {
+					Coche.sleep(300-velocidad-matriz.getVelocidadSimulacion());
 				}
-			catch(Exception e) {
-				e.printStackTrace();
+				catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		finalizar();
 	}
 	
 	public void finalizar() {

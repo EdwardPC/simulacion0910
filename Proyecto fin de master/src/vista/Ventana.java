@@ -2,6 +2,9 @@ package vista;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -13,11 +16,15 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 
 import controlador.Controlador;
@@ -34,51 +41,50 @@ public class Ventana extends JFrame implements Observer {
 	private JMenuBar barraDeMenu;
 
 	private JMenu opcionesSimulacion;
-
 	private JMenu estadisticasSimulacion;
-	
 	private JMenu ayudaSimulacion;
 
 	private JMenuItem cargarSimulacion;
-	
 	private JMenuItem lanzarSimulacion;
-	
 	private JMenuItem finalizarSimulacion;
-	
 	private JMenuItem visualizarEstadisticas;
-	
 	private JMenuItem mostrarAyuda;
-
 	private JMenuItem mostrarCreditos;
 	
 	private JButton comenzar;
-	
 	private JButton cargar;
-	
 	private JButton finalizar;
-	
 	private JButton coches;
+	private JButton parar;
+	
+	private JSlider velocidad;
+	
+	private JLabel lvelocidad;
+	private JLabel lsemaforos;
+	private JLabel lcedas;
+	private JLabel lstops;
 	
 	private JPanel botones;
+	private JPanel leyendas;
+	private JPanel slider;
+	private JPanel contenidos;
 	
 	private OyenteComenzar oyenteComenzar;
-	
 	private OyenteFinalizar oyenteFinalizar;
-	
 	private OyenteCargar oyenteCargar;
-	
 	private OyenteCoches oyenteCoches;
-	
 	private OyenteEstadisticas oyenteEstadisticas;
-	
 	private OyenteAyuda oyenteAyuda;
-	
 	private OyenteCreditos oyenteCreditos;
+	private OyenteVelocidad oyenteVelocidad;
+	private OyenteParar oyenteParar;
 	
+	private boolean pausar;
 	
 	public Ventana(Controlador control) {
 		
 		setLayout(new BorderLayout());
+		pausar = false;
 		controlador = control;
 		trafico = new Trafico(controlador);
     	addWindowListener(new WindowAdapter(){
@@ -86,17 +92,26 @@ public class Ventana extends JFrame implements Observer {
 				doExit();
 			}
 		});
-    	
     	botones = new JPanel();
-    	add(botones,BorderLayout.NORTH);
-		add(trafico,BorderLayout.CENTER);
+    	leyendas = new JPanel();
+    	slider = new JPanel();
+    	contenidos = new JPanel();
+    	botones.setLayout(new FlowLayout(FlowLayout.LEFT));
+    	contenidos.setLayout(new GridLayout(3,2));
+    	slider.setLayout(new GridLayout(2,1));
+    	leyendas.setLayout(new BorderLayout());
     	inicializarMenu();
     	inicializarBotones();
+    	inicializarLeyendas();
     	inicializarOyentes();
+    	add(botones,BorderLayout.NORTH);
+		add(trafico,BorderLayout.CENTER);
+		add(leyendas,BorderLayout.EAST);
     	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setSize(700,600);
+		setSize(800,650);
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((screenSize.width/2)-400,(screenSize.height/2)-350);
 		setVisible(true);
-		this.setLocation(150,100);
 	}
 	
 	private void inicializarMenu() {
@@ -125,19 +140,41 @@ public class Ventana extends JFrame implements Observer {
 		ayudaSimulacion.add(mostrarCreditos);
 		setJMenuBar(barraDeMenu);
 	}
+	
+	private void inicializarLeyendas() {
+	
+		lsemaforos = new JLabel("semaforo: ");
+		lcedas = new JLabel("ceda el paso: ");
+		lstops = new JLabel("Stop: ");
+		
+		contenidos.add(lsemaforos);
+		contenidos.add(new JPanel());
+		contenidos.add(lcedas);
+		contenidos.add(new JPanel());
+		contenidos.add(lstops);
+		contenidos.add(new JPanel());
+		leyendas.add(contenidos,BorderLayout.CENTER);
+	}
 
 	private void inicializarBotones() {
 		
 		cargar = new JButton("Cargar");
 		comenzar = new JButton("Simular");
+		parar = new JButton("Pausar");
 		finalizar = new JButton("Finalizar");
 		coches = new JButton("Coches");
+		lvelocidad = new JLabel("Velocidad de simulación:");
+		velocidad = new JSlider(0,150,0);
 		//comenzar.setEnabled(false);
 		//finalizar.setEnabled(false);
+		slider.add(lvelocidad);
+		slider.add(velocidad);
 		botones.add(cargar);
 		botones.add(coches);
 		botones.add(comenzar);
+		botones.add(parar);
 		botones.add(finalizar);
+		botones.add(slider);
 	}
 	
 	private void inicializarOyentes() {
@@ -149,6 +186,8 @@ public class Ventana extends JFrame implements Observer {
 		oyenteEstadisticas = new OyenteEstadisticas();
 		oyenteAyuda = new OyenteAyuda();
 		oyenteCreditos = new OyenteCreditos();
+		oyenteVelocidad = new OyenteVelocidad();
+		oyenteParar = new OyenteParar();
 		
 		cargarSimulacion.addActionListener(oyenteCargar);
 		visualizarEstadisticas.addActionListener(oyenteEstadisticas);
@@ -157,10 +196,11 @@ public class Ventana extends JFrame implements Observer {
 		cargar.addActionListener(oyenteCargar);
 		coches.addActionListener(oyenteCoches);
 		comenzar.addActionListener(oyenteComenzar);
+		parar.addActionListener(oyenteParar);
 		finalizar.addActionListener(oyenteFinalizar);
 		lanzarSimulacion.addActionListener(oyenteComenzar);
 		finalizarSimulacion.addActionListener(oyenteFinalizar);
-		
+		velocidad.addChangeListener(oyenteVelocidad);
 	}
 	
 	private void doExit() {
@@ -229,6 +269,7 @@ public class Ventana extends JFrame implements Observer {
 			
 			System.out.println("Finalizar");
 			controlador.getMatriz().setParar(true);
+			controlador.getMatriz().finalizar();
 			//finalizar.setEnabled(false);
 			//cargar.setEnabled(true);
 		}
@@ -256,6 +297,34 @@ public class Ventana extends JFrame implements Observer {
 			
 			Creditos creditos = new Creditos();
 			JOptionPane.showMessageDialog(null,creditos,"Creditos",JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	class OyenteVelocidad implements ChangeListener {
+
+		public void stateChanged(ChangeEvent arg0) {
+			
+			System.out.println(velocidad.getValue());
+			controlador.setVelocidad(velocidad.getValue());
+		}
+		
+	}
+	
+	class OyenteParar implements ActionListener {
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			if (pausar == false) {
+				pausar = true;
+				parar.setText("Seguir");
+				controlador.getMatriz().setParar(pausar);
+			}
+			else {
+				pausar = false;
+				parar.setText("Pausar");
+				controlador.getMatriz().setParar(pausar);
+			}
+			
 		}
 	}
 

@@ -20,6 +20,8 @@ public class Matriz extends Observable {
 	private GeneradorVehiculos generador;
 	private SemaforosManager semaforos;
 	private Boolean parar;
+	private Boolean finalizar;
+
 	private Integer eleccion;
 	private XMLManager manager;
 	private Integer agresivos;
@@ -28,10 +30,13 @@ public class Matriz extends Observable {
 	private Integer longitud;
 	private Integer limite1;
 	private Integer limite2;
+	private Integer velocidadSimulacion;
 	
 	public void inicializar() {
 		
 		parar = false;
+		finalizar = false;
+		velocidadSimulacion = 0;
 		manager = new XMLManager();
 		File ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
 		manager.lanzarManager(ficheroMapa);
@@ -53,15 +58,6 @@ public class Matriz extends Observable {
 			}
 	}
 	
-	public void setParar(boolean stop) {
-		
-		parar = stop;
-	}
-	
-	public boolean getParar() {
-		
-		return parar;
-	}
 	
 	public void rellenarMatriz(Integer tipo,File fichero) {
 		
@@ -179,6 +175,34 @@ public class Matriz extends Observable {
 		actualizar();
 	}
 	
+	public Boolean getFinalizar() {
+		return finalizar;
+	}
+
+	public void setFinalizar(Boolean finalizar) {
+		this.finalizar = finalizar;
+	}
+	
+	public Integer getVelocidadSimulacion() {
+		
+		return velocidadSimulacion;
+	}
+
+	public void setVelocidadSimulacion(Integer velocidadSimulacion) {
+		
+		this.velocidadSimulacion = velocidadSimulacion;
+	}
+
+	public void setParar(boolean stop) {
+		
+		parar = stop;
+	}
+	
+	public boolean getParar() {
+		
+		return parar;
+	}
+	
 	public GeneradorVehiculos getGenerador() {
 		return generador;
 	}
@@ -282,11 +306,13 @@ public class Matriz extends Observable {
 		
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[i][y1].setTramo(1);
 			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[y2][j].setTramo(2);
 			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
 	}
@@ -294,18 +320,17 @@ public class Matriz extends Observable {
 	private void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
 			int dir2) {
 		
-		
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
 			contenido[i][y1].setInicio(true);
-			contenido[i][y1].setTramo1(1);
+			contenido[i][y1].setTramo(1);
 			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
 			contenido[y2][j].setInicio(true);
-			contenido[y2][j].setTramo2(2);
+			contenido[y2][j].setTramo(2);
 			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
 	}
@@ -830,6 +855,16 @@ public class Matriz extends Observable {
 			semaforos.start();
 		}
 	}
+
+	public void finalizar() {
+		
+		finalizar = true;
+		generador.finalizar();
+		if (eleccion == 0) 
+			semaforos.finalizar();
+		for (int i=0;i<coches.size();i++)
+			coches.get(i).finalizar();
+	}
 	
 	public void actualizar() {
 		
@@ -840,10 +875,8 @@ public class Matriz extends Observable {
 	public void obtenerConductores(Integer agre, Integer norm,
 			Integer mod) {
 		
-		agresivos = 0;//agre;
-		normales = norm+1;
-		moderados = 0;//mod;
+		agresivos = agre;
+		normales = norm;
+		moderados = mod;
 	}
-	
-	
 }
