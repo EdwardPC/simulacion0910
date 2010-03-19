@@ -42,7 +42,6 @@ public class SemaforosManager extends Thread {
 	
 	public void run() {
 		
-		while (!matriz.getFinalizar())
 		while (!matriz.getParar()) {
 			try {
 				SemaforosManager.sleep(4000 - matriz.getVelocidadSimulacion());
@@ -129,5 +128,6 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.VERDE);
 				}
 		}
+		finalizar();
 	}
 }

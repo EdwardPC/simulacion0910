@@ -20,7 +20,6 @@ public class Matriz extends Observable {
 	private GeneradorVehiculos generador;
 	private SemaforosManager semaforos;
 	private Boolean parar;
-	private Boolean finalizar;
 
 	private Integer eleccion;
 	private XMLManager manager;
@@ -35,7 +34,6 @@ public class Matriz extends Observable {
 	public void inicializar() {
 		
 		parar = false;
-		finalizar = false;
 		velocidadSimulacion = 0;
 		manager = new XMLManager();
 		File ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
@@ -173,14 +171,6 @@ public class Matriz extends Observable {
 			break;
 		}
 		actualizar();
-	}
-	
-	public Boolean getFinalizar() {
-		return finalizar;
-	}
-
-	public void setFinalizar(Boolean finalizar) {
-		this.finalizar = finalizar;
 	}
 	
 	public Integer getVelocidadSimulacion() {
@@ -854,16 +844,6 @@ public class Matriz extends Observable {
 			semaforos = new SemaforosManager(this);
 			semaforos.start();
 		}
-	}
-
-	public void finalizar() {
-		
-		finalizar = true;
-		generador.finalizar();
-		if (eleccion == 0) 
-			semaforos.finalizar();
-		for (int i=0;i<coches.size();i++)
-			coches.get(i).finalizar();
 	}
 	
 	public void actualizar() {

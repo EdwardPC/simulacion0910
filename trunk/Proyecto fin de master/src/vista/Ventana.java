@@ -55,7 +55,6 @@ public class Ventana extends JFrame implements Observer {
 	private JButton cargar;
 	private JButton finalizar;
 	private JButton coches;
-	private JButton parar;
 	
 	private JSlider velocidad;
 	
@@ -77,14 +76,11 @@ public class Ventana extends JFrame implements Observer {
 	private OyenteAyuda oyenteAyuda;
 	private OyenteCreditos oyenteCreditos;
 	private OyenteVelocidad oyenteVelocidad;
-	private OyenteParar oyenteParar;
-	
-	private boolean pausar;
+
 	
 	public Ventana(Controlador control) {
 		
 		setLayout(new BorderLayout());
-		pausar = false;
 		controlador = control;
 		trafico = new Trafico(controlador);
     	addWindowListener(new WindowAdapter(){
@@ -160,7 +156,6 @@ public class Ventana extends JFrame implements Observer {
 		
 		cargar = new JButton("Cargar");
 		comenzar = new JButton("Simular");
-		parar = new JButton("Pausar");
 		finalizar = new JButton("Finalizar");
 		coches = new JButton("Coches");
 		lvelocidad = new JLabel("Velocidad de simulación:");
@@ -172,7 +167,6 @@ public class Ventana extends JFrame implements Observer {
 		botones.add(cargar);
 		botones.add(coches);
 		botones.add(comenzar);
-		botones.add(parar);
 		botones.add(finalizar);
 		botones.add(slider);
 	}
@@ -187,7 +181,6 @@ public class Ventana extends JFrame implements Observer {
 		oyenteAyuda = new OyenteAyuda();
 		oyenteCreditos = new OyenteCreditos();
 		oyenteVelocidad = new OyenteVelocidad();
-		oyenteParar = new OyenteParar();
 		
 		cargarSimulacion.addActionListener(oyenteCargar);
 		visualizarEstadisticas.addActionListener(oyenteEstadisticas);
@@ -196,7 +189,6 @@ public class Ventana extends JFrame implements Observer {
 		cargar.addActionListener(oyenteCargar);
 		coches.addActionListener(oyenteCoches);
 		comenzar.addActionListener(oyenteComenzar);
-		parar.addActionListener(oyenteParar);
 		finalizar.addActionListener(oyenteFinalizar);
 		lanzarSimulacion.addActionListener(oyenteComenzar);
 		finalizarSimulacion.addActionListener(oyenteFinalizar);
@@ -269,7 +261,6 @@ public class Ventana extends JFrame implements Observer {
 			
 			System.out.println("Finalizar");
 			controlador.getMatriz().setParar(true);
-			controlador.getMatriz().finalizar();
 			//finalizar.setEnabled(false);
 			//cargar.setEnabled(true);
 		}
@@ -306,25 +297,6 @@ public class Ventana extends JFrame implements Observer {
 			
 			System.out.println(velocidad.getValue());
 			controlador.setVelocidad(velocidad.getValue());
-		}
-		
-	}
-	
-	class OyenteParar implements ActionListener {
-		
-		public void actionPerformed(ActionEvent e) {
-			
-			if (pausar == false) {
-				pausar = true;
-				parar.setText("Seguir");
-				controlador.getMatriz().setParar(pausar);
-			}
-			else {
-				pausar = false;
-				parar.setText("Pausar");
-				controlador.getMatriz().setParar(pausar);
-			}
-			
 		}
 	}
 
