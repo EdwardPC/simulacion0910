@@ -5,6 +5,7 @@ public class SemaforosManager extends Thread {
 	private Matriz matriz;
 	private Integer longitud;
 	private ItemsMundo[][] contenido;
+	
 	public SemaforosManager(Matriz mundo) {
 		
 		matriz = mundo;
@@ -41,9 +42,10 @@ public class SemaforosManager extends Thread {
 	
 	public void run() {
 		
+		while (!matriz.getFinalizar())
 		while (!matriz.getParar()) {
 			try {
-				SemaforosManager.sleep(4000);
+				SemaforosManager.sleep(4000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -57,7 +59,7 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.AMARILLO);
 				}
 			try {
-				SemaforosManager.sleep(1000);
+				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -71,7 +73,7 @@ public class SemaforosManager extends Thread {
 								item.setColorSemaforo(Constantes.ROJO);
 				}
 			try {
-				SemaforosManager.sleep(1000);
+				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -85,7 +87,7 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.VERDE);
 				}
 			try {
-				SemaforosManager.sleep(4000);
+				SemaforosManager.sleep(4000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -99,7 +101,7 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.AMARILLO);
 				}
 			try {
-				SemaforosManager.sleep(1000);
+				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -113,7 +115,7 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.ROJO);
 				}
 			try {
-				SemaforosManager.sleep(1000);
+				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -127,6 +129,5 @@ public class SemaforosManager extends Thread {
 							item.setColorSemaforo(Constantes.VERDE);
 				}
 		}
-		finalizar();
 	}
 }

@@ -43,4 +43,10 @@ public class Controlador {
 		Integer moderados = numModerados.intValue();
 		matriz.obtenerConductores(agresivos,normales,moderados);
 	}
+
+	public void setVelocidad(int value) {
+		
+		matriz.setVelocidadSimulacion(value);
+		
+	}
 }
