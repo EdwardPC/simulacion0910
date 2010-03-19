@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -30,7 +31,7 @@ import javax.swing.filechooser.FileFilter;
 import controlador.Controlador;
 
 
-public class Ventana extends JFrame implements Observer {
+public class Vista extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -59,9 +60,23 @@ public class Ventana extends JFrame implements Observer {
 	private JSlider velocidad;
 	
 	private JLabel lvelocidad;
-	private JLabel lsemaforos;
+	private JLabel lsemaforoR;
+	private JLabel lsemaforoA;
+	private JLabel lsemaforoV;
 	private JLabel lcedas;
 	private JLabel lstops;
+	private JLabel lmoderados;
+	private JLabel lnormales;
+	private JLabel lagresivos;
+	
+	private JLabel imSemaforoR;
+	private JLabel imSemaforoA;
+	private JLabel imSemaforoV;
+	private JLabel imCedas;
+	private JLabel imStops;
+	private JLabel imModerados;
+	private JLabel imNormales;
+	private JLabel imAgresivos;
 	
 	private JPanel botones;
 	private JPanel leyendas;
@@ -78,7 +93,7 @@ public class Ventana extends JFrame implements Observer {
 	private OyenteVelocidad oyenteVelocidad;
 
 	
-	public Ventana(Controlador control) {
+	public Vista(Controlador control) {
 		
 		setLayout(new BorderLayout());
 		controlador = control;
@@ -93,7 +108,7 @@ public class Ventana extends JFrame implements Observer {
     	slider = new JPanel();
     	contenidos = new JPanel();
     	botones.setLayout(new FlowLayout(FlowLayout.LEFT));
-    	contenidos.setLayout(new GridLayout(3,2));
+    	contenidos.setLayout(new GridLayout(8,2));
     	slider.setLayout(new GridLayout(2,1));
     	leyendas.setLayout(new BorderLayout());
     	inicializarMenu();
@@ -104,7 +119,7 @@ public class Ventana extends JFrame implements Observer {
 		add(trafico,BorderLayout.CENTER);
 		add(leyendas,BorderLayout.EAST);
     	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setSize(800,650);
+		setSize(850,650);
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((screenSize.width/2)-400,(screenSize.height/2)-350);
 		setVisible(true);
@@ -139,16 +154,39 @@ public class Ventana extends JFrame implements Observer {
 	
 	private void inicializarLeyendas() {
 	
-		lsemaforos = new JLabel("semaforo: ");
-		lcedas = new JLabel("ceda el paso: ");
-		lstops = new JLabel("Stop: ");
+		lsemaforoR = new JLabel(" Semáforo Rojo: ");
+		lsemaforoA = new JLabel(" Semáforo Amarillo: ");
+		lsemaforoV = new JLabel(" Semáforo Verde: ");
+		lcedas = new JLabel(" Ceda el paso: ");
+		lstops = new JLabel(" Stop: ");
+		lagresivos = new JLabel(" Agresivos: ");
+		lnormales = new JLabel(" Normales: ");
+		lmoderados = new JLabel(" Moderados: ");
 		
-		contenidos.add(lsemaforos);
-		contenidos.add(new JPanel());
+		imSemaforoR = new JLabel(new ImageIcon("./images/SemaforoRojo.jpg"));
+		imSemaforoA = new JLabel(new ImageIcon("./images/SemaforoAmarillo.jpg"));
+		imSemaforoV = new JLabel(new ImageIcon("./images/SemaforoVerde.jpg"));
+		imCedas = new JLabel(new ImageIcon("./images/Ceda.jpg"));
+		imStops = new JLabel(new ImageIcon("./images/Stop.jpg"));
+		imAgresivos = new JLabel(new ImageIcon("./images/Agresivo.jpg"));
+		imNormales = new JLabel(new ImageIcon("./images/Normal.jpg"));
+		imModerados = new JLabel(new ImageIcon("./images/Moderado.jpg"));
+		contenidos.add(lsemaforoR);
+		contenidos.add(imSemaforoR);
+		contenidos.add(lsemaforoA);
+		contenidos.add(imSemaforoA);
+		contenidos.add(lsemaforoV);
+		contenidos.add(imSemaforoV);
 		contenidos.add(lcedas);
-		contenidos.add(new JPanel());
+		contenidos.add(imCedas);
 		contenidos.add(lstops);
-		contenidos.add(new JPanel());
+		contenidos.add(imStops);
+		contenidos.add(lagresivos);
+		contenidos.add(imAgresivos);
+		contenidos.add(lnormales);
+		contenidos.add(imNormales);
+		contenidos.add(lmoderados);
+		contenidos.add(imModerados);
 		leyendas.add(contenidos,BorderLayout.CENTER);
 	}
 
@@ -226,6 +264,7 @@ public class Ventana extends JFrame implements Observer {
 		    		eleccion = 2;
 		    	controlador.rellenarMatriz(eleccion,fichero);
 				controlador.getMatriz().setParar(true);
+				velocidad.setValue(0);
 		    }
 		    else {
 		      System.out.println("No Selection ");

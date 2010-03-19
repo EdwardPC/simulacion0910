@@ -3,8 +3,8 @@ package simulacion;
 import javax.swing.UIManager;
 
 import controlador.Controlador;
-import mundo.Matriz;
-import vista.Ventana;
+import mundo.Modelo;
+import vista.Vista;
 
 public class Simulacion {
 
@@ -15,9 +15,9 @@ public class Simulacion {
 		} 
 		catch (Exception e) {}
 		
-		Matriz matriz = new Matriz();
+		Modelo matriz = new Modelo();
 		Controlador controlador = new Controlador(matriz);
-		Ventana ventana = new Ventana(controlador);
+		Vista ventana = new Vista(controlador);
 		matriz.addObserver(ventana);
 		
 		
