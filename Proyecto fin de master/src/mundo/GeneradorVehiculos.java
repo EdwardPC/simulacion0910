@@ -13,7 +13,7 @@ public class GeneradorVehiculos extends Thread {
 	private static final Integer VAgreSec = 120;
 	
 	private Integer eleccion;
-	private Matriz matriz;
+	private Modelo matriz;
 	private ItemsMundo[][] contenido;
 	private Integer moderados;
 	private Integer normales;
@@ -21,7 +21,7 @@ public class GeneradorVehiculos extends Thread {
 	private Integer longitud;
 	private Integer vIni;
 	
-	public GeneradorVehiculos(Matriz mundo) {
+	public GeneradorVehiculos(Modelo mundo) {
 		
 		matriz = mundo;
 		contenido = mundo.getContenido();
@@ -50,7 +50,7 @@ public class GeneradorVehiculos extends Thread {
 							matriz.actualizar();
 							coche.start();
 							try {
-								GeneradorVehiculos.sleep(1500 -
+								GeneradorVehiculos.sleep(2500 -
 									matriz.getVelocidadSimulacion());
 							}
 							catch(Exception e) {
@@ -70,7 +70,7 @@ public class GeneradorVehiculos extends Thread {
 							matriz.actualizar();
 							coche.start();
 							try {
-								GeneradorVehiculos.sleep(1500 - 
+								GeneradorVehiculos.sleep(2500 - 
 									matriz.getVelocidadSimulacion());
 							}
 							catch(Exception e) {
@@ -90,7 +90,7 @@ public class GeneradorVehiculos extends Thread {
 							matriz.actualizar();
 							coche.start();
 							try {
-								GeneradorVehiculos.sleep(1500 - 
+								GeneradorVehiculos.sleep(2500 - 
 									matriz.getVelocidadSimulacion());
 							}
 							catch(Exception e) {

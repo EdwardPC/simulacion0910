@@ -56,11 +56,11 @@ public class Casilla extends JPanel {
 				this.setBackground(Color.ORANGE);
 		else if (tipo.equals(Constantes.AUTOMOVIL)) {
 			if (tipoConductor.equals(Constantes.AGRESIVO))
-				this.setBackground(new Color(255,150,200));
+				this.setBackground(new Color(255,100,100));
 			else if (tipoConductor.equals(Constantes.NORMAL))
 				this.setBackground(new Color(100,100,200));
 			else if (tipoConductor.equals(Constantes.MODERADO))
-				this.setBackground(new Color(80,250,100));
+				this.setBackground(new Color(250,250,250));
 		}
 		else if (tipo.equals(Constantes.SEMAFORO)) {
 			if (colorSemaforo.equals(Constantes.VERDE))

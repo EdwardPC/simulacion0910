@@ -87,6 +87,4 @@ public class ItemsMundo {
 	public void setTramo(Integer tramo) {
 		this.tramo = tramo;
 	}
-
-	
 }
