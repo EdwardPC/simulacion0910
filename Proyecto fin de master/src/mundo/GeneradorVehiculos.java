@@ -99,6 +99,7 @@ public class GeneradorVehiculos extends Thread {
 						}
 					
 				}
+			finalizar();
 	}
 	
 	public void finalizar() {

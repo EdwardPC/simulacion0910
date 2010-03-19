@@ -181,17 +181,17 @@ public class Coche extends Thread {
 	
 	public void run() {
 		
-		while (!matriz.getFinalizar())
-			while(!matriz.getParar()) {
-				avanzar();
-				matriz.actualizar();
-				try {
+		while(!matriz.getParar()) {
+			avanzar();
+			matriz.actualizar();
+			try {
 					Coche.sleep(300-velocidad-matriz.getVelocidadSimulacion());
 				}
-				catch(Exception e) {
-					e.printStackTrace();
-				}
+			catch(Exception e) {
+				e.printStackTrace();
 			}
+		}
+		finalizar();
 	}
 	
 	public void finalizar() {
