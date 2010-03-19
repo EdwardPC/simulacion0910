@@ -3,7 +3,6 @@ package vista;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.io.File;
 
 import javax.swing.JPanel;
 
@@ -39,11 +38,6 @@ public class Trafico extends JPanel {
 			}
 	}
 	
-	/*public void cargarSimulacion(Integer opcion,File fichero) {
-		
-		controlador.rellenarMatriz(opcion,fichero);
-	}*/
-	
 	public void dibujarMapa() {
 		
 		ItemsMundo contenido;
@@ -52,9 +46,11 @@ public class Trafico extends JPanel {
 				contenido = controlador.getMatriz().getItem(i, j);
 				if(!tablero[i][j].getTipo().equals(contenido.getTipo()))
 					tablero[i][j].setTipo(contenido.getTipo());
-					if (contenido.getTipo().equals(Constantes.SEMAFORO))
-						tablero[i][j].setColorSemaforo(contenido.getColorSemaforo());
-					tablero[i][j].pintarCasilla();
+				if (contenido.getTipo().equals(Constantes.SEMAFORO))
+					tablero[i][j].setColorSemaforo(contenido.getColorSemaforo());
+				if(contenido.getTipo().equals(Constantes.AUTOMOVIL))
+					tablero[i][j].setTipoConductor(contenido.getConductor());
+				tablero[i][j].pintarCasilla();
 			}
 		repaint();
 	}

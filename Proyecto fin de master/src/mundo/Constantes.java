@@ -2,6 +2,9 @@ package mundo;
 
 public class Constantes {
 
+	public static final String AGRESIVO = "Agresivo";
+	public static final String MODERADO = "Moderado";
+	public static final String NORMAL = "Normal";
 	public static final String ARRIBA = "Arriba";
 	public static final String ABAJO = "Abajo";
 	public static final String DERECHA = "Derecha";

@@ -44,7 +44,7 @@ public class GeneradorVehiculos extends Thread {
 								vIni = VModAuto;
 							else if (eleccion == 2)
 								vIni = VModSec;
-							Coche coche = new Coche(matriz,i,j,vIni);
+							Coche coche = new Coche(matriz,i,j,vIni,Constantes.MODERADO);
 							matriz.getCoches().add(coche);
 							moderados = moderados - 1;
 							matriz.actualizar();
@@ -64,7 +64,7 @@ public class GeneradorVehiculos extends Thread {
 								vIni = VNormAuto;
 							else if (eleccion == 2)
 								vIni = VNormSec;
-							Coche coche = new Coche(matriz,i,j,vIni);
+							Coche coche = new Coche(matriz,i,j,vIni,Constantes.NORMAL);
 							matriz.getCoches().add(coche);
 							normales = normales - 1;
 							matriz.actualizar();
@@ -84,7 +84,7 @@ public class GeneradorVehiculos extends Thread {
 								vIni = VAgreAuto;
 							else if (eleccion == 2)
 								vIni = VAgreSec;
-							Coche coche = new Coche(matriz,i,j,vIni);
+							Coche coche = new Coche(matriz,i,j,vIni,Constantes.AGRESIVO);
 							matriz.getCoches().add(coche);
 							agresivos = agresivos - 1;
 							matriz.actualizar();
