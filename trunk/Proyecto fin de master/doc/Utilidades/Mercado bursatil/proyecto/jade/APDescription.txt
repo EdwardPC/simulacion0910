@@ -1,1 +1,0 @@
-( ap-description  :name "FiuttenTeam:60000/JADE" :ap-services (set))
