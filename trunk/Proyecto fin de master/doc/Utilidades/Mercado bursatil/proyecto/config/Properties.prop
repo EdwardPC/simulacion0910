@@ -1,0 +1,3 @@
+ingenias.jade.LogFileOn=true
+ingenias.jade.GUIOn=true
+ingenias.jade.GarbageCollectionInterval=10

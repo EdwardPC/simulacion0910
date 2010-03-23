@@ -1,0 +1,4043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project cid="59" version="1.2">
+<projectproperties>
+<projectproperty id="extfolder" module="IDK"  name="Extension Module Folder" value="ext"  tooltip="Folder where the IDE will find its new modules" />
+<projectproperty id="jadeout" module="Ingenias Agent Framework generator"  name="JADE generated output folder" value="gensrc"  tooltip="The folder that will hold generated JADE agents" />
+<projectproperty id="proysrc" module="Ingenias Agent Framework generator"  name="Main source folder for the project" value="src"  tooltip="The folder containing the sources of the project" />
+<projectproperty id="jadeperm" module="Ingenias Agent Framework generator"  name="JADE generate only once folder" value="permsrc"  tooltip="The folder that will hold generated elements that should not be regenerated" />
+<projectproperty id="jadeproject" module="Ingenias Agent Framework generator"  name="JADE main project folder" value="{workspace}/Netbeans/mercado"  tooltip="The folder that will contain the project for this development" />
+<projectproperty id="htmldoc" module="HTML Document generator"  name="HTML document folder" value="{workspace}/Netbeans/mercado/html"  tooltip="The document folder that will contain HTML version of this specification" />
+ <openeddiagram>Definicion Agentes</openeddiagram> <openeddiagram>Definicion Tarea</openeddiagram> <openeddiagram>Definicion Interaccion</openeddiagram> <openeddiagram>Codigo Tareas</openeddiagram> <openeddiagram>Definicion Componentes</openeddiagram> <openeddiagram>Definicion Entorno</openeddiagram> <openeddiagram>EmpresaApp Initialization</openeddiagram></projectproperties>
+<leafpackages>
+   <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+    <package id="Definicion Agentes"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+    <package id="Definicion Tarea"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+    <package id="Definicion Interaccion"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+    <package id="Codigo Tareas"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="Interfaz Grafica"/>
+    <package id="Definicion Componentes"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="Interfaz Grafica"/>
+    <package id="Definicion Entorno"/>
+   </path>
+   <path>
+    <package id="Project"/>
+    <package id="System init"/>
+    <package id="EmpresaApp Initialization"/>
+   </path>
+</leafpackages>
+<objects>
+<object id="EmpresaApp" type="ingenias.editor.entities.InternalApplication">
+<objectproperty id="Methods" collection="true">
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Interfaz grafica de la aplicacion de gestion de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="TPARegistroE" type="ingenias.editor.entities.Task">
+<mapproperties>
+<key id="Description">Tarea que procesa la respuesta del registro de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="TPRRegistroB" type="ingenias.editor.entities.Task">
+<mapproperties>
+<key id="Description">Tarea que procesa la peticion del registro de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="ILRegistroE" type="ingenias.editor.entities.Task">
+<mapproperties>
+<key id="Description">Lanzador de interaccion para el registro de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="ProcessEmpresaAppEvents" type="ingenias.editor.entities.Task">
+<mapproperties>
+<key id="Description">Tarea que procesa los eventos producidos en la aplicacion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="EmpresaAgent" type="ingenias.editor.entities.Agent">
+<mapproperties>
+<key id="Description">Agente que realiza la simulacion de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="BolsaAgent" type="ingenias.editor.entities.Agent">
+<mapproperties>
+<key id="Description">Agente que simula el comportamiento de la bolsa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="CodigoTPARegistroE" type="ingenias.editor.entities.INGENIASCodeComponent">
+<mapproperties>
+<key id="Language"></key>
+<key id="Code">System.out.println(&quot;Empresa: Registro completado&quot;);
+eiEstadoEmpresa.setEstado(&quot;Registrada&quot;);</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="CodigoILRegistroE" type="ingenias.editor.entities.INGENIASCodeComponent">
+<mapproperties>
+<key id="Language"></key>
+<key id="Code">
+eiAgent_data.setAgentID(eiTriggerRegistroEmpresaE.getId());
+String empresa =  eiAgent_data.getAgentID();
+double valorAccion = eiTriggerRegistroEmpresaE.getValorAccion();
+int numAcciones = eiTriggerRegistroEmpresaE.getNumAcciones();
+
+System.out.println(&quot;Empresa(&quot;+empresa+&quot;): Lanzando interaccion de registro&quot;);
+
+eiEstadoEmpresa.setEstado(&quot;Registrando&quot;);
+eiEstadoEmpresa.setNumAcciones(numAcciones);
+eiEstadoEmpresa.setValorAccion(valorAccion);
+
+outputsdefaultRRegistroEmpresaE.setIdEmpresa(empresa);
+outputsdefaultRRegistroEmpresaE.setNumAcciones(numAcciones);
+outputsdefaultRRegistroEmpresaE.setValorAccion(valorAccion);</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="CodigoTPRRegistroB" type="ingenias.editor.entities.INGENIASCodeComponent">
+<mapproperties>
+<key id="Language"></key>
+<key id="Code">
+String empresa =  eiRRegistroEmpresaE.getIdEmpresa();
+double valorAccion = eiRRegistroEmpresaE.getValorAccion();
+int numAcciones = eiRRegistroEmpresaE.getNumAcciones();
+
+Empresa nuevaEmpresa = new Empresa(empresa,valorAccion,numAcciones);
+
+System.out.println(&quot;Registrando empresa en bolsa.\nInformacion de la empresa:\n&quot;+nuevaEmpresa);
+
+java.util.Vector&lt;Empresa&gt; empresas = eiEstadoBolsa.getEmpresas();
+
+if(empresas==null){
+    empresas = new Vector();
+}
+
+empresas.add(nuevaEmpresa);
+
+eiEstadoBolsa.setEmpresas(empresas);
+</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="CodeEmpresaApp" type="ingenias.editor.entities.INGENIASCodeComponent">
+<mapproperties>
+<key id="Language">Java</key>
+<key id="Code">		final EmpresaAppApp appF=app; 
+		new Thread(){
+			public void run(){
+				appF.showGUI();			 
+			}
+		}.start();</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="INGENIASCodeComponent0" type="ingenias.editor.entities.INGENIASCodeComponent">
+<mapproperties>
+<key id="Language">Java</key>
+<key id="Code">String empresa =  eiEventRegistroEmpresa.getIdEmpresa();
+double valorAccion = eiEventRegistroEmpresa.getValorAccion();
+int numAcciones = eiEventRegistroEmpresa.getNumAcciones();
+
+System.out.println(&quot;Evento de la aplicacion de empresa de &quot; +empresa+ &quot; recibido&quot;);
+
+outputsdefaultTriggerRegistroEmpresaE.setId(empresa);
+outputsdefaultTriggerRegistroEmpresaE.setNumAcciones(numAcciones);
+outputsdefaultTriggerRegistroEmpresaE.setValorAccion(valorAccion);</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="IRegistroEmpresa" type="ingenias.editor.entities.Interaction">
+<objectproperty id="TransferredInfo" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Nature">coordination</key>
+<key id="Description">Interaccion que se realiza para el registro de una empresa</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="IURRegistro" type="ingenias.editor.entities.InteractionUnit">
+<objectproperty id="TransferredInfo" collection="true">
+<object id="RRegistroEmpresaE" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="43" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">IdEmpresa</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Identificador de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Peticion de registro de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="SpeechAct"></key>
+<key id="Timeout"></key>
+<key id="Description">Unidad de interaccion de peticion de registro.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="IUARegistro" type="ingenias.editor.entities.InteractionUnit">
+<objectproperty id="TransferredInfo" collection="true">
+<object id="ARegistroEmpresaB" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Description">Respuesta del registro de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="SpeechAct"></key>
+<key id="Timeout"></key>
+<key id="Description">Unidad de interaccion de respuesta de registro de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="Collaborate" type="ingenias.editor.entities.Goal">
+<mapproperties>
+<key id="Description">El objetivo de todos los agentes bursatiles es colaborar entre ellos con el fin de obtener beneficios.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="Conversation0" type="ingenias.editor.entities.Conversation">
+<objectproperty id="Interaction">
+<object id="IRegistroEmpresa" type="ingenias.editor.entities.Interaction">
+<objectproperty id="TransferredInfo" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Nature">coordination</key>
+<key id="Description">Interaccion que se realiza para el registro de una empresa</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<objectproperty id="CurrentContent" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Initiator"></key>
+<key id="ParticipantsSearch">Automatic</key>
+<key id="Description"></key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="RRegistroEmpresaE" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="43" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">IdEmpresa</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Identificador de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Peticion de registro de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="ARegistroEmpresaB" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Description">Respuesta del registro de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="TriggerRegistroEmpresaE" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Accionador encargado de iniciar el proceso de registro.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="EstadoEmpresa" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="25" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">Estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="EstadoBolsa" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+<object id="40" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">Empresas</key>
+<key id="Type">java.util.Vector&lt;Empresa&gt;</key>
+<key id="Description">Empresas registradas en el mercado de valores.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Estado de la Bolsa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="Agent_data" type="ingenias.editor.entities.FrameFact">
+<objectproperty id="Slots" collection="true">
+</objectproperty>
+<mapproperties>
+<key id="Description">Informacion del agente.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="EventRegistroEmpresa" type="ingenias.editor.entities.ApplicationEventSlots">
+<objectproperty id="Slots" collection="true">
+<object id="43" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">IdEmpresa</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Identificador de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<objectproperty id="Source">
+<object id="EmpresaApp" type="ingenias.editor.entities.InternalApplication">
+<objectproperty id="Methods" collection="true">
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Interfaz grafica de la aplicacion de gestion de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Evento producido al accionar el boton de registro.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="EstadoMentalEmpresa" type="ingenias.editor.entities.MentalState">
+<mapproperties>
+<key id="Description">Estado mental de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="EstadoMentalBolsa" type="ingenias.editor.entities.MentalState">
+<mapproperties>
+<key id="Description">Estado mental de la Bolsa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="Empresa" type="ingenias.editor.entities.Role">
+<mapproperties>
+<key id="Description">Rol que simula el comportamiento de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="Bolsa" type="ingenias.editor.entities.Role">
+<mapproperties>
+<key id="Description">Rol que simula el comportamiento de la Bolsa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="25" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">Estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="40" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">Empresas</key>
+<key id="Type">java.util.Vector&lt;Empresa&gt;</key>
+<key id="Description">Empresas registradas en el mercado de valores.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="43" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">IdEmpresa</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Identificador de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="EspecificacionRegistro" type="ingenias.editor.entities.GRASIASpecification">
+<objectproperty id="ModelThatContainsSpecification">
+<object id="0" type="ingenias.editor.entities.InteractionModelModelEntity">
+<mapproperties>
+<key id="ModelType">InteractionModel</key>
+<key id="ModelID">Definicion Interaccion</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Especificacion de la interaccion encargada del registro de una empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+<object id="54" type="ingenias.editor.entities.FileSpecPatternMapping">
+<objectproperty id="Entity">
+<object id="EmpresaApp" type="ingenias.editor.entities.InternalApplication">
+<objectproperty id="Methods" collection="true">
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Interfaz grafica de la aplicacion de gestion de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="File">outputgen/ingenias/components/EmpresaApp.java</key>
+<key id="Pattern">MultipleInstances</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="ICEmpresaApp" type="ingenias.editor.entities.INGENIASComponent">
+<objectproperty id="Files" collection="true">
+<object id="54" type="ingenias.editor.entities.FileSpecPatternMapping">
+<objectproperty id="Entity">
+<object id="EmpresaApp" type="ingenias.editor.entities.InternalApplication">
+<objectproperty id="Methods" collection="true">
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Interfaz grafica de la aplicacion de gestion de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="File">outputgen/ingenias/components/EmpresaApp.java</key>
+<key id="Pattern">MultipleInstances</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Language">Java</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objects>
+<relationships>
+<relationship id="18" type="ingenias.editor.entities.AHasMS">
+<object id="18" type="ingenias.editor.entities.AHasMS">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EmpresaAgent" class="ingenias.editor.entities.Agent" roleName="AHasMSsource" type="ingenias.editor.entities.AHasMSsourceRole" dgcid="25215874">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoMentalEmpresa" class="ingenias.editor.entities.MentalState" roleName="AHasMStarget" type="ingenias.editor.entities.AHasMStargetRole" dgcid="26819197">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="4" type="ingenias.editor.entities.WFResponsable">
+<object id="4" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="26284449">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="30090402">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="1" type="ingenias.editor.entities.GTPursues">
+<object id="1" type="ingenias.editor.entities.GTPursues">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="GTPursuessource" type="ingenias.editor.entities.GTPursuessourceRole" dgcid="8960947">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTPursuestarget" type="ingenias.editor.entities.GTPursuestargetRole" dgcid="11777847">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="2" type="ingenias.editor.entities.WFPlays">
+<object id="2" type="ingenias.editor.entities.WFPlays">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFPlaystarget" type="ingenias.editor.entities.WFPlaystargetRole" dgcid="26284449">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EmpresaAgent" class="ingenias.editor.entities.Agent" roleName="WFPlayssource" type="ingenias.editor.entities.WFPlayssourceRole" dgcid="25215874">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="5" type="ingenias.editor.entities.WFResponsable">
+<object id="5" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="20539035">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="8960947">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="0" type="ingenias.editor.entities.GTPursues">
+<object id="0" type="ingenias.editor.entities.GTPursues">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="GTPursuessource" type="ingenias.editor.entities.GTPursuessourceRole" dgcid="26284449">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTPursuestarget" type="ingenias.editor.entities.GTPursuestargetRole" dgcid="11777847">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="19" type="ingenias.editor.entities.AContainsME">
+<object id="19" type="ingenias.editor.entities.AContainsME">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TriggerRegistroEmpresaE" class="ingenias.editor.entities.FrameFact" roleName="AContainsMEtarget" type="ingenias.editor.entities.AContainsMEtargetRole" dgcid="19320999">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoMentalEmpresa" class="ingenias.editor.entities.MentalState" roleName="AContainsMEsource" type="ingenias.editor.entities.AContainsMEsourceRole" dgcid="26819197">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="3" type="ingenias.editor.entities.WFPlays">
+<object id="3" type="ingenias.editor.entities.WFPlays">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="WFPlaystarget" type="ingenias.editor.entities.WFPlaystargetRole" dgcid="8960947">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="BolsaAgent" class="ingenias.editor.entities.Agent" roleName="WFPlayssource" type="ingenias.editor.entities.WFPlayssourceRole" dgcid="637150">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="6" type="ingenias.editor.entities.WFResponsable">
+<object id="6" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="26284449">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="31921020">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="20" type="ingenias.editor.entities.AContainsME">
+<object id="20" type="ingenias.editor.entities.AContainsME">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EstadoEmpresa" class="ingenias.editor.entities.FrameFact" roleName="AContainsMEtarget" type="ingenias.editor.entities.AContainsMEtargetRole" dgcid="2001282">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoMentalEmpresa" class="ingenias.editor.entities.MentalState" roleName="AContainsMEsource" type="ingenias.editor.entities.AContainsMEsourceRole" dgcid="26819197">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="28" type="ingenias.editor.entities.AHasMS">
+<object id="28" type="ingenias.editor.entities.AHasMS">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="BolsaAgent" class="ingenias.editor.entities.Agent" roleName="AHasMSsource" type="ingenias.editor.entities.AHasMSsourceRole" dgcid="637150">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoMentalBolsa" class="ingenias.editor.entities.MentalState" roleName="AHasMStarget" type="ingenias.editor.entities.AHasMStargetRole" dgcid="31331362">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="30" type="ingenias.editor.entities.AContainsME">
+<object id="30" type="ingenias.editor.entities.AContainsME">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EstadoMentalBolsa" class="ingenias.editor.entities.MentalState" roleName="AContainsMEsource" type="ingenias.editor.entities.AContainsMEsourceRole" dgcid="31331362">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoBolsa" class="ingenias.editor.entities.FrameFact" roleName="AContainsMEtarget" type="ingenias.editor.entities.AContainsMEtargetRole" dgcid="19621611">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="62" type="ingenias.editor.entities.WFResponsable">
+<object id="62" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="26284449">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ProcessEmpresaAppEvents" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="32411273">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="41" type="ingenias.editor.entities.WFResponsable">
+<object id="41" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="32267459">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="11" type="ingenias.editor.entities.IAccesses">
+<object id="11" type="ingenias.editor.entities.IAccesses">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="IAccessessource" type="ingenias.editor.entities.IAccessessourceRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IRegistroEmpresa" class="ingenias.editor.entities.Interaction" roleName="IAccessestarget" type="ingenias.editor.entities.IAccessestargetRole" dgcid="29394007">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="22" type="ingenias.editor.entities.WFResponsable">
+<object id="22" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">NOICON</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="23326263">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="15" type="ingenias.editor.entities.WFConsumes">
+<object id="15" type="ingenias.editor.entities.WFConsumes">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="RRegistroEmpresaE" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="16310091">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="10" type="ingenias.editor.entities.IAccesses">
+<object id="10" type="ingenias.editor.entities.IAccesses">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="IRegistroEmpresa" class="ingenias.editor.entities.Interaction" roleName="IAccessestarget" type="ingenias.editor.entities.IAccessestargetRole" dgcid="22371452">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="IAccessessource" type="ingenias.editor.entities.IAccessessourceRole" dgcid="1639119">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="9" type="ingenias.editor.entities.GTSatisfies">
+<object id="9" type="ingenias.editor.entities.GTSatisfies">
+<objectproperty id="SatisfactionCondition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="GTSatisfiessource" type="ingenias.editor.entities.GTSatisfiessourceRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTSatisfiestarget" type="ingenias.editor.entities.GTSatisfiestargetRole" dgcid="9816695">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="12" type="ingenias.editor.entities.GTCreates">
+<object id="12" type="ingenias.editor.entities.GTCreates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="GTCreatessource" type="ingenias.editor.entities.GTCreatessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Conversation0" class="ingenias.editor.entities.Conversation" roleName="GTCreatestarget" type="ingenias.editor.entities.GTCreatestargetRole" dgcid="14861909">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="8" type="ingenias.editor.entities.GTSatisfies">
+<object id="8" type="ingenias.editor.entities.GTSatisfies">
+<objectproperty id="SatisfactionCondition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="GTSatisfiessource" type="ingenias.editor.entities.GTSatisfiessourceRole" dgcid="1639119">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTSatisfiestarget" type="ingenias.editor.entities.GTSatisfiestargetRole" dgcid="32640854">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="13" type="ingenias.editor.entities.WFConsumes">
+<object id="13" type="ingenias.editor.entities.WFConsumes">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TriggerRegistroEmpresaE" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="16103454">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="7" type="ingenias.editor.entities.GTSatisfies">
+<object id="7" type="ingenias.editor.entities.GTSatisfies">
+<objectproperty id="SatisfactionCondition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTSatisfiestarget" type="ingenias.editor.entities.GTSatisfiestargetRole" dgcid="3050682">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="GTSatisfiessource" type="ingenias.editor.entities.GTSatisfiessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="14" type="ingenias.editor.entities.GTCreates">
+<object id="14" type="ingenias.editor.entities.GTCreates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="GTCreatessource" type="ingenias.editor.entities.GTCreatessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="RRegistroEmpresaE" class="ingenias.editor.entities.FrameFact" roleName="GTCreatestarget" type="ingenias.editor.entities.GTCreatestargetRole" dgcid="14200145">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="42" type="ingenias.editor.entities.WFResponsable">
+<object id="42" type="ingenias.editor.entities.WFResponsable">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="WFResponsablesource" type="ingenias.editor.entities.WFResponsablesourceRole" dgcid="7140724">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="WFResponsabletarget" type="ingenias.editor.entities.WFResponsabletargetRole" dgcid="1639119">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="16" type="ingenias.editor.entities.WFProduces">
+<object id="16" type="ingenias.editor.entities.WFProduces">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="WFProducessource" type="ingenias.editor.entities.WFProducessourceRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ARegistroEmpresaB" class="ingenias.editor.entities.FrameFact" roleName="WFProducestarget" type="ingenias.editor.entities.WFProducestargetRole" dgcid="5869679">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="17" type="ingenias.editor.entities.WFConsumes">
+<object id="17" type="ingenias.editor.entities.WFConsumes">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ARegistroEmpresaB" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="24017972">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="1639119">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="26" type="ingenias.editor.entities.GTModifies">
+<object id="26" type="ingenias.editor.entities.GTModifies">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EstadoEmpresa" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="15154941">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="27" type="ingenias.editor.entities.GTModifies">
+<object id="27" type="ingenias.editor.entities.GTModifies">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EstadoEmpresa" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="22699299">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="1639119">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="44" type="ingenias.editor.entities.GTModifies">
+<object id="44" type="ingenias.editor.entities.GTModifies">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="9213505">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Agent_data" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="24788493">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="45" type="ingenias.editor.entities.GTModifies">
+<object id="45" type="ingenias.editor.entities.GTModifies">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="12385005">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EstadoBolsa" class="ingenias.editor.entities.FrameFact" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="19000501">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="59" type="ingenias.editor.entities.WFConsumes">
+<object id="59" type="ingenias.editor.entities.WFConsumes">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ProcessEmpresaAppEvents" class="ingenias.editor.entities.Task" roleName="WFConsumessource" type="ingenias.editor.entities.WFConsumessourceRole" dgcid="30823426">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EventRegistroEmpresa" class="ingenias.editor.entities.ApplicationEventSlots" roleName="WFConsumestarget" type="ingenias.editor.entities.WFConsumestargetRole" dgcid="13766886">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="60" type="ingenias.editor.entities.GTSatisfies">
+<object id="60" type="ingenias.editor.entities.GTSatisfies">
+<objectproperty id="SatisfactionCondition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ProcessEmpresaAppEvents" class="ingenias.editor.entities.Task" roleName="GTSatisfiessource" type="ingenias.editor.entities.GTSatisfiessourceRole" dgcid="30823426">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Collaborate" class="ingenias.editor.entities.Goal" roleName="GTSatisfiestarget" type="ingenias.editor.entities.GTSatisfiestargetRole" dgcid="28699060">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="61" type="ingenias.editor.entities.GTCreates">
+<object id="61" type="ingenias.editor.entities.GTCreates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ProcessEmpresaAppEvents" class="ingenias.editor.entities.Task" roleName="GTCreatessource" type="ingenias.editor.entities.GTCreatessourceRole" dgcid="30823426">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TriggerRegistroEmpresaE" class="ingenias.editor.entities.FrameFact" roleName="GTCreatestarget" type="ingenias.editor.entities.GTCreatestargetRole" dgcid="1442968">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="37" type="ingenias.editor.entities.UIColaborates">
+<object id="37" type="ingenias.editor.entities.UIColaborates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="IURRegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIColaboratessource" type="ingenias.editor.entities.UIColaboratessourceRole" dgcid="19356390">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="UIColaboratestarget" type="ingenias.editor.entities.UIColaboratestargetRole" dgcid="11362416">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="34" type="ingenias.editor.entities.IColaborates">
+<object id="34" type="ingenias.editor.entities.IColaborates">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="IColaboratestarget" type="ingenias.editor.entities.IColaboratestargetRole" dgcid="29532579">
+<mapproperties>
+<key id="Cardinality">1</key>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IRegistroEmpresa" class="ingenias.editor.entities.Interaction" roleName="IColaboratessource" type="ingenias.editor.entities.IColaboratessourceRole" dgcid="14666103">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="38" type="ingenias.editor.entities.UIInitiates">
+<object id="38" type="ingenias.editor.entities.UIInitiates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Bolsa" class="ingenias.editor.entities.Role" roleName="UIInitiatestarget" type="ingenias.editor.entities.UIInitiatestargetRole" dgcid="11362416">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IUARegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIInitiatessource" type="ingenias.editor.entities.UIInitiatessourceRole" dgcid="7945778">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="39" type="ingenias.editor.entities.UIColaborates">
+<object id="39" type="ingenias.editor.entities.UIColaborates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="UIColaboratestarget" type="ingenias.editor.entities.UIColaboratestargetRole" dgcid="28756325">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IUARegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIColaboratessource" type="ingenias.editor.entities.UIColaboratessourceRole" dgcid="7945778">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="35" type="ingenias.editor.entities.IHasSpec">
+<object id="35" type="ingenias.editor.entities.IHasSpec">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EspecificacionRegistro" class="ingenias.editor.entities.GRASIASpecification" roleName="IHasSpectarget" type="ingenias.editor.entities.IHasSpectargetRole" dgcid="5134597">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IRegistroEmpresa" class="ingenias.editor.entities.Interaction" roleName="IHasSpecsource" type="ingenias.editor.entities.IHasSpecsourceRole" dgcid="14666103">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="36" type="ingenias.editor.entities.UIInitiates">
+<object id="36" type="ingenias.editor.entities.UIInitiates">
+<objectproperty id="Condition">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="IURRegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIInitiatessource" type="ingenias.editor.entities.UIInitiatessourceRole" dgcid="19356390">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="UIInitiatestarget" type="ingenias.editor.entities.UIInitiatestargetRole" dgcid="28756325">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="33" type="ingenias.editor.entities.IInitiates">
+<object id="33" type="ingenias.editor.entities.IInitiates">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="Empresa" class="ingenias.editor.entities.Role" roleName="IInitiatestarget" type="ingenias.editor.entities.IInitiatestargetRole" dgcid="13426442">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IRegistroEmpresa" class="ingenias.editor.entities.Interaction" roleName="IInitiatessource" type="ingenias.editor.entities.IInitiatessourceRole" dgcid="14666103">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="23" type="ingenias.editor.entities.UIPrecedes">
+<object id="23" type="ingenias.editor.entities.UIPrecedes">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="IURRegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIPrecedessource" type="ingenias.editor.entities.UIPrecedessourceRole" dgcid="19356390">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="IUARegistro" class="ingenias.editor.entities.InteractionUnit" roleName="UIPrecedestarget" type="ingenias.editor.entities.UIPrecedestargetRole" dgcid="7945778">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="31" type="ingenias.editor.entities.CDUsesCode">
+<object id="31" type="ingenias.editor.entities.CDUsesCode">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ILRegistroE" class="ingenias.editor.entities.Task" roleName="CDUsesCodesource" type="ingenias.editor.entities.CDUsesCodesourceRole" dgcid="8643615">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="CodigoILRegistroE" class="ingenias.editor.entities.INGENIASCodeComponent" roleName="CDUsesCodetarget" type="ingenias.editor.entities.CDUsesCodetargetRole" dgcid="17190986">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="29" type="ingenias.editor.entities.CDUsesCode">
+<object id="29" type="ingenias.editor.entities.CDUsesCode">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="CodigoTPARegistroE" class="ingenias.editor.entities.INGENIASCodeComponent" roleName="CDUsesCodetarget" type="ingenias.editor.entities.CDUsesCodetargetRole" dgcid="31806826">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPARegistroE" class="ingenias.editor.entities.Task" roleName="CDUsesCodesource" type="ingenias.editor.entities.CDUsesCodesourceRole" dgcid="25703425">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="32" type="ingenias.editor.entities.CDUsesCode">
+<object id="32" type="ingenias.editor.entities.CDUsesCode">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="CodigoTPRRegistroB" class="ingenias.editor.entities.INGENIASCodeComponent" roleName="CDUsesCodetarget" type="ingenias.editor.entities.CDUsesCodetargetRole" dgcid="5432427">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="TPRRegistroB" class="ingenias.editor.entities.Task" roleName="CDUsesCodesource" type="ingenias.editor.entities.CDUsesCodesourceRole" dgcid="24510658">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="63" type="ingenias.editor.entities.CDUsesCode">
+<object id="63" type="ingenias.editor.entities.CDUsesCode">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ProcessEmpresaAppEvents" class="ingenias.editor.entities.Task" roleName="CDUsesCodesource" type="ingenias.editor.entities.CDUsesCodesourceRole" dgcid="16827584">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="INGENIASCodeComponent0" class="ingenias.editor.entities.INGENIASCodeComponent" roleName="CDUsesCodetarget" type="ingenias.editor.entities.CDUsesCodetargetRole" dgcid="11207797">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="55" type="ingenias.editor.entities.UMLRealizes">
+<object id="55" type="ingenias.editor.entities.UMLRealizes">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="ICEmpresaApp" class="ingenias.editor.entities.INGENIASComponent" roleName="UMLRealizestarget" type="ingenias.editor.entities.UMLRealizestargetRole" dgcid="13266349">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EmpresaApp" class="ingenias.editor.entities.InternalApplication" roleName="UMLRealizessource" type="ingenias.editor.entities.UMLRealizessourceRole" dgcid="18426981">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="57" type="ingenias.editor.entities.ApplicationBelongsTo">
+<object id="57" type="ingenias.editor.entities.ApplicationBelongsTo">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EmpresaApp" class="ingenias.editor.entities.InternalApplication" roleName="ApplicationBelongsTotarget" type="ingenias.editor.entities.ApplicationBelongsTotargetRole" dgcid="15533958">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EmpresaAgent" class="ingenias.editor.entities.Agent" roleName="ApplicationBelongsTosource" type="ingenias.editor.entities.ApplicationBelongsTosourceRole" dgcid="10769642">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="58" type="ingenias.editor.entities.EPerceivesNotification">
+<object id="58" type="ingenias.editor.entities.EPerceivesNotification">
+<objectproperty id="Event">
+<object id="EventRegistroEmpresa" type="ingenias.editor.entities.ApplicationEventSlots">
+<objectproperty id="Slots" collection="true">
+<object id="43" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">IdEmpresa</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Identificador de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="24" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">NumAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de una empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<object id="21" type="ingenias.editor.entities.ObjectSlot">
+<mapproperties>
+<key id="Name">ValorAccion</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<objectproperty id="Source">
+<object id="EmpresaApp" type="ingenias.editor.entities.InternalApplication">
+<objectproperty id="Methods" collection="true">
+<object id="46" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="47" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">cadenaLog</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Cadena de log que queremos mostrar.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showLog</key>
+<key id="Description">Metodo que muestra el log de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="48" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="49" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">estado</key>
+<key id="Type">java.lang.String</key>
+<key id="Description">Estado de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showEstado</key>
+<key id="Description">Muestra el estado actual de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="50" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="51" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">valor</key>
+<key id="Type">double</key>
+<key id="Description">Valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showValor</key>
+<key id="Description">Muestra el valor actual de una accion de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+<object id="52" type="ingenias.editor.entities.Method">
+<objectproperty id="Parameter" collection="true">
+<object id="53" type="ingenias.editor.entities.MethodParameter">
+<mapproperties>
+<key id="Name">numAcciones</key>
+<key id="Type">int</key>
+<key id="Description">Numero de acciones sin vender de la empresa.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Name">showNumAcciones</key>
+<key id="Description">Muestra el numero de acciones actual que tiene la empresa sin vender.</key>
+<key id="_view_type">INGENIAS</key>
+<key id="Result">void</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Interfaz grafica de la aplicacion de gestion de empresa.</key>
+<key id="_view_type">UML</key>
+</mapproperties>
+</object>
+</objectproperty>
+<mapproperties>
+<key id="Description">Evento producido al accionar el boton de registro.</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+</objectproperty>
+<objectproperty id="ApplicationMethod">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+<key id="Label"></key>
+</mapproperties>
+</object>
+<role idEntity="EmpresaApp" class="ingenias.editor.entities.InternalApplication" roleName="EPerceivestarget" type="ingenias.editor.entities.EPerceivestargetRole" dgcid="15533958">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="EmpresaAgent" class="ingenias.editor.entities.Agent" roleName="EPerceivessource" type="ingenias.editor.entities.EPerceivessourceRole" dgcid="10769642">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+<relationship id="56" type="ingenias.editor.entities.CDUsesCode">
+<object id="56" type="ingenias.editor.entities.CDUsesCode">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+<role idEntity="EmpresaApp" class="ingenias.editor.entities.InternalApplication" roleName="CDUsesCodesource" type="ingenias.editor.entities.CDUsesCodesourceRole" dgcid="18426981">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role><role idEntity="CodeEmpresaApp" class="ingenias.editor.entities.INGENIASCodeComponent" roleName="CDUsesCodetarget" type="ingenias.editor.entities.CDUsesCodetargetRole" dgcid="32340404">
+<mapproperties>
+<key id="attributeToShow">0</key>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</role></relationship>
+</relationships>
+<models> 
+ <model id="Definicion Agentes" type="ingenias.editor.models.AgentModelModelJGraph">
+<object id="Definicion Agentes" type="ingenias.editor.entities.AgentModelDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="EmpresaAgent" nid="25215874" type="Agent">
+
+	</node>
+			
+	<node id="5" nid="6451969" type="WFResponsable">
+
+	<connected id="8960947">
+
+
+	</connected>
+	<connected id="20539035">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="19" nid="20581247" type="AContainsME">
+
+	<connected id="26819197">
+
+
+	</connected>
+	<connected id="19320999">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="28" nid="20390753" type="AHasMS">
+
+	<connected id="637150"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="31331362">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="6" nid="12019536" type="WFResponsable">
+
+	<connected id="26284449">
+
+
+	</connected>
+	<connected id="31921020">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="TPRRegistroB" nid="20539035" type="Task">
+
+	</node>
+			
+	<node id="1" nid="12320286" type="GTPursues">
+
+	<connected id="8960947">
+
+
+	</connected>
+	<connected id="11777847">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="EstadoMentalBolsa" nid="31331362" type="MentalState">
+
+	</node>
+			
+	<node id="ILRegistroE" nid="31921020" type="Task">
+
+	</node>
+			
+	<node id="Empresa" nid="26284449" type="Role">
+
+	</node>
+			
+	<node id="ProcessEmpresaAppEvents" nid="32411273" type="Task">
+
+	</node>
+			
+	<node id="30" nid="24294090" type="AContainsME">
+
+	<connected id="31331362"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="19621611">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="2" nid="24711450" type="WFPlays">
+
+	<connected id="25215874">
+
+
+	</connected>
+	<connected id="26284449">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="Collaborate" nid="11777847" type="Goal">
+
+	</node>
+			
+	<node id="18" nid="11077594" type="AHasMS">
+
+	<connected id="25215874">
+
+
+	</connected>
+	<connected id="26819197">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="EstadoEmpresa" nid="2001282" type="FrameFact">
+
+	</node>
+			
+	<node id="Bolsa" nid="8960947" type="Role">
+
+	</node>
+			
+	<node id="20" nid="19994760" type="AContainsME">
+
+	<connected id="26819197"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="2001282">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="BolsaAgent" nid="637150" type="Agent">
+
+	</node>
+			
+	<node id="TPARegistroE" nid="30090402" type="Task">
+
+	</node>
+			
+	<node id="0" nid="33166033" type="GTPursues">
+
+	<connected id="26284449">
+
+
+	</connected>
+	<connected id="11777847">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="EstadoMentalEmpresa" nid="26819197" type="MentalState">
+
+	</node>
+			
+	<node id="4" nid="13309842" type="WFResponsable">
+
+	<connected id="26284449">
+
+
+	</connected>
+	<connected id="30090402">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="3" nid="4186765" type="WFPlays">
+
+	<connected id="637150">
+
+
+	</connected>
+	<connected id="8960947">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="62" nid="18080293" type="WFResponsable">
+
+	<connected id="26284449"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="32411273">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="EstadoBolsa" nid="19621611" type="FrameFact">
+
+	</node>
+			
+	<node id="TriggerRegistroEmpresaE" nid="19320999" type="FrameFact">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node6">
+		<attr name="bounds">
+			<rectangle x="33" y="190" width="71" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node14">
+		<attr name="bounds">
+			<rectangle x="320" y="409" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node16">
+		<attr name="bounds">
+			<rectangle x="185" y="60" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node22">
+		<attr name="bounds">
+			<rectangle x="45" y="468" width="54" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node18">
+		<attr name="bounds">
+			<rectangle x="270" y="215" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="477" y="395" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node12">
+		<attr name="bounds">
+			<rectangle x="201" y="366" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node21">
+		<attr name="bounds">
+			<rectangle x="17" y="506" width="110" height="42"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="382" y="201" width="54" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node7">
+		<attr name="bounds">
+			<rectangle x="207" y="202" width="42" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node25">
+		<attr name="bounds">
+			<rectangle x="349" y="337" width="135" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node24">
+		<attr name="bounds">
+			<rectangle x="141" y="522" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node13">
+		<attr name="bounds">
+			<rectangle x="133" y="213" width="54" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="205" y="300" width="54" height="50"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node10">
+		<attr name="bounds">
+			<rectangle x="42" y="140" width="54" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node19">
+		<attr name="bounds">
+			<rectangle x="313" y="100" width="160" height="85"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node8">
+		<attr name="bounds">
+			<rectangle x="219" y="396" width="35" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node20">
+		<attr name="bounds">
+			<rectangle x="186" y="103" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="45" y="388" width="56" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="378" y="280" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node15">
+		<attr name="bounds">
+			<rectangle x="196" y="265" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node9">
+		<attr name="bounds">
+			<rectangle x="6" y="62" width="129" height="42"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node11">
+		<attr name="bounds">
+			<rectangle x="268" y="252" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node17">
+		<attr name="bounds">
+			<rectangle x="133" y="409" width="54" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node26">
+		<attr name="bounds">
+			<rectangle x="272" y="280" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node23">
+		<attr name="bounds">
+			<rectangle x="232" y="506" width="173" height="55"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
+			<rectangle x="312" y="17" width="145" height="70"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="Definicion Tarea" type="ingenias.editor.models.TasksAndGoalsModelModelJGraph">
+<object id="Definicion Tarea" type="ingenias.editor.entities.TasksAndGoalsModelDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="EstadoEmpresa" nid="22699299" type="FrameFact">
+
+	</node>
+			
+	<node id="IRegistroEmpresa" nid="22371452" type="Interaction">
+
+	</node>
+			
+	<node id="11" nid="24706931" type="IAccesses">
+
+	<connected id="12385005">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="364.0" y="483.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="222.0" y="443.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="29394007">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="364.0" y="483.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="515.0" y="526.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="Collaborate" nid="32640854" type="Goal">
+
+	</node>
+			
+	<node id="45" nid="32061350" type="GTModifies">
+
+	<connected id="12385005"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="19000501">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="TPARegistroE" nid="1639119" type="Task">
+
+	</node>
+			
+	<node id="12" nid="27485672" type="GTCreates">
+
+	<connected id="9213505">
+
+
+	</connected>
+	<connected id="14861909">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="42" nid="18089601" type="WFResponsable">
+
+	<connected id="7140724">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="134.5" y="733.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="39.0" y="733.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="1639119">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="134.5" y="733.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="241.0" y="734.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="ARegistroEmpresaB" nid="24017972" type="FrameFact">
+
+	</node>
+			
+	<node id="EstadoEmpresa" nid="15154941" type="FrameFact">
+
+	</node>
+			
+	<node id="44" nid="18036859" type="GTModifies">
+
+	<connected id="9213505"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="24788493">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="9" nid="12549372" type="GTSatisfies">
+
+	<connected id="12385005">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="219.5" y="405.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="222.0" y="443.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="9816695">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="219.5" y="405.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="217.0" y="364.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="Collaborate" nid="9816695" type="Goal">
+
+	</node>
+			
+	<node id="27" nid="15838459" type="GTModifies">
+
+	<connected id="1639119"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="353.0" y="790.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="241.0" y="734.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="22699299">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="353.0" y="790.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="512.0" y="868.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="Empresa" nid="23326263" type="Role">
+
+	</node>
+			
+	<node id="IRegistroEmpresa" nid="29394007" type="Interaction">
+
+	</node>
+			
+	<node id="EventRegistroEmpresa" nid="13766886" type="ApplicationEventSlots">
+
+	</node>
+			
+	<node id="16" nid="29069577" type="WFProduces">
+
+	<connected id="5869679">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="378.0" y="450.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="550.5" y="459.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="12385005">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="378.0" y="450.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="222.0" y="443.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="26" nid="5361281" type="GTModifies">
+
+	<connected id="9213505"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="15154941">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="Empresa" nid="7140724" type="Role">
+
+	</node>
+			
+	<node id="Agent_data" nid="24788493" type="FrameFact">
+
+	</node>
+			
+	<node id="22" nid="11912953" type="WFResponsable">
+
+	<connected id="23326263">
+
+
+	</connected>
+	<connected id="9213505">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="60" nid="27054716" type="GTSatisfies">
+
+	<connected id="30823426"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="28699060">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="8" nid="8949236" type="GTSatisfies">
+
+	<connected id="1639119">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="240.5" y="685.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="241.0" y="734.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="32640854">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="240.5" y="685.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="240.0" y="633.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="TPRRegistroB" nid="12385005" type="Task">
+
+	</node>
+			
+	<node id="Bolsa" nid="32267459" type="Role">
+
+	</node>
+			
+	<node id="Collaborate" nid="3050682" type="Goal">
+
+	</node>
+			
+	<node id="Collaborate" nid="28699060" type="Goal">
+
+	</node>
+			
+	<node id="10" nid="7572010" type="IAccesses">
+
+	<connected id="1639119">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="391.0" y="744.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="241.0" y="734.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="22371452">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="391.0" y="744.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="550.0" y="755.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="13" nid="26251953" type="WFConsumes">
+
+	<connected id="9213505">
+
+
+	</connected>
+	<connected id="16103454">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="41" nid="14883300" type="WFResponsable">
+
+	<connected id="32267459">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="115.5" y="439.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="23.5" y="437.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="12385005">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="115.5" y="439.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="222.0" y="443.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="EstadoBolsa" nid="19000501" type="FrameFact">
+
+	</node>
+			
+	<node id="ILRegistroE" nid="9213505" type="Task">
+
+	</node>
+			
+	<node id="7" nid="25007443" type="GTSatisfies">
+
+	<connected id="9213505">
+
+
+	</connected>
+	<connected id="3050682">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="RRegistroEmpresaE" nid="14200145" type="FrameFact">
+
+	</node>
+			
+	<node id="17" nid="8742489" type="WFConsumes">
+
+	<connected id="1639119">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="391.5" y="712.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="241.0" y="734.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="24017972">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="391.5" y="712.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="557.5" y="689.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="59" nid="11648348" type="WFConsumes">
+
+	<connected id="30823426"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="13766886">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="RRegistroEmpresaE" nid="16310091" type="FrameFact">
+
+	</node>
+			
+	<node id="15" nid="14106280" type="WFConsumes">
+
+	<connected id="12385005">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="379.5" y="415.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="222.0" y="443.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="16310091">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="379.5" y="415.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="552.5" y="386.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="Conversation0" nid="14861909" type="Conversation">
+
+	</node>
+			
+	<node id="TriggerRegistroEmpresaE" nid="1442968" type="FrameFact">
+
+	</node>
+			
+	<node id="ProcessEmpresaAppEvents" nid="30823426" type="Task">
+
+	</node>
+			
+	<node id="ARegistroEmpresaB" nid="5869679" type="FrameFact">
+
+	</node>
+			
+	<node id="61" nid="5843929" type="GTCreates">
+
+	<connected id="30823426"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="1442968">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="TriggerRegistroEmpresaE" nid="16103454" type="FrameFact">
+
+	</node>
+			
+	<node id="14" nid="4934493" type="GTCreates">
+
+	<connected id="9213505">
+
+
+	</connected>
+	<connected id="14200145">
+
+
+
+	</connected>
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node33">
+		<attr name="bounds">
+			<rectangle x="439" y="827" width="160" height="85"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node8">
+		<attr name="bounds">
+			<rectangle x="508" y="721" width="84" height="69"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node18">
+		<attr name="bounds">
+			<rectangle x="346" y="470" width="64" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node16">
+		<attr name="bounds">
+			<rectangle x="213" y="608" width="54" height="50"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node38">
+		<attr name="bounds">
+			<rectangle x="268" y="492" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node13">
+		<attr name="bounds">
+			<rectangle x="208" y="713" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node23">
+		<attr name="bounds">
+			<rectangle x="311" y="102" width="64" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node28">
+		<attr name="bounds">
+			<rectangle x="89" y="726" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node10">
+		<attr name="bounds">
+			<rectangle x="508" y="669" width="99" height="40"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node31">
+		<attr name="bounds">
+			<rectangle x="266" y="202" width="160" height="85"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node36">
+		<attr name="bounds">
+			<rectangle x="91" y="171" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node22">
+		<attr name="bounds">
+			<rectangle x="185" y="398" width="69" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="190" y="339" width="54" height="50"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node34">
+		<attr name="bounds">
+			<rectangle x="323" y="783" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node9">
+		<attr name="bounds">
+			<rectangle x="6" y="109" width="42" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="502" y="479" width="84" height="69"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node40">
+		<attr name="bounds">
+			<rectangle x="50" y="1029" width="67" height="83"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node29">
+		<attr name="bounds">
+			<rectangle x="341" y="431" width="74" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node32">
+		<attr name="bounds">
+			<rectangle x="185" y="167" width="66" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
+			<rectangle x="18" y="712" width="42" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node35">
+		<attr name="bounds">
+			<rectangle x="79" y="203" width="65" height="40"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node19">
+		<attr name="bounds">
+			<rectangle x="80" y="130" width="0" height="0"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node43">
+		<attr name="bounds">
+			<rectangle x="286" y="1013" width="69" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node24">
+		<attr name="bounds">
+			<rectangle x="206" y="678" width="69" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node12">
+		<attr name="bounds">
+			<rectangle x="189" y="422" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="6" y="416" width="35" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node15">
+		<attr name="bounds">
+			<rectangle x="112" y="1" width="54" height="50"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node42">
+		<attr name="bounds">
+			<rectangle x="295" y="942" width="54" height="50"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node21">
+		<attr name="bounds">
+			<rectangle x="359" y="737" width="64" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node25">
+		<attr name="bounds">
+			<rectangle x="188" y="88" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node17">
+		<attr name="bounds">
+			<rectangle x="70" y="432" width="91" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node37">
+		<attr name="bounds">
+			<rectangle x="303" y="534" width="173" height="55"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node11">
+		<attr name="bounds">
+			<rectangle x="113" y="110" width="54" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node26">
+		<attr name="bounds">
+			<rectangle x="105" y="73" width="69" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node7">
+		<attr name="bounds">
+			<rectangle x="524" y="152" width="177" height="85"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node30">
+		<attr name="bounds">
+			<rectangle x="352" y="705" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node41">
+		<attr name="bounds">
+			<rectangle x="146" y="1063" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node6">
+		<attr name="bounds">
+			<rectangle x="500" y="310" width="177" height="85"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node20">
+		<attr name="bounds">
+			<rectangle x="338" y="397" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="520" y="60" width="84" height="54"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node44">
+		<attr name="bounds">
+			<rectangle x="524" y="1038" width="145" height="70"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node39">
+		<attr name="bounds">
+			<rectangle x="253" y="1049" width="135" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="501" y="414" width="99" height="40"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node45">
+		<attr name="bounds">
+			<rectangle x="424" y="1063" width="64" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node14">
+		<attr name="bounds">
+			<rectangle x="288" y="11" width="145" height="70"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node27">
+		<attr name="bounds">
+			<rectangle x="313" y="151" width="64" height="15"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="Definicion Interaccion" type="ingenias.editor.models.InteractionModelModelJGraph">
+<object id="Definicion Interaccion" type="ingenias.editor.entities.InteractionModelDataEntity">
+<objectproperty id="InteractionConsidered">
+</objectproperty>
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="34" nid="14971661" type="IColaborates">
+
+	<connected id="29532579">
+
+
+
+	</connected>
+	<connected id="14666103">
+
+
+	</connected>
+	</node>
+			
+	<node id="38" nid="30219485" type="UIInitiates">
+
+	<connected id="7945778">
+
+
+	</connected>
+	<connected id="11362416">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="IRegistroEmpresa" nid="14666103" type="Interaction">
+
+	</node>
+			
+	<node id="IUARegistro" nid="7945778" type="InteractionUnit">
+
+	</node>
+			
+	<node id="23" nid="28868852" type="UIPrecedes">
+
+	<connected id="19356390">
+
+
+	</connected>
+	<connected id="7945778">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="35" nid="29151197" type="IHasSpec">
+
+	<connected id="5134597">
+
+
+
+	</connected>
+	<connected id="14666103">
+
+
+	</connected>
+	</node>
+			
+	<node id="EspecificacionRegistro" nid="5134597" type="GRASIASpecification">
+
+	</node>
+			
+	<node id="Empresa" nid="13426442" type="Role">
+
+	</node>
+			
+	<node id="33" nid="3793440" type="IInitiates">
+
+	<connected id="14666103">
+
+
+	</connected>
+	<connected id="13426442">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="IURRegistro" nid="19356390" type="InteractionUnit">
+
+	</node>
+			
+	<node id="Bolsa" nid="29532579" type="Role">
+
+	</node>
+			
+	<node id="39" nid="3652380" type="UIColaborates">
+
+	<connected id="7945778">
+
+
+	</connected>
+	<connected id="28756325">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="Bolsa" nid="11362416" type="Role">
+
+	</node>
+			
+	<node id="37" nid="25921392" type="UIColaborates">
+
+	<connected id="19356390">
+
+
+	</connected>
+	<connected id="11362416">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="36" nid="22360393" type="UIInitiates">
+
+	<connected id="19356390">
+
+
+	</connected>
+	<connected id="28756325">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="Empresa" nid="28756325" type="Role">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node9">
+		<attr name="bounds">
+			<rectangle x="302" y="160" width="72" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node10">
+		<attr name="bounds">
+			<rectangle x="396" y="412" width="57" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="214" y="59" width="84" height="69"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="200" y="440" width="150" height="70"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node15">
+		<attr name="bounds">
+			<rectangle x="240" y="387" width="67" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node12">
+		<attr name="bounds">
+			<rectangle x="347" y="86" width="58" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node7">
+		<attr name="bounds">
+			<rectangle x="453" y="66" width="226" height="55"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node6">
+		<attr name="bounds">
+			<rectangle x="127" y="201" width="42" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node14">
+		<attr name="bounds">
+			<rectangle x="170" y="157" width="50" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="199" y="278" width="148" height="70"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
+			<rectangle x="376" y="206" width="35" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node11">
+		<attr name="bounds">
+			<rectangle x="106" y="411" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="498" y="365" width="35" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node8">
+		<attr name="bounds">
+			<rectangle x="383" y="351" width="79" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node13">
+		<attr name="bounds">
+			<rectangle x="116" y="351" width="57" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="48" y="365" width="42" height="43"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="Codigo Tareas" type="ingenias.editor.models.ComponentDiagramModelJGraph">
+<object id="Codigo Tareas" type="ingenias.editor.entities.ComponentDiagramDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Registro Empresa"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="63" nid="4182039" type="CDUsesCode">
+
+	<connected id="16827584"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="11207797">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="TPRRegistroB" nid="24510658" type="Task">
+
+	</node>
+			
+	<node id="31" nid="10770846" type="CDUsesCode">
+
+	<connected id="8643615">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="265.0" y="171.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="91.0" y="171.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="17190986">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="265.0" y="171.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="473.0" y="171.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="INGENIASCodeComponent0" nid="11207797" type="INGENIASCodeComponent">
+
+	</node>
+			
+	<node id="29" nid="14040822" type="CDUsesCode">
+
+	<connected id="25703425">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="269.0" y="338.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="98.0" y="338.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="31806826">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="269.0" y="338.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="475.0" y="339.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="32" nid="23583475" type="CDUsesCode">
+
+	<connected id="24510658">
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="267.0" y="251.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="92.0" y="252.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="5432427">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="267.0" y="251.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="476.0" y="251.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="CodigoTPRRegistroB" nid="5432427" type="INGENIASCodeComponent">
+
+	</node>
+			
+	<node id="CodigoTPARegistroE" nid="31806826" type="INGENIASCodeComponent">
+
+	</node>
+			
+	<node id="ILRegistroE" nid="8643615" type="Task">
+
+	</node>
+			
+	<node id="TPARegistroE" nid="25703425" type="Task">
+
+	</node>
+			
+	<node id="CodigoILRegistroE" nid="17190986" type="INGENIASCodeComponent">
+
+	</node>
+			
+	<node id="ProcessEmpresaAppEvents" nid="16827584" type="Task">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node11">
+		<attr name="bounds">
+			<rectangle x="244" y="77" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node5">
+		<attr name="bounds">
+			<rectangle x="59" y="231" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node6">
+		<attr name="bounds">
+			<rectangle x="227" y="164" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node10">
+		<attr name="bounds">
+			<rectangle x="402" y="59" width="167" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node7">
+		<attr name="bounds">
+			<rectangle x="231" y="331" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node8">
+		<attr name="bounds">
+			<rectangle x="231" y="245" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node4">
+		<attr name="bounds">
+			<rectangle x="414" y="224" width="134" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="408" y="311" width="134" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="64" y="150" width="54" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="65" y="317" width="66" height="43"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="412" y="143" width="122" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node9">
+		<attr name="bounds">
+			<rectangle x="27" y="61" width="135" height="43"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="Definicion Componentes" type="ingenias.editor.models.ComponentDiagramModelJGraph">
+<object id="Definicion Componentes" type="ingenias.editor.entities.ComponentDiagramDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Interfaz Grafica"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="55" nid="29706709" type="UMLRealizes">
+
+	<connected id="18426981"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="13266349">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="ICEmpresaApp" nid="13266349" type="INGENIASComponent">
+
+	</node>
+			
+	<node id="EmpresaApp" nid="18426981" type="InternalApplication">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="343" y="134" width="53" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="460" y="105" width="398" height="72"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="111" y="89" width="168" height="104"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="Definicion Entorno" type="ingenias.editor.models.EnvironmentModelModelJGraph">
+<object id="Definicion Entorno" type="ingenias.editor.entities.EnvironmentModelDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="Interfaz Grafica"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="57" nid="26145719" type="ApplicationBelongsTo">
+
+	<connected id="10769642"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+	</connected>
+	<connected id="15533958">
+
+
+
+	</connected>
+	</node>
+			
+	<node id="EmpresaAgent" nid="10769642" type="Agent">
+
+	</node>
+			
+	<node id="58" nid="4295228" type="EPerceivesNotification">
+
+	<connected id="15533958"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+
+
+
+	</connected>
+	<connected id="10769642">
+
+
+	</connected>
+	</node>
+			
+	<node id="EmpresaApp" nid="15533958" type="InternalApplication">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="263" y="219" width="116" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="118" y="103" width="71" height="57"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node3">
+		<attr name="bounds">
+			<rectangle x="239" y="43" width="129" height="45"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="417" y="83" width="168" height="104"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+ <model id="EmpresaApp Initialization" type="ingenias.editor.models.ComponentDiagramModelJGraph">
+<object id="EmpresaApp Initialization" type="ingenias.editor.entities.ComponentDiagramDataEntity">
+<mapproperties>
+<key id="_view_type">INGENIAS</key>
+</mapproperties>
+</object>
+  <path>
+    <package id="Project"/>
+    <package id="System init"/>
+   </path>
+<gxl>
+
+	<graph>
+			
+	<node id="56" nid="16674655" type="CDUsesCode">
+
+	<connected id="5407052"><attr name="extraLabels">
+			<array>
+
+</array>
+</attr>
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="431.0" y="190.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="195.0" y="141.0"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	<connected id="16133261">
+
+		<attr name="points">
+			<list>
+		<attr name="points0">
+			<point x="431.0" y="190.5"></point>
+		</attr>
+		<attr name="points1">
+			<point x="645.0" y="240.5"></point>
+		</attr>
+
+</list>
+		</attr>
+
+
+	</connected>
+	</node>
+			
+	<node id="EmpresaApp" nid="5407052" type="InternalApplication">
+
+	</node>
+			
+	<node id="CodeEmpresaApp" nid="16133261" type="INGENIASCodeComponent">
+
+	</node>
+	</graph>
+
+
+	<layout>
+			
+	<node id="node2">
+		<attr name="bounds">
+			<rectangle x="387" y="134" width="76" height="15"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node0">
+		<attr name="bounds">
+			<rectangle x="111" y="89" width="168" height="104"></rectangle>		</attr>
+
+	</node>
+			
+	<node id="node1">
+		<attr name="bounds">
+			<rectangle x="572" y="113" width="122" height="57"></rectangle>		</attr>
+
+	</node>
+	</layout>
+</gxl> </model>
+</models>
+</project>

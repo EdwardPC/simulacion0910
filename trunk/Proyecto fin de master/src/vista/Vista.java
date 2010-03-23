@@ -342,8 +342,12 @@ public class Vista extends JFrame implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		
+		Integer valor = (Integer)arg1;
 		//System.out.println("Actualizo update");
-		trafico.dibujarMapa();
+		if (valor == 0)
+			trafico.dibujarMapa();
+		else if (valor == 1)
+			JOptionPane.showMessageDialog(null,"El mapa cargado presenta problemas en su diseño.","Error en mapa",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 }

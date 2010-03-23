@@ -28,7 +28,9 @@ public class Modelo extends Observable {
 	private Integer limite1;
 	private Integer limite2;
 	private Integer velocidadSimulacion;
-	
+	private Integer inix;
+	private Integer iniy;
+
 	private ArrayList<Tramo> tramos;
 	private ArrayList<Acceso> entradas;
 	private ArrayList<Acceso> salidas;
@@ -119,7 +121,58 @@ public class Modelo extends Observable {
 			secundaria.generarSecundaria();
 			break;
 		}
-		actualizar();
+		if (!encontrarInicio()) {
+			setParar(true);
+			actualizar(1);
+		}
+		else
+			actualizar(0);
+	}
+	
+	public boolean encontrarInicio() {
+		
+		Boolean encontrado = false;
+		for (int i=longitud-1;i>=0 && !encontrado;i--)
+			for (int j=longitud-1;j>=0 && !encontrado;j--) 
+				if (contenido[i][j].isInicio()) {
+					inix = i;
+					iniy = j;
+					encontrado = true;
+				}
+		return encontrado;
+	}
+	
+	public void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
+			int dir2) {
+		
+		for (int i=x1;i<x2;i++) {
+			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[i][y1].setTramo(1);
+			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
+		}
+	
+		for (int j=x3;j<x4;j++) {
+			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
+			contenido[y2][j].setTramo(2);
+			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
+		}
+	}
+	
+	public void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
+			int dir2) {
+		
+		for (int i=x1;i<x2;i++) {
+			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
+			contenido[i][y1].setTramo(1);
+			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
+		}
+	
+		for (int j=x3;j<x4;j++) {
+			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
+			contenido[y2][j].setTramo(2);
+			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
+		}
+		contenido[y2][x4-1].setInicio(true);
 	}
 	
 	public String obtenerDireccion(int dir) {
@@ -152,10 +205,10 @@ public class Modelo extends Observable {
 		}
 	}
 
-	public void actualizar() {
+	public void actualizar(Integer valor) {
 	
 		setChanged();
-		notifyObservers();
+		notifyObservers(valor);
 	}
 
 	public void obtenerConductores(Integer agre, Integer norm,
@@ -423,5 +476,24 @@ public class Modelo extends Observable {
 	public ArrayList<Coche> getCoches() {
 		
 		return coches;
+	}
+	
+	public Integer getInix() {
+		return inix;
+	}
+
+
+	public void setInix(Integer inix) {
+		this.inix = inix;
+	}
+
+
+	public Integer getIniy() {
+		return iniy;
+	}
+
+
+	public void setIniy(Integer iniy) {
+		this.iniy = iniy;
 	}
 }
