@@ -1,0 +1,62 @@
+<project name="ingenias" default="generate" basedir=".">
+	
+	<property name="src" location="src" />	
+
+	<property name="modiaf" location="modules/srciaf" />	
+	
+	<property name="temp" location="tmp" />
+	
+	<property name="tempidk" location="tmpidk1" />
+	
+	
+	<property name="genlib" location="genlib" />
+	
+	<property name="specfile" location=""/>
+	
+	<property name="mainP" location="."/>		
+	
+		
+	<property name="javac.optimize"           value="off"/>
+	<property name="javac.deprecation"        value="on"/>
+	<property name="javac.debug"              value="true"/>
+	
+	
+	<target name="init">
+		
+		<tstamp />
+		
+		
+	</target>
+
+
+
+<!--   Executes the jade module from console over the specification referred by specfile     -->
+
+<target name="generate">
+	
+	<java fork="true" failonerror="true" maxmemory="200m"
+	      classname="ingenias.codeproc.IAFGenerator">
+		
+		<arg value="${specfile}"/>
+		<arg value="${mainP}"/>
+
+		
+		<classpath>
+			
+			
+			<fileset dir="lib">
+				
+				<include name="**/*.jar" />
+				
+			</fileset>
+			
+		</classpath>
+		
+	</java>
+	
+</target>
+
+
+
+</project>
+

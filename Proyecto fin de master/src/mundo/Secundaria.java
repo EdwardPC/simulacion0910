@@ -46,12 +46,12 @@ public class Secundaria {
 		}
 		for (int i=0;i<entradas.size();i++) {
 			Acceso entrada = entradas.get(i);
-			entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
+			matriz.entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
 					entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
 		}
 		for (int i=0;i<salidas.size();i++) {
 			Acceso salida = salidas.get(i);
-			salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
+			matriz.salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
 					salida.getY1(),salida.getY2(),salida.getDir1(),salida.getDir2());
 		}
 	}
@@ -143,40 +143,6 @@ private void secundaria(int x1,int x2,int y,int sentido) {
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+1].setSentido(Constantes.DERECHA);
 			}
-		}
-	}
-	
-	private void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
-		
-		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[i][y1].setTramo(1);
-			contenido[i][y1].setDireccion(matriz.obtenerDireccion(dir1));
-		}
-	
-		for (int j=x3;j<x4;j++) {
-			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[y2][j].setTramo(2);
-			contenido[y2][j].setDireccion(matriz.obtenerDireccion(dir2));
-		}
-	}
-	
-	private void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
-		
-		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
-			contenido[i][y1].setInicio(true);
-			contenido[i][y1].setTramo(1);
-			contenido[i][y1].setDireccion(matriz.obtenerDireccion(dir1));
-		}
-	
-		for (int j=x3;j<x4;j++) {
-			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
-			contenido[y2][j].setInicio(true);
-			contenido[y2][j].setTramo(2);
-			contenido[y2][j].setDireccion(matriz.obtenerDireccion(dir2));
 		}
 	}
 }

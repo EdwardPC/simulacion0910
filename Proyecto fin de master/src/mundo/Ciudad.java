@@ -49,7 +49,7 @@ public class Ciudad {
 		
 		for (int i=0;i<entradas.size();i++) {
 			Acceso entrada = entradas.get(i);
-			entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
+			matriz.entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
 					entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
 		}
 		for (int i=0;i<principales.size();i++) {
@@ -92,41 +92,7 @@ public class Ciudad {
 		
 	}
 	
-	private void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
-		
-		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[i][y1].setTramo(1);
-			contenido[i][y1].setDireccion(matriz.obtenerDireccion(dir1));
-		}
-	
-		for (int j=x3;j<x4;j++) {
-			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[y2][j].setTramo(2);
-			contenido[y2][j].setDireccion(matriz.obtenerDireccion(dir2));
-		}
-	}
-	
-	private void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
-		
-		for (int i=x1;i<x2;i++) {
-			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
-			contenido[i][y1].setInicio(true);
-			contenido[i][y1].setTramo(1);
-			contenido[i][y1].setDireccion(matriz.obtenerDireccion(dir1));
-		}
-	
-		for (int j=x3;j<x4;j++) {
-			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
-			contenido[y2][j].setInicio(true);
-			contenido[y2][j].setTramo(2);
-			contenido[y2][j].setDireccion(matriz.obtenerDireccion(dir2));
-		}
-	}
-	
-private void callePrincipal(int x1,int x2,int y,int sentido) {
+	private void callePrincipal(int x1,int x2,int y,int sentido) {
 		
 		if (sentido == 1) {
 			for (int j=x1;j<x2;j++) {

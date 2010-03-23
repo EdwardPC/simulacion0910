@@ -12,7 +12,7 @@ public class SemaforosManager extends Thread {
 		longitud = mundo.getLongitud();
 		contenido = mundo.getContenido();
 		inicializar();
-		matriz.actualizar();
+		matriz.actualizar(0);
 	}
 	
 	private void inicializar() {
