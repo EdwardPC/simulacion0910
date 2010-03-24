@@ -22,6 +22,7 @@ public class ItemsMundo {
 		numCarril = 0;
 		conductor = "";
 		sentido = "";
+		direccion = "";
 	}
 	
 	public String getConductor() {

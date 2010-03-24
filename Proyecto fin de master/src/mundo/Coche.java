@@ -14,6 +14,7 @@ public class Coche extends Thread {
 	private String direccionActual;
 	private String tipoConductor;
 	private boolean adelantarEnSec;
+	private boolean parar;
 	
 	public Coche(Modelo matrix,Integer comienzoX,Integer comienzoY,
 			Integer velocidadIni,String conductor) {
@@ -26,6 +27,7 @@ public class Coche extends Thread {
 		y = antY;
 		velocidad = velocidadIni;
 		tipoConductor = conductor;
+		parar = matriz.getParar();
 		vision = new ItemsMundo[5][5];
 		anterior = new ItemsMundo(contenido[antX][antY].getTipo(),contenido[antX][antY].isInicio());
 		anterior.setDireccion(contenido[antX][antY].getDireccion());
@@ -84,13 +86,13 @@ public class Coche extends Thread {
 		antX = x;
 		antY = y;
 		observarMundo();
-		if (mirarAdelante(2,Constantes.SEMAFORO)) {
+		if (probarSalida())
+			salir();
+		else if (mirarAdelante(2,Constantes.SEMAFORO)) 
 			tratarSemaforo();
-			System.out.println("veo semaforo");
-		}
 		else if (anterior.getTipo().equals(Constantes.SEMAFORO))
 			pasoSemaforo();
-		else if (anterior.getTipo().equals(Constantes.AUTOVIA))
+		else if (anterior.getTipo().equals(Constantes.AUTOVIA)) 
 			circularAutovia();
 		else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
 			circularSecundaria();
@@ -100,6 +102,8 @@ public class Coche extends Thread {
 			tratarPasoCruce();
 		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
 			tratarIncorporacion();
+		else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
+			tratarSalida();
 		/*else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
 			try {
 				Coche.sleep(1000);
@@ -126,120 +130,113 @@ public class Coche extends Thread {
 
 	private void circularAutovia() {
 		
-		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y+1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else
 				x = x-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
+		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				x = x+1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
+		direccionActual = anterior.getDireccion();
 	}
 	
 	private void circularCiudad() {
 		
-		System.out.println(direccionActual);
-		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y+1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else
 				x = x-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
+		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 1)
+				anterior.getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
 				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				contenido[x][y].getNumCarril() == 2)
+				anterior.getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				x = x+1;
-			direccionActual = contenido[x][y].getDireccion();
-		}	
+		}
+		direccionActual = anterior.getDireccion();
 	}
 	
 	private void circularSecundaria() {
 		
-		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.IZQUIERDA;
 				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
@@ -258,9 +255,8 @@ public class Coche extends Thread {
 			}
 			else 
 				y = y+1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.DERECHA;
 				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
@@ -279,7 +275,6 @@ public class Coche extends Thread {
 			}
 			else 
 				y = y-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
 		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
 			if (adelantarEnSec) {
@@ -300,9 +295,8 @@ public class Coche extends Thread {
 			}
 			else 
 				x = x-1;
-			direccionActual = contenido[x][y].getDireccion();
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
+		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ARRIBA;
 				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
@@ -321,8 +315,8 @@ public class Coche extends Thread {
 			}
 			else 
 				x = x+1;
-			direccionActual = contenido[x][y].getDireccion();
-		}	
+		}
+		direccionActual = anterior.getDireccion();
 	}
  	
 	private void tratarPasoCruce() {
@@ -420,6 +414,103 @@ public class Coche extends Thread {
 					y = y+1;
 			}
 			else if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+				x = x+1;
+			}
+		}
+		direccionActual = anterior.getDireccion();
+	}
+	
+	private boolean probarSalida() {
+		
+		boolean encontrado = false;
+		//if (deboSalir()) {
+			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
+				if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
+				if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
+				if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
+				if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+					encontrado = true;
+					System.out.println("OK salida");
+				}
+			}
+		//}
+		return encontrado;
+	}
+	
+	public void salir() {
+		
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) 
+				x = x+1;
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
+				x = x-1;
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) 
+				y = y+1;
+		else if (anterior.getDireccion().equals(Constantes.ABAJO))
+				y = y-1;
+	}
+	
+	private void tratarSalida() {
+		
+		System.out.println(anterior.getDireccion());
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
+			if (!(contenido[x][y+1].getTipo().equals(Constantes.CARRIL_SALIDA)) &&
+					!(contenido[x][y+1].getTipo().equals(Constantes.AUTOMOVIL))) {
+				if (anterior.getTramo() == 2)
+					x = x+1;
+				else 
+					parar = true;
+			}
+			else if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				y = y+1;
+			}
+		}
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
+			if (!(contenido[x][y-1].getTipo().equals(Constantes.CARRIL_SALIDA)) &&
+					!(contenido[x][y-1].getTipo().equals(Constantes.AUTOMOVIL))) {
+				System.out.println("Dentro giro");
+				if (anterior.getTramo() == 1)
+					x = x-1;
+				else 
+					parar = true;
+			}
+			else if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				System.out.println("ok sa");
+				y = y-1;
+			}
+		}
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
+			if (!(contenido[x-1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) &&
+					!(contenido[x-1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
+				if (anterior.getTramo() == 1)
+					y = y+1;
+				else 
+					parar = true;
+			}
+			else if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				x = x-1;
+			}
+		}
+		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
+			if (!(contenido[x+1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) &&
+					!(contenido[x+1][y].getTipo().equals(Constantes.AUTOMOVIL))) {
+				if (anterior.getTramo() == 1)
+					y = y-1;
+				else 
+					parar = true;
+			}
+			else if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
 				x = x+1;
 			}
 		}
@@ -580,7 +671,7 @@ public class Coche extends Thread {
 	
 	public void run() {
 		
-		while(!matriz.getParar()) {
+		while(!parar && !matriz.getParar()) {
 			avanzar();
 			matriz.actualizar(0);
 			try {
@@ -595,7 +686,11 @@ public class Coche extends Thread {
 	
 	public void finalizar() {
 		
+		contenido[antX][antY].setTipo(anterior.getTipo());
+		contenido[antX][antY].setConductor(anterior.getConductor());
+		matriz.actualizar(0);
 		try {
+			
 			this.finalize();
 		}
 		catch (Throwable t) {
