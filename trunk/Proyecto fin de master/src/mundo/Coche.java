@@ -1,15 +1,6 @@
 package mundo;
 
-import java.awt.GridLayout;
-
-import javax.swing.JPanel;
-
-import managerXML.Punto;
-
-
 public class Coche extends Thread {
-	
-	
 	
 	private ItemsMundo[][] contenido;
 	private ItemsMundo[][] vision;
@@ -22,6 +13,7 @@ public class Coche extends Thread {
 	private Integer velocidad;
 	private String direccionActual;
 	private String tipoConductor;
+	private boolean adelantarEnSec;
 	
 	public Coche(Modelo matrix,Integer comienzoX,Integer comienzoY,
 			Integer velocidadIni,String conductor) {
@@ -41,6 +33,7 @@ public class Coche extends Thread {
 		direccionActual = "";
 		contenido[antX][antY].setTipo(Constantes.AUTOMOVIL);
 		contenido[antX][antY].setConductor(tipoConductor);
+		adelantarEnSec = false;
 	}
 	
 	public Integer getVelocidad() {
@@ -88,9 +81,12 @@ public class Coche extends Thread {
 		antX = x;
 		antY = y;
 		observarMundo();
-		if (anterior.getTipo().equals(Constantes.AUTOVIA) || anterior.getTipo().equals(Constantes.SECUNDARIA) || 
-			anterior.getTipo().contains(Constantes.CALLE)) 
-			circular();
+		if (anterior.getTipo().equals(Constantes.AUTOVIA))
+			circularAutovia();
+		else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
+			circularSecundaria();
+		else if (anterior.getTipo().contains(Constantes.CALLE))
+			circularCiudad();
 		else if (anterior.getTipo().equals(Constantes.CRUCE)) 
 			tratarPasoCruce();
 		else if (anterior.getTipo().equals(Constantes.SEMAFORO)) 
@@ -118,72 +114,209 @@ public class Coche extends Thread {
 				visionY = visionY+1;
 			}
 			visionX = visionX+1;
-		}
-		for (int i=0;i<5;i++) {
-			for (int j=0;j<5;j++)
-				System.out.print(vision[i][j].getTipo()+" ");
-			System.out.println();
-		}
-		System.out.println();
-				
+		}		
 	}
 
-	private void circular() {
+	private void circularAutovia() {
 		
 		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-					!mirarIzquierda(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 1)
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					!mirarDerecha(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 2)
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y+1;
 			direccionActual = contenido[x][y].getDireccion();
-		}
+		}	
 		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-					!mirarIzquierda(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 1)
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					!mirarDerecha(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 2)
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				y = y-1;
 			direccionActual = contenido[x][y].getDireccion();
-		}
+		}	
 		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					!mirarIzquierda(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 1)
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					!mirarDerecha(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 2)
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
 				tratarVolverACarril();
 			else
 				x = x-1;
 			direccionActual = contenido[x][y].getDireccion();
-		}
+		}	
 		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-					!mirarIzquierda(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 1)
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
 				tratarAdelantamiento();
 			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					!mirarDerecha(Constantes.AUTOMOVIL) &&
-					contenido[x][y].getNumCarril() == 2)
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
 				tratarVolverACarril();
 			else 
 				x = x+1;
 			direccionActual = contenido[x][y].getDireccion();
-		}
+		}	
 	}
 	
+	private void circularCiudad() {
+		
+		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
+			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
+				tratarAdelantamiento();
+			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
+				tratarVolverACarril();
+			else 
+				y = y+1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
+			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
+				tratarAdelantamiento();
+			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
+				tratarVolverACarril();
+			else 
+				y = y-1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
+			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
+				tratarAdelantamiento();
+			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
+				tratarVolverACarril();
+			else
+				x = x-1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
+			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 1)
+				tratarAdelantamiento();
+			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+				!mirarDerecha(Constantes.AUTOMOVIL) &&
+				contenido[x][y].getNumCarril() == 2)
+				tratarVolverACarril();
+			else 
+				x = x+1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+	}
+	
+	private void circularSecundaria() {
+		
+		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
+			if (adelantarEnSec) {
+				direccionActual = Constantes.IZQUIERDA;
+				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+					mirarIzquierda(Constantes.AUTOMOVIL)) {
+					y = y-1;
+				}
+				else {
+					tratarVolverACarril();
+					adelantarEnSec = false;
+				}
+			}
+			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				tratarAdelantamiento();
+				adelantarEnSec = true;
+			}
+			else 
+				y = y+1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.IZQUIERDA)) {
+			if (adelantarEnSec) {
+				direccionActual = Constantes.DERECHA;
+				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
+					mirarIzquierda(Constantes.AUTOMOVIL)) {
+					y = y+1;
+				}
+				else {
+					tratarVolverACarril();
+					adelantarEnSec = false;
+				}
+			}
+			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				tratarAdelantamiento();
+				adelantarEnSec = true;
+			}
+			else 
+				y = y-1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
+			if (adelantarEnSec) {
+				direccionActual = Constantes.ABAJO;
+				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
+					mirarDerecha(Constantes.AUTOMOVIL)) {
+					x = x+1;
+				}
+				else {
+					tratarVolverACarril();
+					adelantarEnSec = false;
+				}
+			}
+			else if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
+				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				tratarAdelantamiento();
+				adelantarEnSec = true;
+			}
+			else 
+				x = x-1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+		else if (contenido[x][y].getDireccion().equals(Constantes.ABAJO)) {
+			if (adelantarEnSec) {
+				direccionActual = Constantes.ARRIBA;
+				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
+					mirarDerecha(Constantes.AUTOMOVIL)) {
+					x = x-1;
+				}
+				else {
+					tratarVolverACarril();
+					adelantarEnSec = false;
+				}
+			}
+			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				tratarAdelantamiento();
+				adelantarEnSec = true;
+			}
+			else 
+				x = x+1;
+			direccionActual = contenido[x][y].getDireccion();
+		}	
+	}
+ 	
 	private void tratarPasoCruce() {
 		
 		if (direccionActual.equals(Constantes.ABAJO)) 
