@@ -1,5 +1,7 @@
 package mundo;
 
+import java.util.Random;
+
 public class Coche extends Thread {
 	
 	private ItemsMundo[][] contenido;
@@ -11,6 +13,7 @@ public class Coche extends Thread {
 	private Integer antX;
 	private Integer antY;
 	private Integer velocidad;
+	private Integer velIni;
 	private String direccionActual;
 	private String tipoConductor;
 	private boolean adelantarEnSec;
@@ -26,12 +29,14 @@ public class Coche extends Thread {
 		x = antX;
 		y = antY;
 		velocidad = velocidadIni;
+		velIni = velocidadIni;
 		tipoConductor = conductor;
 		parar = matriz.getParar();
 		vision = new ItemsMundo[5][5];
 		anterior = new ItemsMundo(contenido[antX][antY].getTipo(),contenido[antX][antY].isInicio());
 		anterior.setDireccion(contenido[antX][antY].getDireccion());
 		anterior.setConductor(contenido[antX][antY].getConductor());
+		anterior.setAdelantar(contenido[antX][antY].getAdelantar());
 		direccionActual = "";
 		contenido[antX][antY].setTipo(Constantes.AUTOMOVIL);
 		contenido[antX][antY].setConductor(tipoConductor);
@@ -81,6 +86,7 @@ public class Coche extends Thread {
 		anterior.setColorSemaforo(contenido[x][y].getColorSemaforo());
 		anterior.setNumCarril(contenido[x][y].getNumCarril());
 		anterior.setSentido(contenido[x][y].getSentido());
+		anterior.setAdelantar(contenido[x][y].getAdelantar());
 		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
 		contenido[x][y].setConductor(tipoConductor);
 		antX = x;
@@ -239,8 +245,9 @@ public class Coche extends Thread {
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.IZQUIERDA;
-				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					mirarIzquierda(Constantes.AUTOMOVIL)) {
+				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
+					mirarDerecha(Constantes.AUTOMOVIL) && 
+					anterior.getAdelantar()) {
 					y = y-1;
 				}
 				else {
@@ -250,8 +257,7 @@ public class Coche extends Thread {
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL)) {
-				tratarAdelantamiento();
-				adelantarEnSec = true;
+				adelantarEnSec = tratarAdelantamiento();
 			}
 			else 
 				y = y+1;
@@ -259,8 +265,9 @@ public class Coche extends Thread {
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.DERECHA;
-				if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-					mirarIzquierda(Constantes.AUTOMOVIL)) {
+				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
+					mirarDerecha(Constantes.AUTOMOVIL) &&
+					anterior.getAdelantar()) {
 					y = y+1;
 				}
 				else {
@@ -270,17 +277,17 @@ public class Coche extends Thread {
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL)) {
-				tratarAdelantamiento();
-				adelantarEnSec = true;
+				adelantarEnSec = tratarAdelantamiento();
 			}
 			else 
 				y = y-1;
 		}	
-		else if (contenido[x][y].getDireccion().equals(Constantes.ARRIBA)) {
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ABAJO;
 				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL)) {
+					mirarDerecha(Constantes.AUTOMOVIL) &&
+					anterior.getAdelantar()) {
 					x = x+1;
 				}
 				else {
@@ -290,8 +297,7 @@ public class Coche extends Thread {
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
 				!mirarIzquierda(Constantes.AUTOMOVIL)) {
-				tratarAdelantamiento();
-				adelantarEnSec = true;
+				adelantarEnSec = tratarAdelantamiento();
 			}
 			else 
 				x = x-1;
@@ -300,7 +306,8 @@ public class Coche extends Thread {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ARRIBA;
 				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL)) {
+					mirarDerecha(Constantes.AUTOMOVIL) &&
+					anterior.getAdelantar()) {
 					x = x-1;
 				}
 				else {
@@ -310,8 +317,7 @@ public class Coche extends Thread {
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL)) {
-				tratarAdelantamiento();
-				adelantarEnSec = true;
+				adelantarEnSec = tratarAdelantamiento();
 			}
 			else 
 				x = x+1;
@@ -423,30 +429,38 @@ public class Coche extends Thread {
 	private boolean probarSalida() {
 		
 		boolean encontrado = false;
+		Random random = new Random();
+		Integer respuesta = random.nextInt(2);
 		//if (deboSalir()) {
 			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-				if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				if (contenido[x+1][y].getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						contenido[x+1][y].isSalida()) {
 					encontrado = true;
 				}
 			}
 			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-				if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				if (contenido[x-1][y].getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						contenido[x-1][y].isSalida()) {
 					encontrado = true;
 				}
 			}
 			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-				if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				if (contenido[x][y+1].getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						contenido[x][y+1].isSalida()) {
 					encontrado = true;
 				}
 			}
 			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-				if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				if (contenido[x][y-1].getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						contenido[x][y-1].isSalida()) {
 					encontrado = true;
 					System.out.println("OK salida");
 				}
 			}
 		//}
-		return encontrado;
+		if (encontrado && respuesta == 1)
+			return true;
+		return false;
 	}
 	
 	public void salir() {
@@ -624,10 +638,12 @@ public class Coche extends Thread {
 		return encontrado;
 	}
 	
-	private void tratarAdelantamiento() {
+	private boolean tratarAdelantamiento() {
 		
 		System.out.println("Intento adelantar");
-		if (/*estadoMental().adelantar()*/true) {
+		Random random = new Random();
+		Integer respuesta = random.nextInt(2);
+		if (respuesta == 1 && anterior.getAdelantar()) {
 			if (direccionActual.equals(Constantes.ABAJO)) {
 				x = x+1;
 				y = y+1;
@@ -644,7 +660,10 @@ public class Coche extends Thread {
 				x = x+1;
 				y = y-1;
 			}
+			return true;
 		}
+		velocidad = velocidad/2;
+		return false;
 	}
 		
 	private void tratarVolverACarril() {
