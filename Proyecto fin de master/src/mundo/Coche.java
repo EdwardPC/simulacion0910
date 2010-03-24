@@ -76,12 +76,21 @@ public class Coche extends Thread {
 		anterior.setDireccion(contenido[x][y].getDireccion());
 		anterior.setTramo(contenido[x][y].getTramo());
 		anterior.setConductor(contenido[x][y].getConductor());
+		anterior.setColorSemaforo(contenido[x][y].getColorSemaforo());
+		anterior.setNumCarril(contenido[x][y].getNumCarril());
+		anterior.setSentido(contenido[x][y].getSentido());
 		contenido[x][y].setTipo(Constantes.AUTOMOVIL);
 		contenido[x][y].setConductor(tipoConductor);
 		antX = x;
 		antY = y;
 		observarMundo();
-		if (anterior.getTipo().equals(Constantes.AUTOVIA))
+		if (mirarAdelante(2,Constantes.SEMAFORO)) {
+			tratarSemaforo();
+			System.out.println("veo semaforo");
+		}
+		else if (anterior.getTipo().equals(Constantes.SEMAFORO))
+			pasoSemaforo();
+		else if (anterior.getTipo().equals(Constantes.AUTOVIA))
 			circularAutovia();
 		else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
 			circularSecundaria();
@@ -89,16 +98,14 @@ public class Coche extends Thread {
 			circularCiudad();
 		else if (anterior.getTipo().equals(Constantes.CRUCE)) 
 			tratarPasoCruce();
-		else if (anterior.getTipo().equals(Constantes.SEMAFORO)) 
-			tratarPasoSemaforo();
 		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
 			tratarIncorporacion();
-		else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
+		/*else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
 			try {
 				Coche.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}	
+			}	*/
 	}
 	
 	private void observarMundo() {
@@ -175,6 +182,7 @@ public class Coche extends Thread {
 	
 	private void circularCiudad() {
 		
+		System.out.println(direccionActual);
 		if (contenido[x][y].getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarIzquierda(Constantes.AUTOMOVIL) &&
@@ -329,19 +337,38 @@ public class Coche extends Thread {
 			y = y-1;
 	}
 	
- 	private void tratarPasoSemaforo() {
+ 	private void tratarSemaforo() {
 		
-		if (anterior.getColorSemaforo().equals(Constantes.VERDE)) {
-			if (direccionActual.equals(Constantes.ABAJO))
+ 		if (direccionActual.equals(Constantes.ABAJO)) {
+			if (contenido[x+1][y].getColorSemaforo().equals(Constantes.VERDE))
 				x = x+1;
-			else if (direccionActual.equals(Constantes.ARRIBA))
-				x = x-1;
-			else if (direccionActual.equals(Constantes.DERECHA))
-				y = y+1;
-			else if (direccionActual.equals(Constantes.IZQUIERDA))
-				y = y-1;
 		}
+		else if (direccionActual.equals(Constantes.ARRIBA)) {
+			if (contenido[x-1][y].getColorSemaforo().equals(Constantes.VERDE))
+				x = x-1;
+		}
+		else if (direccionActual.equals(Constantes.DERECHA)) {
+			if (contenido[x][y+1].getColorSemaforo().equals(Constantes.VERDE))
+				y = y+1;
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			if (contenido[x][y-1].getColorSemaforo().equals(Constantes.VERDE))
+				y = y-1;
+		}	
 	}
+ 	
+ 	private void pasoSemaforo() {
+ 		
+ 		if (direccionActual.equals(Constantes.DERECHA))
+ 			y = y+1;
+ 		else if (direccionActual.equals(Constantes.IZQUIERDA))
+ 				y = y-1;
+ 			else if (direccionActual.equals(Constantes.ARRIBA))
+ 					x = x-1;
+ 				else if (direccionActual.equals(Constantes.ABAJO))
+ 						x = x+1;
+ 	}
+ 	
 	private void tratarIncorporacion() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
