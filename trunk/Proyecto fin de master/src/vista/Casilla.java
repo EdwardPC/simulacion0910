@@ -21,7 +21,7 @@ public class Casilla extends JPanel {
 		colorSemaforo = "";
 		tipoConductor = "";
 	}
-
+	
 	public String getTipoConductor() {
 		return tipoConductor;
 	}
