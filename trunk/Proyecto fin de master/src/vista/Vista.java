@@ -334,7 +334,6 @@ public class Vista extends JFrame implements Observer {
 
 		public void stateChanged(ChangeEvent arg0) {
 			
-			System.out.println(velocidad.getValue());
 			controlador.setVelocidad(velocidad.getValue());
 		}
 	}
