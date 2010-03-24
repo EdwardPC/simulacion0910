@@ -145,6 +145,7 @@ public class Modelo extends Observable {
 	public void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
 			int dir2) {
 		
+		contenido[x1][y1].setSalida(true);
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
 			contenido[i][y1].setTramo(1);

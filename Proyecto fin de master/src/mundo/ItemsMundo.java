@@ -12,11 +12,15 @@ public class ItemsMundo {
 	private Integer numCarril;
 	
 	private Boolean inicio;
-	
+	private Boolean salida;
+	private Boolean adelantar;
+
 	public ItemsMundo(String info,boolean start) {
 		
 		tipo = info;
 		inicio = start; 
+		salida = false;
+		adelantar = true;
 		colorSemaforo = Constantes.VERDE;
 		tramo = 0;
 		numCarril = 0;
@@ -24,7 +28,7 @@ public class ItemsMundo {
 		sentido = "";
 		direccion = "";
 	}
-	
+
 	public String getConductor() {
 		return conductor;
 	}
@@ -72,6 +76,14 @@ public class ItemsMundo {
 	public void setTipo(String informacion) {
 		this.tipo = informacion;
 	}
+	
+	public Integer getTramo() {
+		return tramo;
+	}
+
+	public void setTramo(Integer tramo) {
+		this.tramo = tramo;
+	}
 
 	public Boolean isInicio() {
 		return inicio;
@@ -81,11 +93,19 @@ public class ItemsMundo {
 		this.inicio = inicio;
 	}
 	
-	public Integer getTramo() {
-		return tramo;
+	public Boolean isSalida() {
+		return salida;
 	}
 
-	public void setTramo(Integer tramo) {
-		this.tramo = tramo;
+	public void setSalida(Boolean salida) {
+		this.salida = salida;
+	}
+	
+	public Boolean getAdelantar() {
+		return adelantar;
+	}
+
+	public void setAdelantar(Boolean adelantar) {
+		this.adelantar = adelantar;
 	}
 }

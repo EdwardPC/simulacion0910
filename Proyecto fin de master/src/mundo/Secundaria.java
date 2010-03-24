@@ -73,11 +73,22 @@ public class Secundaria {
 	private void secundaria(int x1,int x2,int y,int sentido) {
 		
 		if (sentido == 1) {
+			for (int j=x1;j<x1+3;j++)
+				contenido[y][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y][j].setAdelantar(false);
+			
 			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setSentido(Constantes.DERECHA);
 			}
+			
+			for (int j=x1-2;j<x1+3;j++)
+				contenido[y+1][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y+1][j].setAdelantar(false);
+			
 			for (int j=x1-2;j<x2;j++) {
 				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
@@ -85,11 +96,22 @@ public class Secundaria {
 			}
 		}
 		else if (sentido == 2) {
+			for (int j=x1;j<x1+4;j++)
+				contenido[y][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y][j].setAdelantar(false);
+			
 			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setSentido(Constantes.IZQUIERDA);
 			}
+			
+			for (int j=x1;j<x1+4;j++)
+				contenido[y+1][j].setAdelantar(false);
+			for (int j=x2-5;j<x2-2;j++)
+				contenido[y+1][j].setAdelantar(false);
+			
 			for (int j=x1;j<x2-2;j++) {
 				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
@@ -97,11 +119,22 @@ public class Secundaria {
 			}
 		}
 		else if (sentido == 3) {
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y].setAdelantar(false);
+			for (int i=x2-3;i<x2;i++)
+				contenido[i][y].setAdelantar(false);
+			
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.DERECHA);
 			}
+			
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y+1].setAdelantar(false);
+			for (int i=x2-3;i<x2+2;i++)
+				contenido[i][y+1].setAdelantar(false);
+			
 			for (int i=x1;i<x2+2;i++) {
 				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
@@ -109,11 +142,22 @@ public class Secundaria {
 			}
 		}
 		else if (sentido == 4) {
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y].setAdelantar(false);
+			for (int i=x2-4;i<x2;i++)
+				contenido[i][y].setAdelantar(false);
+			
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
+			
+			for (int i=x1+2;i<x1+5;i++)
+				contenido[i][y+1].setAdelantar(false);
+			for (int i=x2-4;i<x2;i++)
+				contenido[i][y+1].setAdelantar(false);
+			
 			for (int i=x1+2;i<x2;i++) {
 				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
@@ -121,11 +165,22 @@ public class Secundaria {
 			}
 		}
 		else if (sentido == 5) {
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y].setAdelantar(false);
+			for (int i=x2-4;i<x2;i++)
+				contenido[i][y].setAdelantar(false);
+			
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
+			
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y+1].setAdelantar(false);
+			for (int i=x2-4;i<x2;i++)
+				contenido[i][y+1].setAdelantar(false);
+			
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
@@ -133,11 +188,22 @@ public class Secundaria {
 			}
 		}
 		else if (sentido == 6) {
+			for (int i=x1;i<x1+5;i++)
+				contenido[i][y].setAdelantar(false);
+			for (int i=x2-4;i<x2;i++)
+				contenido[i][y].setAdelantar(false);
+			
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 			}
+			
+			for (int i=x1+2;i<x1+5;i++)
+				contenido[i][y+1].setAdelantar(false);
+			for (int i=x2-4;i<x2+2;i++)
+				contenido[i][y+1].setAdelantar(false);
+			
 			for (int i=x1+2;i<x2+2;i++) {
 				contenido[i][y+1].setTipo(Constantes.SECUNDARIA);
 				contenido[i][y+1].setDireccion(Constantes.ARRIBA);
