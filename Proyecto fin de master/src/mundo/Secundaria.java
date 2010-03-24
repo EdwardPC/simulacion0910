@@ -70,7 +70,7 @@ public class Secundaria {
 				contenido[i][j].setTipo(Constantes.EDIFICIO);
 	}
 	
-private void secundaria(int x1,int x2,int y,int sentido) {
+	private void secundaria(int x1,int x2,int y,int sentido) {
 		
 		if (sentido == 1) {
 			for (int j=x1;j<x2;j++) {

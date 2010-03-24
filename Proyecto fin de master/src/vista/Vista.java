@@ -249,7 +249,7 @@ public class Vista extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent arg0) {
 			
 			JFileChooser chooser = new JFileChooser();
-		    chooser.setCurrentDirectory(new java.io.File("./xml"));
+		    chooser.setCurrentDirectory(new java.io.File("./xml/Calzadas"));
 		    chooser.setDialogTitle("Seleccione fichero XML:");
 		    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		    FileFilter filter1 = new FiltroXML("xml", new String[] { "XML" });
