@@ -22,17 +22,19 @@ public class GeneradorTrafico extends Thread {
 	private Integer vIni;
 	private Integer x;
 	private Integer y;
+	private Integer numIds;
 	
 	public GeneradorTrafico(Entorno mundo) {
 		
 		entorno = mundo;
-		eleccion = mundo.getEleccion();
-		moderados = mundo.getModerados();
-		normales = mundo.getNormales();
-		agresivos = mundo.getAgresivos();
-		x = mundo.getInix();
-		y = mundo.getIniy();
+		eleccion = entorno.getEleccion();
+		moderados = entorno.getModerados();
+		normales = entorno.getNormales();
+		agresivos = entorno.getAgresivos();
+		x = entorno.getInix();
+		y = entorno.getIniy();
 		vIni = 0;
+		numIds = 0;
 	}
 	
 	public void run() {

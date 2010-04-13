@@ -20,6 +20,7 @@ public class XMLManager {
 	 private Document dom;
 	 private ArrayList<Tramo> listadoTramos; 
 	 private ArrayList<Acceso> listadoEntradas;
+
 	 private ArrayList<Acceso> listadoSalidas;
 	 private ArrayList<Tramo> listadoPrincipales;
 	 private ArrayList<Tramo> listadoHorizontales;
@@ -33,6 +34,7 @@ public class XMLManager {
 	 private ArrayList<Tramo> listadoSemaforos;
 	 private ArrayList<Punto> listadoCrucesSimples;
 	 private ArrayList<Contenido> listadoCruces;
+	 private ArrayList<Punto> listadoComienzoVueltas;
 	
 	public XMLManager() {
 		
@@ -51,6 +53,7 @@ public class XMLManager {
 		listadoSemaforos = new ArrayList<Tramo>();
 		listadoCrucesSimples = new ArrayList<Punto>();
 		listadoCruces = new ArrayList<Contenido>();
+		listadoComienzoVueltas = new ArrayList<Punto>();
 	}
 	
 	public void lanzarManager(File file) {
@@ -198,6 +201,14 @@ public class XMLManager {
 	                Element elemento = (Element) nl.item(i);
 	                Contenido cruce = obtenerContenido(elemento);
 	                listadoCruces.add(cruce);
+	         }
+	     } 
+	     nl = docEle.getElementsByTagName("inicio");
+	     if (nl != null && nl.getLength() > 0) {
+	    	 for (int i = 0; i < nl.getLength(); i++) {
+	                Element elemento = (Element) nl.item(i);
+	                Punto inicio = obtenerPunto(elemento);
+	                listadoComienzoVueltas.add(inicio);
 	         }
 	     } 
 	 }
@@ -352,5 +363,9 @@ public class XMLManager {
 
 	public ArrayList<Contenido> getCruces() {
 		return listadoCruces;
+	}
+	
+	public ArrayList<Punto> getComienzoVueltas() {
+		return listadoComienzoVueltas;
 	}
 }
