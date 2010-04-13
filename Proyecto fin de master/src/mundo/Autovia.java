@@ -8,7 +8,7 @@ import managerXML.Tramo;
 
 public class Autovia {
 	
-	private Modelo matriz;
+	private Entorno matriz;
 	private ItemsMundo[][] contenido;
 	
 	private ArrayList<Contenido> campos;
@@ -19,7 +19,7 @@ public class Autovia {
 	private ArrayList<Acceso> entradas;
 	private ArrayList<Acceso> salidas;
 	
-	public Autovia(Modelo mundo) {
+	public Autovia(Entorno mundo) {
 		
 		matriz = mundo;
 		contenido = mundo.getContenido();

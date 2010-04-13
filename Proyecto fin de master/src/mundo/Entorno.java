@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import agente.Conductor;
+
 import managerXML.Acceso;
 import managerXML.Contenido;
 import managerXML.Punto;
@@ -12,10 +14,10 @@ import managerXML.XMLManager;
 import managerXML.Atributo;
 
 
-public class Modelo extends Observable {
+public class Entorno extends Observable {
 	
 	private ItemsMundo[][] contenido;
-	private GeneradorVehiculos generador;
+	private GeneradorTrafico generador;
 	private SemaforosManager semaforosManager;
 	private Boolean parar;
 
@@ -46,7 +48,7 @@ public class Modelo extends Observable {
 	private ArrayList<Contenido> campos;
 	private ArrayList<Contenido> edificios;
 	private ArrayList<Atributo> atributos;
-	private ArrayList<Coche> coches;
+	private ArrayList<Conductor> conductores;
 	
 	private File ficheroCampo;
 	private File ficheroMapa;
@@ -67,7 +69,7 @@ public class Modelo extends Observable {
 			limite2 = atributo.getLimite2();
 		}
 		contenido = new ItemsMundo[longitud][longitud];
-		coches = new ArrayList<Coche>();
+		conductores = new ArrayList<Conductor>();
 		for (int i=0;i<longitud;i++)
 			for (int j=0;j<longitud;j++) {
 				if ((j<limite1) || (i<limite1) || (i>limite2) || (j>limite2)) 
@@ -198,7 +200,7 @@ public class Modelo extends Observable {
 
 	public void simular() {
 	
-		generador = new GeneradorVehiculos(this);
+		generador = new GeneradorTrafico(this);
 		generador.start();
 		if (eleccion == 0) {
 			semaforosManager = new SemaforosManager(this);
@@ -380,11 +382,11 @@ public class Modelo extends Observable {
 		return parar;
 	}
 	
-	public GeneradorVehiculos getGenerador() {
+	public GeneradorTrafico getGenerador() {
 		return generador;
 	}
 
-	public void setGenerador(GeneradorVehiculos generador) {
+	public void setGenerador(GeneradorTrafico generador) {
 		this.generador = generador;
 	}
 
@@ -456,8 +458,8 @@ public class Modelo extends Observable {
 		this.contenido = contenido;
 	}
 
-	public void setCoches(ArrayList<Coche> coches) {
-		this.coches = coches;
+	public void setCoches(ArrayList<Conductor> conductores) {
+		this.conductores = conductores;
 	}
 
 	public void setParar(Boolean parar) {
@@ -474,9 +476,9 @@ public class Modelo extends Observable {
 		return contenido[i][j];
 	}
 	
-	public ArrayList<Coche> getCoches() {
+	public ArrayList<Conductor> getConductores() {
 		
-		return coches;
+		return conductores;
 	}
 	
 	public Integer getInix() {

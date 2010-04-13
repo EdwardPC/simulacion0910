@@ -2,24 +2,24 @@ package controlador;
 
 import java.io.File;
 
-import mundo.Modelo;
+import mundo.Entorno;
 
 public class Controlador {
 
-	private Modelo matriz;
+	private Entorno matriz;
 	
 	
-	public Controlador(Modelo mapa) {
+	public Controlador(Entorno mapa) {
 		
 		matriz = mapa;
 	}
 	
-	public Modelo getMatriz() {
+	public Entorno getMatriz() {
 		
 		return matriz;
 	}
 	
-	public void setMatriz(Modelo mapa) {
+	public void setMatriz(Entorno mapa) {
 		
 		matriz = mapa;
 	}

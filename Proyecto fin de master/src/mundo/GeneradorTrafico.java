@@ -1,6 +1,8 @@
 package mundo;
 
-public class GeneradorVehiculos extends Thread {
+import agente.Conductor;
+
+public class GeneradorTrafico extends Thread {
 	
 	private static final Integer VModCiudad = 30;
 	private static final Integer VModAuto = 100;
@@ -13,7 +15,7 @@ public class GeneradorVehiculos extends Thread {
 	private static final Integer VAgreSec = 120;
 	
 	private Integer eleccion;
-	private Modelo matriz;
+	private Entorno entorno;
 	private Integer moderados;
 	private Integer normales;
 	private Integer agresivos;
@@ -21,9 +23,9 @@ public class GeneradorVehiculos extends Thread {
 	private Integer x;
 	private Integer y;
 	
-	public GeneradorVehiculos(Modelo mundo) {
+	public GeneradorTrafico(Entorno mundo) {
 		
-		matriz = mundo;
+		entorno = mundo;
 		eleccion = mundo.getEleccion();
 		moderados = mundo.getModerados();
 		normales = mundo.getNormales();
@@ -35,7 +37,7 @@ public class GeneradorVehiculos extends Thread {
 	
 	public void run() {
 			
-		while (!(matriz.getParar())
+		while (!(entorno.getParar())
 		&&(moderados > 0 || normales > 0 || agresivos > 0))
 			if (moderados > 0) {
 				if (eleccion == 0)
@@ -44,14 +46,15 @@ public class GeneradorVehiculos extends Thread {
 					vIni = VModAuto;
 				else if (eleccion == 2)
 					vIni = VModSec;
-				Coche coche = new Coche(matriz,x,y,vIni,Constantes.MODERADO);
-				matriz.getCoches().add(coche);
+				Coche coche = new Coche(entorno,vIni,vIni);
+				Conductor conductor = new Conductor(entorno,Constantes.MODERADO,1,coche,x,y);
+				entorno.getConductores().add(conductor);
 				moderados = moderados - 1;
-				matriz.actualizar(0);
-				coche.start();
+				entorno.actualizar(0);
+				conductor.start();
 				try {
-					GeneradorVehiculos.sleep(2500 -
-						matriz.getVelocidadSimulacion());
+					GeneradorTrafico.sleep(2500 -
+							entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();
@@ -64,14 +67,15 @@ public class GeneradorVehiculos extends Thread {
 					vIni = VNormAuto;
 				else if (eleccion == 2)
 					vIni = VNormSec;
-				Coche coche = new Coche(matriz,x,y,vIni,Constantes.NORMAL);
-				matriz.getCoches().add(coche);
+				Coche coche = new Coche(entorno,vIni,vIni);
+				Conductor conductor = new Conductor(entorno,Constantes.NORMAL,1,coche,x,y);
+				entorno.getConductores().add(conductor);
 				normales = normales - 1;
-				matriz.actualizar(0);
-				coche.start();
+				entorno.actualizar(0);
+				conductor.start();
 				try {
-					GeneradorVehiculos.sleep(2500 - 
-						matriz.getVelocidadSimulacion());
+					GeneradorTrafico.sleep(2500 - 
+							entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();
@@ -84,14 +88,15 @@ public class GeneradorVehiculos extends Thread {
 					vIni = VAgreAuto;
 				else if (eleccion == 2)
 					vIni = VAgreSec;
-				Coche coche = new Coche(matriz,x,y,vIni,Constantes.AGRESIVO);
-				matriz.getCoches().add(coche);
+				Coche coche = new Coche(entorno,vIni,vIni);
+				Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,1,coche,x,y);
+				entorno.getConductores().add(conductor);
 				agresivos = agresivos - 1;
-				matriz.actualizar(0);
-				coche.start();
+				entorno.actualizar(0);
+				conductor.start();
 				try {
-					GeneradorVehiculos.sleep(2500 - 
-						matriz.getVelocidadSimulacion());
+					GeneradorTrafico.sleep(2500 - 
+							entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();
