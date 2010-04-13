@@ -159,6 +159,7 @@ public class Coche {
 		anterior.setNumCarril(entorno.getItem(x,y).getNumCarril());
 		anterior.setSentido(entorno.getItem(x,y).getSentido());
 		anterior.setAdelantar(entorno.getItem(x,y).getAdelantar());
+		anterior.setVelocidadVia(entorno.getItem(x,y).getVelocidadVia());
 		entorno.getItem(x,y).setTipo(Constantes.AUTOMOVIL);
 		entorno.getItem(x,y).setConductor(tipoConductor);
 	}

@@ -14,7 +14,6 @@ public class Ciudad {
 	private ItemsMundo[][] contenido;
 	
 	private ArrayList<Acceso> entradas;
-	private ArrayList<Acceso> salidas;
 	
 	private ArrayList<Tramo> principales;
 	private ArrayList<Tramo> horizontales;
@@ -42,7 +41,6 @@ public class Ciudad {
 		crucesS = mundo.getCrucesS();
 		cruces = mundo.getCruces();
 		entradas = mundo.getEntradas();
-		salidas = mundo.getSalidas();
 	}
 	
 	public void generarCiudad() {
@@ -99,11 +97,13 @@ public class Ciudad {
 				contenido[y][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setNumCarril(1);
+				contenido[y][j].setVelocidadVia(50);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
 				contenido[y+1][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setNumCarril(2);
+				contenido[y+1][j].setVelocidadVia(50);
 			}
 			
 			for (int j=x1-2;j<x2+1;j++)
@@ -113,11 +113,13 @@ public class Ciudad {
 				contenido[y+3][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
 				contenido[y+3][j].setNumCarril(2);
+				contenido[y+3][j].setVelocidadVia(50);
 			}
 			for (int j=x1-1;j<x2-1;j++) {
 				contenido[y+4][j].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
 				contenido[y+4][j].setNumCarril(1);
+				contenido[y+4][j].setVelocidadVia(50);
 			}
 		}
 		else if (sentido == 2) {
@@ -125,11 +127,13 @@ public class Ciudad {
 				contenido[i][y].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setNumCarril(1);
+				contenido[i][y].setVelocidadVia(50);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
 				contenido[i][y+1].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setNumCarril(2);
+				contenido[i][y+1].setVelocidadVia(50);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++)
@@ -139,11 +143,13 @@ public class Ciudad {
 				contenido[i][y+3].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setNumCarril(2);
+				contenido[i][y+3].setVelocidadVia(50);
 			}
 			for (int i=x1+1;i<x2+1;i++) {
 				contenido[i][y+4].setTipo(Constantes.CALLE_PRINCIPAL);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setNumCarril(1);
+				contenido[i][y+4].setVelocidadVia(50);
 			}
 		}
 	}
@@ -155,11 +161,13 @@ public class Ciudad {
 				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.DERECHA);
 				contenido[y][j].setNumCarril(2);
+				contenido[y][j].setVelocidadVia(40);
 			}
 			for (int j=x1+1;j<x2-1;j++) {
 				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.DERECHA);
 				contenido[y+1][j].setNumCarril(1);
+				contenido[y+1][j].setVelocidadVia(40);
 			}
 		}
 		else if (sentido == 2) {
@@ -167,11 +175,13 @@ public class Ciudad {
 				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setNumCarril(1);
+				contenido[y][j].setVelocidadVia(40);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
 				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setNumCarril(2);
+				contenido[y+1][j].setVelocidadVia(40);
 			}
 		}
 		else if (sentido == 3) {
@@ -191,11 +201,13 @@ public class Ciudad {
 				contenido[y][j].setTipo(Constantes.CALLE);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setNumCarril(1);
+				contenido[y][j].setVelocidadVia(40);
 			}
 			for (int j=x1-1;j<x2+1;j++) {
 				contenido[y+1][j].setTipo(Constantes.CALLE);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setNumCarril(2);
+				contenido[y+1][j].setVelocidadVia(40);
 			}
 		}
 	}
@@ -207,11 +219,13 @@ public class Ciudad {
 				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ARRIBA);
 				contenido[i][y].setNumCarril(1);
+				contenido[i][y].setVelocidadVia(40);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
 				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ARRIBA);
 				contenido[i][y-1].setNumCarril(2);
+				contenido[i][y-1].setVelocidadVia(40);
 			}
 		}
 		else if (sentido == 2) {
@@ -219,11 +233,13 @@ public class Ciudad {
 				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setNumCarril(2);
+				contenido[i][y].setVelocidadVia(40);
 			}
 			for (int i=x1+1;i<x2-1;i++) {
 				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ABAJO);
 				contenido[i][y-1].setNumCarril(1);
+				contenido[i][y-1].setVelocidadVia(40);
 			}
 		}
 		else if (sentido == 3) {
@@ -231,11 +247,13 @@ public class Ciudad {
 				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ARRIBA);
 				contenido[i][y].setNumCarril(1);
+				contenido[i][y].setVelocidadVia(40);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
 				contenido[i][y-1].setTipo(Constantes.CALLE);
 				contenido[i][y-1].setDireccion(Constantes.ARRIBA);
 				contenido[i][y-1].setNumCarril(2);
+				contenido[i][y-1].setVelocidadVia(40);
 			}
 		}
 		else if (sentido == 4) {
@@ -243,11 +261,13 @@ public class Ciudad {
 				contenido[i][y].setTipo(Constantes.CALLE);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setNumCarril(1);
+				contenido[i][y].setVelocidadVia(40);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
 				contenido[i][y+1].setTipo(Constantes.CALLE);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setNumCarril(2);
+				contenido[i][y+1].setVelocidadVia(40);
 			}
 		}
 	}
@@ -258,21 +278,25 @@ public class Ciudad {
 			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.CALLEJON);
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setVelocidadVia(40);
 			}
 		else if (sentido == 2) 
 			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.CALLEJON);
 				contenido[y][j].setDireccion(Constantes.DERECHA);
+				contenido[y][j].setVelocidadVia(40);
 			}
 		else if (sentido == 3)
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.CALLEJON);
 				contenido[i][y].setDireccion(Constantes.ARRIBA);
+				contenido[i][y].setVelocidadVia(40);
 			}
 		else if (sentido == 4)
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.CALLEJON);
 				contenido[i][y].setDireccion(Constantes.ABAJO);
+				contenido[i][y].setVelocidadVia(40);
 			}
 	}
 	

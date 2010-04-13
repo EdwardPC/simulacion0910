@@ -12,6 +12,7 @@ public class ItemsMundo {
 
 	private Integer tramo;
 	private Integer numCarril;
+	private Integer velocidadVia;
 	
 	private Boolean inicio;
 	private Boolean salida;
@@ -28,11 +29,20 @@ public class ItemsMundo {
 		colorSemaforo = Constantes.VERDE;
 		tramo = 0;
 		numCarril = 0;
+		velocidadVia = 0;
 		conductor = "";
 		sentido = "";
 		direccion = "";
 	}
 	
+	public Integer getVelocidadVia() {
+		return velocidadVia;
+	}
+
+	public void setVelocidadVia(Integer velocidadVia) {
+		this.velocidadVia = velocidadVia;
+	}
+
 	public Boolean getComienzoVuelta() {
 		return comienzoVuelta;
 	}
