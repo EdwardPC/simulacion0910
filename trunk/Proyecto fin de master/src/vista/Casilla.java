@@ -14,12 +14,14 @@ public class Casilla extends JPanel {
 	private String tipo;
 	private String colorSemaforo;
 	private String tipoConductor;
+	private boolean inicio;
 	
 	public Casilla() {
 	
 		tipo = "";
 		colorSemaforo = "";
 		tipoConductor = "";
+		inicio = false;
 	}
 	
 	public String getTipoConductor() {
@@ -28,6 +30,10 @@ public class Casilla extends JPanel {
 
 	public void setTipoConductor(String tipoConductor) {
 		this.tipoConductor = tipoConductor;
+	}
+	
+	public void setInicio(boolean i) {
+		inicio = i;
 	}
 
 	public void pintarCasilla() {

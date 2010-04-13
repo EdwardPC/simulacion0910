@@ -1,5 +1,7 @@
 package mundo;
 
+import java.util.ArrayList;
+
 public class ItemsMundo {
 
 	private String tipo;
@@ -14,6 +16,7 @@ public class ItemsMundo {
 	private Boolean inicio;
 	private Boolean salida;
 	private Boolean adelantar;
+	private Boolean comienzoVuelta;
 
 	public ItemsMundo(String info,boolean start) {
 		
@@ -21,12 +24,22 @@ public class ItemsMundo {
 		inicio = start; 
 		salida = false;
 		adelantar = true;
+		comienzoVuelta = false;
 		colorSemaforo = Constantes.VERDE;
 		tramo = 0;
 		numCarril = 0;
 		conductor = "";
 		sentido = "";
 		direccion = "";
+	}
+	
+	public Boolean getComienzoVuelta() {
+		return comienzoVuelta;
+	}
+
+	public void setComienzoVuelta(Boolean comienzoVuelta) {
+		
+		this.comienzoVuelta = comienzoVuelta;
 	}
 
 	public String getConductor() {

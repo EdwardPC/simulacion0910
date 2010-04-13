@@ -1,5 +1,7 @@
 package mundo;
 
+import managerXML.Punto;
+
 
 
 public class Coche {
@@ -36,36 +38,111 @@ public class Coche {
 		return velocidad;
 	}
 	
-	public void setVelocidad(Integer velAct) {
+	public void setVelocidad(Integer velocidad) {
 		
-		velocidad = velAct;
+		this.velocidad = velocidad;
 	}
 	
-
-	public void situacionActual() {
+	public void acelerar(Integer vel) {
 		
+		velocidad = velocidad+vel;
 	}
 	
-	public void adelantar() {
+	public void frenar(Integer vel) {
 		
+		velocidad = velocidad - vel;
 	}
 	
-	public void volverACarril() {
+	public Punto adelantar(String direccionActual,int x,int y) {
 		
+		if (direccionActual.equals(Constantes.ABAJO)) {
+			x = x+1;
+			y = y+1;
+		}
+		else if (direccionActual.equals(Constantes.ARRIBA)) {
+			x = x-1;
+			y = y-1;
+		}
+		else if (direccionActual.equals(Constantes.DERECHA)) {
+			x = x-1;
+			y = y+1;
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			x = x+1;
+			y = y-1;
+		}
+		Punto punto = new Punto(x,y);
+		return punto;
 	}
+	
+	public Punto volverACarril(String direccionActual,int x,int y) {
+		
+		if (direccionActual.equals(Constantes.ABAJO)) {
+			x = x+1;
+			y = y-1;
+		}
+		else if (direccionActual.equals(Constantes.ARRIBA)) {
+			x = x-1;
+			y = y+1;
+		}
+		else if (direccionActual.equals(Constantes.DERECHA)) {
+			x = x+1;
+			y = y+1;
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			x = x-1;
+			y = y-1;
+		}
+		Punto punto = new Punto(x,y);
+		return punto;
+	}
+	
+	public Punto pasoSemaforo(String direccionActual,int x,int y) {
+ 		
+ 		if (direccionActual.equals(Constantes.DERECHA))
+ 			y = y+1;
+ 		else if (direccionActual.equals(Constantes.IZQUIERDA))
+ 				y = y-1;
+ 			else if (direccionActual.equals(Constantes.ARRIBA))
+ 					x = x-1;
+ 				else if (direccionActual.equals(Constantes.ABAJO))
+ 						x = x+1;
+ 		Punto punto = new Punto(x,y);
+ 		return punto;
+ 	}
 	
 	public void girar() {
 		
 	}
 	
-	public void acelerar() {
+	public void atravesarCruce(String direccionActual,int x,int y) {
 		
+		if (direccionActual.equals(Constantes.ABAJO)) 
+			x = x+1;
+		else if (direccionActual.equals(Constantes.ARRIBA))
+			x = x-1;
+		else if (direccionActual.equals(Constantes.DERECHA)) 
+			y = y+1;
+		else if (direccionActual.equals(Constantes.IZQUIERDA))
+			y = y-1;
 	}
 	
-	public void frenar() {
+	public Punto tomarSalida(ItemsMundo anterior,Integer x,Integer y) {
 		
+		System.out.println(anterior.getDireccion());
+		if (anterior.getDireccion().equals(Constantes.DERECHA)) 
+				x = x+1;
+		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
+				x = x-1;
+		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) 
+				y = y+1;
+		else if (anterior.getDireccion().equals(Constantes.ABAJO))
+				y = y-1;
+		
+		Punto posicion = new Punto(x,y);
+		return posicion;
 	}
-	
+
 	public void devolverOriginal(int x,int y,String tipo,String conductor) {
 		
 		entorno.getItem(x,y).setTipo(tipo);

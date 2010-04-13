@@ -49,6 +49,7 @@ public class Entorno extends Observable {
 	private ArrayList<Contenido> edificios;
 	private ArrayList<Atributo> atributos;
 	private ArrayList<Conductor> conductores;
+	private ArrayList<Punto> comienzoVueltas;
 	
 	private File ficheroCampo;
 	private File ficheroMapa;
@@ -108,6 +109,7 @@ public class Entorno extends Observable {
 			manager.lanzarManager(ficheroCampo);
 			campos = manager.getCampos();
 			edificios = manager.getEdificios();
+			comienzoVueltas = manager.getComienzoVueltas();
 			Autovia autovia = new Autovia(this);
 			autovia.generarAutovia();
 			break;
@@ -119,6 +121,7 @@ public class Entorno extends Observable {
 			manager.lanzarManager(ficheroCampo);
 			campos = manager.getCampos();
 			edificios = manager.getEdificios();
+			comienzoVueltas = manager.getComienzoVueltas();
 			Secundaria secundaria = new Secundaria(this);
 			secundaria.generarSecundaria();
 			break;
@@ -476,11 +479,6 @@ public class Entorno extends Observable {
 		return contenido[i][j];
 	}
 	
-	public ArrayList<Conductor> getConductores() {
-		
-		return conductores;
-	}
-	
 	public Integer getInix() {
 		return inix;
 	}
@@ -499,4 +497,15 @@ public class Entorno extends Observable {
 	public void setIniy(Integer iniy) {
 		this.iniy = iniy;
 	}
+	
+	public ArrayList<Conductor> getConductores() {
+		
+		return conductores;
+	}
+	
+	public ArrayList<Punto> getComienzoVueltas() {
+		
+		return comienzoVueltas;
+	}
+	
 }

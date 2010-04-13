@@ -44,12 +44,15 @@ public class Trafico extends JPanel {
 		for (int i=0;i<99;i++)
 			for (int j=0;j<99;j++) {
 				contenido = controlador.getMatriz().getItem(i, j);
+					
 				if(!tablero[i][j].getTipo().equals(contenido.getTipo()))
 					tablero[i][j].setTipo(contenido.getTipo());
 				if (contenido.getTipo().equals(Constantes.SEMAFORO))
 					tablero[i][j].setColorSemaforo(contenido.getColorSemaforo());
 				if(contenido.getTipo().equals(Constantes.AUTOMOVIL))
 					tablero[i][j].setTipoConductor(contenido.getConductor());
+				if (contenido.getComienzoVuelta())
+					tablero[i][j].setInicio(true);
 				tablero[i][j].pintarCasilla();
 			}
 		repaint();

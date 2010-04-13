@@ -1,8 +1,8 @@
 package agente;
 
-import java.util.ArrayList;
 import java.util.Random;
 
+import managerXML.Punto;
 import mundo.Coche;
 import mundo.Constantes;
 import mundo.Entorno;
@@ -10,9 +10,7 @@ import mundo.ItemsMundo;
 
 public class Conductor extends Thread {
 
-	private ArrayList<String> ruta;
-	private String tipoConductor;
-	private Integer ansiedad;
+	private EstadoMental estadoMental;
 	private Coche vehiculo;
 	private Entorno entorno;
 	private ItemsMundo anterior;
@@ -28,10 +26,9 @@ public class Conductor extends Thread {
 	public Conductor(Entorno mundo,String tipo,Integer grado,Coche coche,Integer posX,Integer posY) {
 		
 		entorno = mundo;
-		tipoConductor = tipo;
-		ansiedad = grado;
+		estadoMental = new EstadoMental(tipo,grado,entorno.getEleccion());
 		vehiculo = coche;
-		vehiculo.setTipoConductor(tipoConductor);
+		vehiculo.setTipoConductor(estadoMental.getTipoConductor());
 		antX = posX;
 		antY = posY;
 		x = antX;
@@ -43,33 +40,9 @@ public class Conductor extends Thread {
 		anterior.setAdelantar(mundo.getItem(antX,antY).getAdelantar());
 		direccionActual = "";
 		mundo.getItem(antX,antY).setTipo(Constantes.AUTOMOVIL);
-		mundo.getItem(antX,antY).setConductor(tipoConductor);
+		mundo.getItem(antX,antY).setConductor(estadoMental.getTipoConductor());
 		adelantarEnSec = false;
 		parar = false;
-	}
-
-	public ArrayList<String> getRuta() {
-		return ruta;
-	}
-
-	public void setRuta(ArrayList<String> ruta) {
-		this.ruta = ruta;
-	}
-
-	public String getTipoConductor() {
-		return tipoConductor;
-	}
-
-	public void setTipoConductor(String tipoConductor) {
-		this.tipoConductor = tipoConductor;
-	}
-
-	public Integer getAnsiedad() {
-		return ansiedad;
-	}
-
-	public void setAnsiedad(Integer ansiedad) {
-		this.ansiedad = ansiedad;
 	}
 	
 	public String getDireccion() {
@@ -98,7 +71,6 @@ public class Conductor extends Thread {
 			avanzar();
 			entorno.actualizar(0);
 			Integer velActual = 300-vehiculo.getVelocidad()-entorno.getVelocidadSimulacion();
-			vehiculo.setVelocidad(velActual);
 			try {
 					Conductor.sleep(velActual);
 				}
@@ -120,12 +92,18 @@ public class Conductor extends Thread {
 		antY = y;
 		
 		observarMundo();
-		if (probarSalida())
-			salir();
+		if (probarSalida()) {
+			Punto p =  vehiculo.tomarSalida(anterior,x,y);
+			x = p.getX();
+			y = p.getY();
+		}
 		else if (mirarAdelante(2,Constantes.SEMAFORO)) 
 			tratarSemaforo();
-		else if (anterior.getTipo().equals(Constantes.SEMAFORO))
-			pasoSemaforo();
+		else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
+			Punto p = vehiculo.pasoSemaforo(direccionActual,x,y);
+			x = p.getX();
+			y = p.getY();
+		}
 		else if (anterior.getTipo().equals(Constantes.AUTOVIA)) 
 			circularAutovia();
 		else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
@@ -133,7 +111,7 @@ public class Conductor extends Thread {
 		else if (anterior.getTipo().contains(Constantes.CALLE))
 			circularCiudad();
 		else if (anterior.getTipo().equals(Constantes.CRUCE)) 
-			tratarPasoCruce();
+			vehiculo.atravesarCruce(direccionActual,x,y);
 		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
 			tratarIncorporacion();
 		else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
@@ -146,7 +124,7 @@ public class Conductor extends Thread {
 			}	*/
 	}
 	
-private void observarMundo() {
+	public void observarMundo() {
 		
 		int x = antX;
 		int y = antY;
@@ -353,19 +331,9 @@ private void observarMundo() {
 		direccionActual = anterior.getDireccion();
 	}
  	
-	private void tratarPasoCruce() {
-		
-		if (direccionActual.equals(Constantes.ABAJO)) 
-			x = x+1;
-		else if (direccionActual.equals(Constantes.ARRIBA))
-			x = x-1;
-		else if (direccionActual.equals(Constantes.DERECHA)) 
-			y = y+1;
-		else if (direccionActual.equals(Constantes.IZQUIERDA))
-			y = y-1;
-	}
 	
- 	private void tratarSemaforo() {
+	
+ 	public void tratarSemaforo() {
 		
  		if (direccionActual.equals(Constantes.ABAJO)) {
 			if (entorno.getItem(x+1,y).getColorSemaforo().equals(Constantes.VERDE))
@@ -384,20 +352,32 @@ private void observarMundo() {
 				y = y-1;
 		}	
 	}
- 	
- 	private void pasoSemaforo() {
- 		
- 		if (direccionActual.equals(Constantes.DERECHA))
- 			y = y+1;
- 		else if (direccionActual.equals(Constantes.IZQUIERDA))
- 				y = y-1;
- 			else if (direccionActual.equals(Constantes.ARRIBA))
- 					x = x-1;
- 				else if (direccionActual.equals(Constantes.ABAJO))
- 						x = x+1;
- 	}
- 	
-	private void tratarIncorporacion() {
+
+
+	public boolean tratarAdelantamiento() {
+		
+		Random random = new Random();
+		Integer respuesta = random.nextInt(2);
+		if (respuesta == 1 && anterior.getAdelantar()) {
+			Punto p = vehiculo.adelantar(direccionActual,x,y);
+			x = p.getX();
+			y = p.getY();
+			return true;
+		}
+		vehiculo.frenar(vehiculo.getVelocidad()/2);
+		return false;
+	}
+		
+	public void tratarVolverACarril() {
+			
+		if (/*estadoMental().volverACarril()*/true) {
+			Punto p = vehiculo.volverACarril(direccionActual,x,y);
+			x = p.getX();
+			y = p.getY();
+		}
+	}
+	
+	public void tratarIncorporacion() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (!(entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
@@ -454,55 +434,7 @@ private void observarMundo() {
 		direccionActual = anterior.getDireccion();
 	}
 	
-	private boolean probarSalida() {
-		
-		boolean encontrado = false;
-		Random random = new Random();
-		Integer respuesta = random.nextInt(2);
-		//if (deboSalir()) {
-			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x+1,y).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-				if (entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x-1,y).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-				if (entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x,y+1).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-				if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x,y-1).isSalida()) {
-					encontrado = true;
-				}
-			}
-		//}
-		if (encontrado && respuesta == 1)
-			return true;
-		return false;
-	}
-	
-	public void salir() {
-		
-		if (anterior.getDireccion().equals(Constantes.DERECHA)) 
-				x = x+1;
-		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
-				x = x-1;
-		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) 
-				y = y+1;
-		else if (anterior.getDireccion().equals(Constantes.ABAJO))
-				y = y-1;
-	}
-	
-	private void tratarSalida() {
+	public void tratarSalida() {
 		
 		System.out.println(anterior.getDireccion());
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
@@ -555,6 +487,47 @@ private void observarMundo() {
 				x = x+1;
 			}
 		}
+	}
+ 	
+ 	
+	
+	private boolean probarSalida() {
+		
+		boolean encontrado = false;
+		if (entorno.getItem(x,y).getComienzoVuelta()) {
+			Integer vueltas = new Integer(estadoMental.getRuta().get(0));
+			System.out.println(vueltas);
+			vueltas = vueltas-1;
+			estadoMental.getRuta().remove(0);
+			estadoMental.getRuta().add(vueltas.toString());
+		}	
+		if (estadoMental.salir()) {
+			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
+				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						entorno.getItem(x+1,y).isSalida()) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
+				if (entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						entorno.getItem(x-1,y).isSalida()) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
+				if (entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						entorno.getItem(x,y+1).isSalida()) {
+					encontrado = true;
+				}
+			}
+			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
+				if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
+						entorno.getItem(x,y-1).isSalida()) {
+					encontrado = true;
+				}
+			}
+		}
+		return encontrado;
 	}
 	
 	private boolean mirarAdelante(int pos,String item) {
@@ -665,60 +638,9 @@ private void observarMundo() {
 		return encontrado;
 	}
 	
-	private boolean tratarAdelantamiento() {
-		
-		System.out.println("Intento adelantar");
-		Random random = new Random();
-		Integer respuesta = random.nextInt(2);
-		if (respuesta == 1 && anterior.getAdelantar()) {
-			if (direccionActual.equals(Constantes.ABAJO)) {
-				x = x+1;
-				y = y+1;
-			}
-			else if (direccionActual.equals(Constantes.ARRIBA)) {
-				x = x-1;
-				y = y-1;
-			}
-			else if (direccionActual.equals(Constantes.DERECHA)) {
-				x = x-1;
-				y = y+1;
-			}
-			else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-				x = x+1;
-				y = y-1;
-			}
-			return true;
-		}
-		vehiculo.setVelocidad(vehiculo.getVelocidad()/2);
-		return false;
-	}
-		
-	private void tratarVolverACarril() {
-			
-		if (/*estadoMental().volverACarril()*/true) {
-			if (direccionActual.equals(Constantes.ABAJO)) {
-				x = x+1;
-				y = y-1;
-			}
-			else if (direccionActual.equals(Constantes.ARRIBA)) {
-				x = x-1;
-				y = y+1;
-			}
-			else if (direccionActual.equals(Constantes.DERECHA)) {
-				x = x+1;
-				y = y+1;
-			}
-			else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-				x = x-1;
-				y = y-1;
-			}
-		}
-	}
-	
 	public void finalizar() {
 		
-		entorno.getItem(antX,antY).setTipo(anterior.getTipo());
-		entorno.getItem(antX,antY).setConductor(anterior.getConductor());
+		vehiculo.devolverOriginal(antX,antY,anterior.getTipo(),anterior.getConductor());
 		entorno.actualizar(0);
 		try {
 			

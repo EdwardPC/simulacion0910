@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import managerXML.Acceso;
 import managerXML.Contenido;
+import managerXML.Punto;
 import managerXML.Tramo;
 
 public class Autovia {
@@ -18,6 +19,7 @@ public class Autovia {
 	
 	private ArrayList<Acceso> entradas;
 	private ArrayList<Acceso> salidas;
+	private ArrayList<Punto> comienzoVueltas;
 	
 	public Autovia(Entorno mundo) {
 		
@@ -28,6 +30,7 @@ public class Autovia {
 		tramos = mundo.getTramos();
 		entradas = mundo.getEntradas();
 		salidas = mundo.getSalidas();
+		comienzoVueltas = mundo.getComienzoVueltas();
 	}
 	
 	public void generarAutovia() {
@@ -54,6 +57,17 @@ public class Autovia {
 			matriz.salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
 					salida.getY1(),salida.getY2(),salida.getDir1(),salida.getDir2());
 		}
+		for (int i=0;i<comienzoVueltas.size();i++) {
+			System.out.println("OK");
+			Punto comienzo = comienzoVueltas.get(i);
+			comienzoVuelta(comienzo.getX(),comienzo.getY());
+		}
+	}
+	
+	private void comienzoVuelta(int pos1,int pos2) {
+		
+		for (int i=pos1;i<pos1+5;i++)
+			contenido[i][pos2].setComienzoVuelta(true);
 	}
 	
 	private void autovia(int x1,int x2,int y,int sentido) {
