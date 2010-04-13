@@ -8,7 +8,7 @@ import managerXML.Tramo;
 
 public class Secundaria {
 
-	private Modelo matriz;
+	private Entorno matriz;
 	private ItemsMundo[][] contenido;
 	
 	private ArrayList<Contenido> campos;
@@ -19,7 +19,7 @@ public class Secundaria {
 	private ArrayList<Acceso> entradas;
 	private ArrayList<Acceso> salidas;
 	
-	public Secundaria(Modelo mundo) {
+	public Secundaria(Entorno mundo) {
 		
 		matriz = mundo;
 		contenido = mundo.getContenido();

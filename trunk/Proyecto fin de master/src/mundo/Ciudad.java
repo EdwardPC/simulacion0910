@@ -9,7 +9,7 @@ import managerXML.Tramo;
 
 public class Ciudad {
 
-	private Modelo matriz;
+	private Entorno matriz;
 	
 	private ItemsMundo[][] contenido;
 	
@@ -28,7 +28,7 @@ public class Ciudad {
 	
 	private ArrayList<Contenido> cruces;
 	
-	public Ciudad(Modelo mundo) {
+	public Ciudad(Entorno mundo) {
 		
 		matriz = mundo;
 		contenido = mundo.getContenido();

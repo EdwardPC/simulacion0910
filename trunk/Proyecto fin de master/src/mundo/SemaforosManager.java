@@ -2,11 +2,11 @@ package mundo;
 
 public class SemaforosManager extends Thread {
 
-	private Modelo matriz;
+	private Entorno matriz;
 	private Integer longitud;
 	private ItemsMundo[][] contenido;
 	
-	public SemaforosManager(Modelo mundo) {
+	public SemaforosManager(Entorno mundo) {
 		
 		matriz = mundo;
 		longitud = mundo.getLongitud();
