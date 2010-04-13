@@ -92,6 +92,8 @@ public class Conductor extends Thread {
 		antY = y;
 		
 		observarMundo();
+		tratarVuelta();
+		adecuarVelocidad();
 		if (probarSalida()) {
 			Punto p =  vehiculo.tomarSalida(anterior,x,y);
 			x = p.getX();
@@ -139,8 +141,65 @@ public class Conductor extends Thread {
 			visionX = visionX+1;
 		}		
 	}
+	
+	public void tratarVuelta() {
+		
+		if (entorno.getItem(x,y).getComienzoVuelta()) {
+			Integer vueltas = new Integer(estadoMental.getRuta().get(0));
+			System.out.println(vueltas);
+			vueltas = vueltas-1;
+			estadoMental.getRuta().remove(0);
+			estadoMental.getRuta().add(vueltas.toString());
+		}
+	}
+	
+	public void adecuarVelocidad() {
+		
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			System.out.println("Vehiculo: "+vehiculo.getVelocidad());
+			System.out.println("Via: "+anterior.getVelocidadVia());
+			if (vehiculo.getVelocidad() <= anterior.getVelocidadVia() && 
+					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+				System.out.println("OK auto");
+				if (estadoMental.getAnsiedad() == 1) {
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+10);
+					System.out.println("1 "+vehiculo.getVelocidad());
+				}
+				else if (estadoMental.getAnsiedad() == 2) {
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+20);
+					System.out.println("2 "+vehiculo.getVelocidad());
+				}
+				else if (estadoMental.getAnsiedad() == 3) {
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+40);
+					System.out.println("3 "+vehiculo.getVelocidad());
+				}
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (vehiculo.getVelocidad()<= anterior.getVelocidadVia() &&
+					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+				if (estadoMental.getAnsiedad() == 1)
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+5);
+				else if (estadoMental.getAnsiedad() == 2)
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+10);
+				else if (estadoMental.getAnsiedad() == 3)
+					vehiculo.setVelocidad(anterior.getVelocidadVia()+15);
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (vehiculo.getVelocidad()>= anterior.getVelocidadVia() &&
+					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+				if (estadoMental.getAnsiedad() == 1)
+					vehiculo.setVelocidad(anterior.getVelocidadVia()-10);
+				else if (estadoMental.getAnsiedad() == 2)
+					vehiculo.setVelocidad(anterior.getVelocidadVia()-5);
+				else if (estadoMental.getAnsiedad() == 3)
+					vehiculo.setVelocidad(anterior.getVelocidadVia());
+			}
+		}
+	}
 
-	private void circularAutovia() {
+	public void circularAutovia() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -193,7 +252,7 @@ public class Conductor extends Thread {
 		direccionActual = anterior.getDireccion();
 	}
 	
-	private void circularCiudad() {
+	public void circularCiudad() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -246,7 +305,7 @@ public class Conductor extends Thread {
 		direccionActual = anterior.getDireccion();
 	}
 	
-	private void circularSecundaria() {
+	public void circularSecundaria() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
@@ -353,24 +412,29 @@ public class Conductor extends Thread {
 		}	
 	}
 
-
 	public boolean tratarAdelantamiento() {
 		
-		Random random = new Random();
-		Integer respuesta = random.nextInt(2);
-		if (respuesta == 1 && anterior.getAdelantar()) {
+		boolean opcion = false;
+		if (estadoMental.deboAdelantar())
+			opcion = true;
+		if (opcion && anterior.getAdelantar()) {
+			System.out.println("Vaya tela");
+			vehiculo.setVelocidad(vehiculo.getVelocidad()+estadoMental.velocidadAdelantamiento());
 			Punto p = vehiculo.adelantar(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
-			return true;
+			
 		}
-		vehiculo.frenar(vehiculo.getVelocidad()/2);
-		return false;
+		return opcion;
 	}
 		
 	public void tratarVolverACarril() {
 			
-		if (/*estadoMental().volverACarril()*/true) {
+		boolean opcion = true;
+		if (estadoMental.deboVolverACarril())
+			opcion = true;
+		if (opcion) {
+			vehiculo.setVelocidad(anterior.getVelocidadVia());
 			Punto p = vehiculo.volverACarril(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
@@ -488,19 +552,10 @@ public class Conductor extends Thread {
 			}
 		}
 	}
- 	
- 	
-	
-	private boolean probarSalida() {
+ 
+	public boolean probarSalida() {
 		
-		boolean encontrado = false;
-		if (entorno.getItem(x,y).getComienzoVuelta()) {
-			Integer vueltas = new Integer(estadoMental.getRuta().get(0));
-			System.out.println(vueltas);
-			vueltas = vueltas-1;
-			estadoMental.getRuta().remove(0);
-			estadoMental.getRuta().add(vueltas.toString());
-		}	
+		boolean encontrado = false;	
 		if (estadoMental.salir()) {
 			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&

@@ -67,5 +67,8 @@
 	<direccion1>0</direccion1>
 	<direccion2>2</direccion2>
 </entrada>
-
+<inicio>
+	<posX>3</posX>
+	<posY>10</posY>
+</inicio>
 </autovia>
