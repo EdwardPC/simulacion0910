@@ -14,7 +14,6 @@ public class Ciudad {
 	private ItemsMundo[][] contenido;
 	
 	private ArrayList<Acceso> entradas;
-	
 	private ArrayList<Tramo> principales;
 	private ArrayList<Tramo> horizontales;
 	private ArrayList<Tramo> verticales;
@@ -48,7 +47,8 @@ public class Ciudad {
 		for (int i=0;i<entradas.size();i++) {
 			Acceso entrada = entradas.get(i);
 			matriz.entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
-					entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
+					entrada.getY1(),entrada.getY2(),entrada.getIniX(),entrada.getIniY(),
+					entrada.getTram1(),entrada.getTram2(),entrada.getDir1(),entrada.getDir2());
 		}
 		for (int i=0;i<principales.size();i++) {
 			Tramo tramo = principales.get(i);

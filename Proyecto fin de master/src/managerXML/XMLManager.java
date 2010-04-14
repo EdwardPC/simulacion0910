@@ -231,9 +231,13 @@ public class XMLManager {
 	     int posX4 = obtenerEntero(elemento, "posX4");
 	     int posY1 = obtenerEntero(elemento, "posY1");
 	     int posY2 = obtenerEntero(elemento, "posY2");
+	     int iniX = obtenerEntero(elemento, "iniX");
+	     int iniY = obtenerEntero(elemento, "iniY");
+	     int tram1 = obtenerEntero(elemento, "tram1");
+	     int tram2 = obtenerEntero(elemento, "tram2");
 	     int dir1 = obtenerEntero(elemento, "direccion1");
 	     int dir2 = obtenerEntero(elemento, "direccion2");
-	     Acceso d = new Acceso(posX1,posX2,posX3,posX4,posY1,posY2,dir1,dir2);
+	     Acceso d = new Acceso(posX1,posX2,posX3,posX4,posY1,posY2,iniX,iniY,tram1,tram2,dir1,dir2);
 	     return d;    
 	 }
 	    
@@ -245,9 +249,11 @@ public class XMLManager {
 	     int posX4 = obtenerEntero(elemento, "posX4");
 	     int posY1 = obtenerEntero(elemento, "posY1");
 	     int posY2 = obtenerEntero(elemento, "posY2");
+	     int tram1 = obtenerEntero(elemento, "tram1");
+	     int tram2 = obtenerEntero(elemento, "tram2");
 	     int dir1 = obtenerEntero(elemento, "direccion1");
 	     int dir2 = obtenerEntero(elemento, "direccion2");
-	     Acceso d = new Acceso(posX1,posX2,posX3,posX4,posY1,posY2,dir1,dir2);
+	     Acceso d = new Acceso(posX1,posX2,posX3,posX4,posY1,posY2,0,0,tram1,tram2,dir1,dir2);
 	     return d;  
 	 }   
 	    

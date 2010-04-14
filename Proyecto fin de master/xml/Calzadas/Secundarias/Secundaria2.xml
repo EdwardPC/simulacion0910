@@ -67,4 +67,8 @@
 		<direccion1>1</direccion1>
 		<direccion2>2</direccion2>
 	</salida>
+	<inicio>
+		<posX>3</posX>
+		<posY>10</posY>
+	</inicio>
 </secundaria>
