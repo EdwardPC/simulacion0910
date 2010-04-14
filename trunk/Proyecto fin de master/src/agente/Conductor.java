@@ -146,7 +146,6 @@ public class Conductor extends Thread {
 		
 		if (entorno.getItem(x,y).getComienzoVuelta()) {
 			Integer vueltas = new Integer(estadoMental.getRuta().get(0));
-			System.out.println(vueltas);
 			vueltas = vueltas-1;
 			estadoMental.getRuta().remove(0);
 			estadoMental.getRuta().add(vueltas.toString());
@@ -156,23 +155,14 @@ public class Conductor extends Thread {
 	public void adecuarVelocidad() {
 		
 		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
-			System.out.println("Vehiculo: "+vehiculo.getVelocidad());
-			System.out.println("Via: "+anterior.getVelocidadVia());
 			if (vehiculo.getVelocidad() <= anterior.getVelocidadVia() && 
 					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
-				System.out.println("OK auto");
-				if (estadoMental.getAnsiedad() == 1) {
+				if (estadoMental.getAnsiedad() == 1) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+10);
-					System.out.println("1 "+vehiculo.getVelocidad());
-				}
-				else if (estadoMental.getAnsiedad() == 2) {
+				else if (estadoMental.getAnsiedad() == 2) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+20);
-					System.out.println("2 "+vehiculo.getVelocidad());
-				}
-				else if (estadoMental.getAnsiedad() == 3) {
+				else if (estadoMental.getAnsiedad() == 3) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+40);
-					System.out.println("3 "+vehiculo.getVelocidad());
-				}
 			}
 		}
 		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
@@ -418,7 +408,6 @@ public class Conductor extends Thread {
 		if (estadoMental.deboAdelantar())
 			opcion = true;
 		if (opcion && anterior.getAdelantar()) {
-			System.out.println("Vaya tela");
 			vehiculo.setVelocidad(vehiculo.getVelocidad()+estadoMental.velocidadAdelantamiento());
 			Punto p = vehiculo.adelantar(direccionActual,x,y);
 			x = p.getX();

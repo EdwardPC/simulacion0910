@@ -3,7 +3,7 @@
 	<sentido>1</sentido>
 	<posX1>8</posX1>
 	<posX2>93</posX2>
-	<posY>91</posY>
+	<posY>81</posY>
 </tramo>
 <tramo>
 	<sentido>2</sentido>
@@ -14,13 +14,13 @@
 <tramo>
 	<sentido>3</sentido>
 	<posX1>3</posX1>
-	<posX2>95</posX2>
+	<posX2>85</posX2>
 	<posY>3</posY>
 </tramo>
 <tramo>
 	<sentido>4</sentido>
 	<posX1>7</posX1>
-	<posX2>91</posX2>
+	<posX2>81</posX2>
 	<posY>91</posY>
 </tramo>
 <salida>
@@ -30,8 +30,22 @@
 	<posX4>90</posX4>
 	<posY1>90</posY1>
 	<posY2>44</posY2>
+	<tram1>1</tram1>
+	<tram2>2</tram2>
 	<direccion1>1</direccion1>
 	<direccion2>2</direccion2>
+</salida>
+<salida>
+	<posX1>87</posX1>
+	<posX2>92</posX2>
+	<posX3>15</posX3>
+	<posX4>35</posX4>
+	<posY1>34</posY1>
+	<posY2>86</posY2>
+	<tram1>2</tram1>
+	<tram2>1</tram2>
+	<direccion1>1</direccion1>
+	<direccion2>3</direccion2>
 </salida>
 <entrada>
 	<posX1>50</posX1>
@@ -40,8 +54,26 @@
 	<posX4>14</posX4>
 	<posY1>8</posY1>
 	<posY2>69</posY2>
+	<iniX>69</iniX>
+	<iniY>13</iniY>
+	<tram1>1</tram1>
+	<tram2>2</tram2>
 	<direccion1>0</direccion1>
 	<direccion2>2</direccion2>
+</entrada>
+<entrada>
+	<posX1>87</posX1>
+	<posX2>92</posX2>
+	<posX3>60</posX3>
+	<posX4>80</posX4>
+	<posY1>60</posY1>
+	<posY2>86</posY2>
+	<iniX>91</iniX>
+	<iniY>60</iniY>
+	<tram1>1</tram1>
+	<tram2>2</tram2>
+	<direccion1>0</direccion1>
+	<direccion2>3</direccion2>
 </entrada>
 <inicio>
 	<posX>3</posX>

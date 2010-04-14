@@ -1,6 +1,9 @@
 package mundo;
 
+import java.util.ArrayList;
 import java.util.Random;
+
+import managerXML.Punto;
 
 import agente.Conductor;
 
@@ -16,8 +19,7 @@ public class GeneradorTrafico extends Thread {
 	private Integer normales;
 	private Integer agresivos;
 	private Integer vIni;
-	private Integer x;
-	private Integer y;
+	private ArrayList<Punto> inicios;;
 	
 	public GeneradorTrafico(Entorno mundo) {
 		
@@ -26,8 +28,7 @@ public class GeneradorTrafico extends Thread {
 		moderados = entorno.getModerados();
 		normales = entorno.getNormales();
 		agresivos = entorno.getAgresivos();
-		x = entorno.getInix();
-		y = entorno.getIniy();
+		inicios = entorno.getInicios();
 		vIni = 0;
 	}
 	
@@ -44,45 +45,54 @@ public class GeneradorTrafico extends Thread {
 		while (!(entorno.getParar())
 		&&(moderados > 0 || normales > 0 || agresivos > 0))
 			if (moderados > 0) {
-				Coche coche = new Coche(entorno,vIni,vIni);
-				Conductor conductor = new Conductor(entorno,Constantes.MODERADO,impaciencia.nextInt(3)+1,coche,x,y);
-				entorno.getConductores().add(conductor);
+				for (int i=0;i<inicios.size();i++) {
+					Punto p = inicios.get(i);
+					Coche coche = new Coche(entorno,vIni,vIni);
+					Conductor conductor = new Conductor(entorno,Constantes.MODERADO,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					entorno.getConductores().add(conductor);
+					entorno.actualizar(0);
+					conductor.start();	
+				}
 				moderados = moderados - 1;
-				entorno.actualizar(0);
-				conductor.start();
 				try {
 					GeneradorTrafico.sleep(2500 -
-							entorno.getVelocidadSimulacion());
+						entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();
-				}			
+				}
 			}
 			else if (normales > 0) {
-				Coche coche = new Coche(entorno,vIni,vIni);
-				Conductor conductor = new Conductor(entorno,Constantes.NORMAL,impaciencia.nextInt(3)+1,coche,x,y);
-				entorno.getConductores().add(conductor);
+				for (int i=0;i<inicios.size();i++) {
+					Punto p = inicios.get(i);
+					Coche coche = new Coche(entorno,vIni,vIni);
+					Conductor conductor = new Conductor(entorno,Constantes.NORMAL,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					entorno.getConductores().add(conductor);
+					entorno.actualizar(0);
+					conductor.start();
+				}
 				normales = normales - 1;
-				entorno.actualizar(0);
-				conductor.start();
 				try {
 					GeneradorTrafico.sleep(2500 - 
-							entorno.getVelocidadSimulacion());
+						entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();
 				}
 			}			
 			else if (agresivos > 0) {
-				Coche coche = new Coche(entorno,vIni,vIni);
-				Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,impaciencia.nextInt(3)+1,coche,x,y);
-				entorno.getConductores().add(conductor);
+				for (int i=0;i<inicios.size();i++) {
+					Punto p = inicios.get(i);
+					Coche coche = new Coche(entorno,vIni,vIni);
+					Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					entorno.getConductores().add(conductor);
+					entorno.actualizar(0);
+					conductor.start();
+				}
 				agresivos = agresivos - 1;
-				entorno.actualizar(0);
-				conductor.start();
 				try {
 					GeneradorTrafico.sleep(2500 - 
-							entorno.getVelocidadSimulacion());
+						entorno.getVelocidadSimulacion());
 				}
 				catch(Exception e) {
 					e.printStackTrace();

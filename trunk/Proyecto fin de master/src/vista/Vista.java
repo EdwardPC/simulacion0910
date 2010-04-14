@@ -197,7 +197,7 @@ public class Vista extends JFrame implements Observer {
 		finalizar = new JButton("Finalizar");
 		coches = new JButton("Coches");
 		lvelocidad = new JLabel("Velocidad de simulación:");
-		velocidad = new JSlider(0,150,0);
+		velocidad = new JSlider(0,100,0);
 		//comenzar.setEnabled(false);
 		//finalizar.setEnabled(false);
 		slider.add(lvelocidad);

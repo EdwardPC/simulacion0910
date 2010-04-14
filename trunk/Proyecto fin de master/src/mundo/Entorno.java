@@ -30,9 +30,8 @@ public class Entorno extends Observable {
 	private Integer limite1;
 	private Integer limite2;
 	private Integer velocidadSimulacion;
-	private Integer inix;
-	private Integer iniy;
 
+	private ArrayList<Punto> inicios;
 	private ArrayList<Tramo> tramos;
 	private ArrayList<Acceso> entradas;
 	private ArrayList<Acceso> salidas;
@@ -71,6 +70,7 @@ public class Entorno extends Observable {
 		}
 		contenido = new ItemsMundo[longitud][longitud];
 		conductores = new ArrayList<Conductor>();
+		inicios = new ArrayList<Punto>();
 		for (int i=0;i<longitud;i++)
 			for (int j=0;j<longitud;j++) {
 				if ((j<limite1) || (i<limite1) || (i>limite2) || (j>limite2)) 
@@ -126,7 +126,7 @@ public class Entorno extends Observable {
 			secundaria.generarSecundaria();
 			break;
 		}
-		if (!encontrarInicio()) {
+		if (!encontrarInicios()) {
 			setParar(true);
 			actualizar(1);
 		}
@@ -134,51 +134,52 @@ public class Entorno extends Observable {
 			actualizar(0);
 	}
 	
-	public boolean encontrarInicio() {
+	public boolean encontrarInicios() {
 		
 		Boolean encontrado = false;
-		for (int i=longitud-1;i>=0 && !encontrado;i--)
-			for (int j=longitud-1;j>=0 && !encontrado;j--) 
+		for (int i=longitud-1;i>=0;i--)
+			for (int j=longitud-1;j>=0;j--) 
 				if (contenido[i][j].isInicio()) {
-					inix = i;
-					iniy = j;
+					Punto p = new Punto(i,j);
+					inicios.add(p);
 					encontrado = true;
 				}
 		return encontrado;
 	}
 	
-	public void salida(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
+	public void salida(int x1,int x2,int x3,int x4,int y1,int y2,
+			int tram1,int tram2,int dir1,int dir2) {
 		
-		contenido[x1][y1].setSalida(true);
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[i][y1].setTramo(1);
+			contenido[i][y1].setTramo(tram1);
 			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
+			contenido[i][y1].setSalida(true);
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_SALIDA);
-			contenido[y2][j].setTramo(2);
+			contenido[y2][j].setTramo(tram2);
 			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
+			contenido[y2][j].setSalida(true);
 		}
 	}
 	
-	public void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int dir1,
-			int dir2) {
+	public void entrada(int x1,int x2,int x3,int x4,int y1,int y2,int iniciox,int inicioy,
+			int tram1,int tram2,int dir1,int dir2) {
 		
 		for (int i=x1;i<x2;i++) {
 			contenido[i][y1].setTipo(Constantes.CARRIL_ENTRADA); 
-			contenido[i][y1].setTramo(1);
+			contenido[i][y1].setTramo(tram1);
 			contenido[i][y1].setDireccion(obtenerDireccion(dir1));
 		}
 	
 		for (int j=x3;j<x4;j++) {
 			contenido[y2][j].setTipo(Constantes.CARRIL_ENTRADA);
-			contenido[y2][j].setTramo(2);
+			contenido[y2][j].setTramo(tram2);
 			contenido[y2][j].setDireccion(obtenerDireccion(dir2));
 		}
-		contenido[y2][x4-1].setInicio(true);
+		contenido[iniciox][inicioy].setInicio(true);
 	}
 	
 	public String obtenerDireccion(int dir) {
@@ -479,25 +480,10 @@ public class Entorno extends Observable {
 		return contenido[i][j];
 	}
 	
-	public Integer getInix() {
-		return inix;
+	public ArrayList<Punto> getInicios() {
+		return inicios;
 	}
 
-
-	public void setInix(Integer inix) {
-		this.inix = inix;
-	}
-
-
-	public Integer getIniy() {
-		return iniy;
-	}
-
-
-	public void setIniy(Integer iniy) {
-		this.iniy = iniy;
-	}
-	
 	public ArrayList<Conductor> getConductores() {
 		
 		return conductores;

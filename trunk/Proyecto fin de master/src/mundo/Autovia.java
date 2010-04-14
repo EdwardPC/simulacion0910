@@ -9,6 +9,8 @@ import managerXML.Tramo;
 
 public class Autovia {
 	
+	private final static Integer VMAX = 120;
+	
 	private Entorno matriz;
 	private ItemsMundo[][] contenido;
 	
@@ -50,12 +52,14 @@ public class Autovia {
 		for (int i=0;i<entradas.size();i++) {
 			Acceso entrada = entradas.get(i);
 			matriz.entrada(entrada.getX1(),entrada.getX2(),entrada.getX3(),entrada.getX4(),
-					entrada.getY1(),entrada.getY2(),entrada.getDir1(),entrada.getDir2());
+					entrada.getY1(),entrada.getY2(),entrada.getIniX(),entrada.getIniY(),
+					entrada.getTram1(),entrada.getTram2(),entrada.getDir1(),entrada.getDir2());
 		}
 		for (int i=0;i<salidas.size();i++) {
 			Acceso salida = salidas.get(i);
 			matriz.salida(salida.getX1(),salida.getX2(),salida.getX3(),salida.getX4(),
-					salida.getY1(),salida.getY2(),salida.getDir1(),salida.getDir2());
+					salida.getY1(),salida.getY2(),salida.getTram1(),salida.getTram2(),
+					salida.getDir1(),salida.getDir2());
 		}
 		for (int i=0;i<comienzoVueltas.size();i++) {
 			Punto comienzo = comienzoVueltas.get(i);
@@ -77,14 +81,14 @@ public class Autovia {
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setSentido(Constantes.DERECHA);
 				contenido[y][j].setNumCarril(1);
-				contenido[y][j].setVelocidadVia(120);
+				contenido[y][j].setVelocidadVia(VMAX);
 			}
 			for (int j=x1-1;j<x2;j++) {
 				contenido[y+1][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setSentido(Constantes.DERECHA);
 				contenido[y+1][j].setNumCarril(2);
-				contenido[y+1][j].setVelocidadVia(120);
+				contenido[y+1][j].setVelocidadVia(VMAX);
 			}
 			
 			for(int j=x1-2;j<x2+1;j++)
@@ -95,14 +99,14 @@ public class Autovia {
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
 				contenido[y+3][j].setSentido(Constantes.IZQUIERDA);
 				contenido[y+3][j].setNumCarril(2);
-				contenido[y+3][j].setVelocidadVia(120);
+				contenido[y+3][j].setVelocidadVia(VMAX);
 			}
 			for (int j=x1-5;j<x2+2;j++) {
 				contenido[y+4][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
 				contenido[y+4][j].setSentido(Constantes.IZQUIERDA);
 				contenido[y+4][j].setNumCarril(1);
-				contenido[y+4][j].setVelocidadVia(120);
+				contenido[y+4][j].setVelocidadVia(VMAX);
 			}
 		}
 		else if (sentido == 2) { //Derecha
@@ -111,14 +115,14 @@ public class Autovia {
 				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y][j].setSentido(Constantes.IZQUIERDA);
 				contenido[y][j].setNumCarril(1);
-				contenido[y][j].setVelocidadVia(120);
+				contenido[y][j].setVelocidadVia(VMAX);
 			}
 			for (int j=x1+1;j<x2;j++) {
 				contenido[y+1][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setSentido(Constantes.IZQUIERDA);
 				contenido[y+1][j].setNumCarril(2);
-				contenido[y+1][j].setVelocidadVia(120);
+				contenido[y+1][j].setVelocidadVia(VMAX);
 			}
 			for(int j=x1+1;j<x2-2;j++)
 				contenido[y+2][j].setTipo(Constantes.SEPARACION);
@@ -128,14 +132,14 @@ public class Autovia {
 				contenido[y+3][j].setDireccion(Constantes.DERECHA);
 				contenido[y+3][j].setSentido(Constantes.DERECHA);
 				contenido[y+3][j].setNumCarril(2);
-				contenido[y+3][j].setVelocidadVia(120);
+				contenido[y+3][j].setVelocidadVia(VMAX);
 			}
 			for (int j=x1+3;j<x2-5;j++) {
 				contenido[y+4][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+4][j].setDireccion(Constantes.DERECHA);
 				contenido[y+4][j].setSentido(Constantes.DERECHA);
 				contenido[y+4][j].setNumCarril(1);
-				contenido[y+4][j].setVelocidadVia(120);
+				contenido[y+4][j].setVelocidadVia(VMAX);
 			}
 		}
 		else if (sentido == 3) {
@@ -144,14 +148,14 @@ public class Autovia {
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(120);
+				contenido[i][y].setVelocidadVia(VMAX);
 			}
 			for (int i=x1+1;i<x2-1;i++) {
 				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+1].setNumCarril(2);
-				contenido[i][y+1].setVelocidadVia(120);
+				contenido[i][y+1].setVelocidadVia(VMAX);
 			}
 			
 			for (int i=x1+2;i<x2-1;i++) 
@@ -162,14 +166,14 @@ public class Autovia {
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setSentido(Constantes.DERECHA);
 				contenido[i][y+3].setNumCarril(2);
-				contenido[i][y+3].setVelocidadVia(120);
+				contenido[i][y+3].setVelocidadVia(VMAX);
 			}
 			for (int i=x1+5;i<x2-3;i++) {
 				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setSentido(Constantes.DERECHA);
 				contenido[i][y+4].setNumCarril(1);
-				contenido[i][y+4].setVelocidadVia(120);
+				contenido[i][y+4].setVelocidadVia(VMAX);
 			}
 		}
 		else if (sentido == 4) {
@@ -178,14 +182,14 @@ public class Autovia {
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.DERECHA);
 				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(120);
+				contenido[i][y].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-1;i<x2+1;i++) {
 				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setSentido(Constantes.DERECHA);
 				contenido[i][y+1].setNumCarril(2);
-				contenido[i][y+1].setVelocidadVia(120);
+				contenido[i][y+1].setVelocidadVia(VMAX);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++) 
@@ -196,14 +200,14 @@ public class Autovia {
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+3].setNumCarril(2);
-				contenido[i][y+3].setVelocidadVia(120);
+				contenido[i][y+3].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-3;i<x2+5;i++) {
 				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+4].setNumCarril(1);
-				contenido[i][y+4].setVelocidadVia(120);
+				contenido[i][y+4].setVelocidadVia(VMAX);
 			}
 		}
 		else if (sentido == 5) {
@@ -212,14 +216,14 @@ public class Autovia {
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.DERECHA);
 				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(120);
+				contenido[i][y].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-1;i<x2+4;i++) {
 				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setSentido(Constantes.DERECHA);
 				contenido[i][y+1].setNumCarril(2);
-				contenido[i][y+1].setVelocidadVia(120);
+				contenido[i][y+1].setVelocidadVia(VMAX);
 			}
 			
 			for (int i=x1-1;i<x2+4;i++) 
@@ -230,14 +234,14 @@ public class Autovia {
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+3].setNumCarril(2);
-				contenido[i][y+3].setVelocidadVia(120);
+				contenido[i][y+3].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-3;i<x2+2;i++) {
 				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+4].setNumCarril(1);
-				contenido[i][y+4].setVelocidadVia(120);
+				contenido[i][y+4].setVelocidadVia(VMAX);
 			}
 		}
 		else if (sentido == 6) {
@@ -246,14 +250,14 @@ public class Autovia {
 				contenido[i][y].setDireccion(Constantes.ABAJO);
 				contenido[i][y].setSentido(Constantes.DERECHA);
 				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(120);
+				contenido[i][y].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-3;i<x2+1;i++) {
 				contenido[i][y+1].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+1].setDireccion(Constantes.ABAJO);
 				contenido[i][y+1].setSentido(Constantes.DERECHA);
 				contenido[i][y+1].setNumCarril(2);
-				contenido[i][y+1].setVelocidadVia(120);
+				contenido[i][y+1].setVelocidadVia(VMAX);
 			}
 			
 			for (int i=x1-1;i<x2+2;i++) 
@@ -264,14 +268,14 @@ public class Autovia {
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+3].setNumCarril(2);
-				contenido[i][y+3].setVelocidadVia(120);
+				contenido[i][y+3].setVelocidadVia(VMAX);
 			}
 			for (int i=x1-3;i<x2+5;i++) {
 				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+4].setNumCarril(1);
-				contenido[i][y+4].setVelocidadVia(120);
+				contenido[i][y+4].setVelocidadVia(VMAX);
 			}
 		}
 	}
