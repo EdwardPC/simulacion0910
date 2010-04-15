@@ -24,7 +24,7 @@ public class EstadoMental {
 		
 		ruta = new ArrayList<String>();
 		Random random = new Random();
-		Integer numVueltas = 1;//random.nextInt(10)+1;
+		Integer numVueltas = 20;//random.nextInt(10)+1;
 		switch(eleccion) {
 		case 0:
 			
