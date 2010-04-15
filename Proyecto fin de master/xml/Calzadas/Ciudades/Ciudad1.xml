@@ -224,6 +224,10 @@
 		<posX4>13</posX4>
 		<posY1>7</posY1>
 		<posY2>30</posY2>
+		<iniX>30</iniX>
+		<iniY>12</iniY>
+		<tram1>1</tram1>
+		<tram2>2</tram2>
 		<direccion1>0</direccion1>
 		<direccion2>2</direccion2>
 	</entrada>

@@ -6,8 +6,6 @@ import managerXML.Punto;
 
 public class Coche {
 	
-	//private ItemsMundo[][] contenido;
-	
 	private Entorno entorno;
 	private Integer velocidad;
 	private Integer velMaxVehiculo;
@@ -51,6 +49,14 @@ public class Coche {
 	public void frenar(Integer vel) {
 		
 		velocidad = velocidad - vel;
+	}
+	
+	public Integer getVelMaxVehiculo() {
+		return velMaxVehiculo;
+	}
+
+	public void setVelMaxVehiculo(Integer velMaxVehiculo) {
+		this.velMaxVehiculo = velMaxVehiculo;
 	}
 	
 	public Punto adelantar(String direccionActual,int x,int y) {
@@ -110,7 +116,7 @@ public class Coche {
  		Punto punto = new Punto(x,y);
  		return punto;
  	}
-	
+
 	public void girar() {
 		
 	}

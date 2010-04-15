@@ -83,6 +83,14 @@ public class Conductor extends Thread {
 	
 	public void avanzar() {
 		
+		tomarPosicion();
+		observarMundo();
+		adecuarVelocidad();
+		realizarActuacion();
+	}
+	
+	public void tomarPosicion() {
+		
 		if (!anterior.getTipo().equals(Constantes.AUTOMOVIL)) {
 			vehiculo.devolverOriginal(antX,antY,anterior.getTipo(),anterior.getConductor());
 			
@@ -90,40 +98,6 @@ public class Conductor extends Thread {
 		vehiculo.tomarPosicion(anterior,x,y);
 		antX = x;
 		antY = y;
-		
-		observarMundo();
-		tratarVuelta();
-		adecuarVelocidad();
-		if (probarSalida()) {
-			Punto p =  vehiculo.tomarSalida(anterior,x,y);
-			x = p.getX();
-			y = p.getY();
-		}
-		else if (mirarAdelante(2,Constantes.SEMAFORO)) 
-			tratarSemaforo();
-		else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
-			Punto p = vehiculo.pasoSemaforo(direccionActual,x,y);
-			x = p.getX();
-			y = p.getY();
-		}
-		else if (anterior.getTipo().equals(Constantes.AUTOVIA)) 
-			circularAutovia();
-		else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
-			circularSecundaria();
-		else if (anterior.getTipo().contains(Constantes.CALLE))
-			circularCiudad();
-		else if (anterior.getTipo().equals(Constantes.CRUCE)) 
-			vehiculo.atravesarCruce(direccionActual,x,y);
-		else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
-			tratarIncorporacion();
-		else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
-			tratarSalida();
-		/*else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
-			try {
-				Coche.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}	*/
 	}
 	
 	public void observarMundo() {
@@ -186,6 +160,56 @@ public class Conductor extends Thread {
 				else if (estadoMental.getAnsiedad() == 3)
 					vehiculo.setVelocidad(anterior.getVelocidadVia());
 			}
+		}
+	}
+	
+	public void realizarActuacion() {
+		
+		switch (entorno.getEleccion()) {
+		case 0:
+			if (mirarAdelante(2,Constantes.SEMAFORO)) 
+				tratarSemaforo();
+			else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
+				Punto p = vehiculo.pasoSemaforo(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().contains(Constantes.CALLE))
+				circularCiudad();
+			else if (anterior.getTipo().equals(Constantes.CRUCE)) 
+				vehiculo.atravesarCruce(direccionActual,x,y);
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
+				tratarIncorporacion();
+			break;
+		case 1:
+			tratarVuelta();
+			if (probarSalida()) {
+				Punto p =  vehiculo.tomarSalida(anterior,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.AUTOVIA)) 
+				circularAutovia();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
+				tratarIncorporacion();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
+				tratarSalida();
+			System.out.println("Dirección: "+ direccionActual + " X: "+ x +" Y: " + y);
+			break;
+		case 2:
+			tratarVuelta();
+			if (probarSalida()) {
+				Punto p =  vehiculo.tomarSalida(anterior,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
+				circularSecundaria();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
+				tratarIncorporacion();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
+				tratarSalida();
+			break;
 		}
 	}
 
@@ -574,7 +598,7 @@ public class Conductor extends Thread {
 		return encontrado;
 	}
 	
-	private boolean mirarAdelante(int pos,String item) {
+	public boolean mirarAdelante(int pos,String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.DERECHA)) {
@@ -596,7 +620,7 @@ public class Conductor extends Thread {
 		return encontrado;
 	}
 	
-	private boolean mirarAtras(int pos,String item) {
+	public boolean mirarAtras(int pos,String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.DERECHA)) {
@@ -622,7 +646,7 @@ public class Conductor extends Thread {
 		return encontrado;
 	}
 	
-	private boolean mirarDerecha(String item) {
+	public boolean mirarDerecha(String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
@@ -652,7 +676,7 @@ public class Conductor extends Thread {
 		return encontrado;
 	}
 	
-	private boolean mirarIzquierda(String item) {
+	public boolean mirarIzquierda(String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ABAJO)) {
