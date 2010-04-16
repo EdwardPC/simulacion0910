@@ -1,34 +1,34 @@
 <autovia>
 <tramo>
 	<sentido>1</sentido>
-	<posX1>8</posX1>
-	<posX2>93</posX2>
+	<posX1>10</posX1>
+	<posX2>90</posX2>
 	<posY>81</posY>
 </tramo>
 <tramo>
 	<sentido>2</sentido>
-	<posX1>4</posX1>
-	<posX2>96</posX2>
-	<posY>3</posY>
+	<posX1>6</posX1>
+	<posX2>93</posX2>
+	<posY>5</posY>
 </tramo>
 <tramo>
 	<sentido>3</sentido>
-	<posX1>3</posX1>
+	<posX1>5</posX1>
 	<posX2>85</posX2>
-	<posY>3</posY>
+	<posY>5</posY>
 </tramo>
 <tramo>
 	<sentido>4</sentido>
-	<posX1>7</posX1>
+	<posX1>9</posX1>
 	<posX2>81</posX2>
-	<posY>91</posY>
+	<posY>88</posY>
 </tramo>
 <salida>
 	<posX1>25</posX1>
 	<posX2>45</posX2>
-	<posX3>85</posX3>
-	<posX4>90</posX4>
-	<posY1>90</posY1>
+	<posX3>82</posX3>
+	<posX4>87</posX4>
+	<posY1>87</posY1>
 	<posY2>44</posY2>
 	<tram1>1</tram1>
 	<tram2>2</tram2>
@@ -50,12 +50,12 @@
 <entrada>
 	<posX1>50</posX1>
 	<posX2>70</posX2>
-	<posX3>9</posX3>
-	<posX4>14</posX4>
-	<posY1>8</posY1>
+	<posX3>11</posX3>
+	<posX4>16</posX4>
+	<posY1>10</posY1>
 	<posY2>69</posY2>
 	<iniX>69</iniX>
-	<iniY>13</iniY>
+	<iniY>15</iniY>
 	<tram1>1</tram1>
 	<tram2>2</tram2>
 	<direccion1>0</direccion1>

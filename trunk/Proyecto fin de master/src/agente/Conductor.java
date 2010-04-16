@@ -22,6 +22,9 @@ public class Conductor extends Thread {
 	private Integer y;
 	private Integer antX;
 	private Integer antY;
+	private Integer intentoAdelantamiento;
+	private Integer tiempoEnCarrilIzquierdo;
+	private boolean apurarAdelantamiento;
 	
 	public Conductor(Entorno mundo,String tipo,Integer grado,Coche coche,Integer posX,Integer posY) {
 		
@@ -33,7 +36,7 @@ public class Conductor extends Thread {
 		antY = posY;
 		x = antX;
 		y = antY;
-		vision = new ItemsMundo[5][5];
+		vision = new ItemsMundo[11][11];
 		anterior = new ItemsMundo(mundo.getItem(antX,antY).getTipo(),mundo.getItem(antX,antY).isInicio());
 		anterior.setDireccion(mundo.getItem(antX,antY).getDireccion());
 		anterior.setConductor(mundo.getItem(antX,antY).getConductor());
@@ -41,6 +44,9 @@ public class Conductor extends Thread {
 		direccionActual = "";
 		mundo.getItem(antX,antY).setTipo(Constantes.AUTOMOVIL);
 		mundo.getItem(antX,antY).setConductor(estadoMental.getTipoConductor());
+		intentoAdelantamiento = 0;
+		tiempoEnCarrilIzquierdo = 0;
+		apurarAdelantamiento = false;
 		adelantarEnSec = false;
 		parar = false;
 	}
@@ -65,6 +71,30 @@ public class Conductor extends Thread {
 		return anterior;
 	}
 	
+	public Integer getIntentoAdelantamiento() {
+		return intentoAdelantamiento;
+	}
+
+	public void setIntentoAdelantamiento(Integer intentoAdelantamiento) {
+		this.intentoAdelantamiento = intentoAdelantamiento;
+	}
+
+	public Integer getTiempoEnCarrilIzquierdo() {
+		return tiempoEnCarrilIzquierdo;
+	}
+
+	public void setTiempoEnCarrilIzquierdo(Integer tiempoEnCarrilIzquierdo) {
+		this.tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo;
+	}
+
+	public boolean getApurarAdelantamiento() {
+		return apurarAdelantamiento;
+	}
+
+	public void setApurarAdelantamiento(boolean apurarAdelantamiento) {
+		this.apurarAdelantamiento = apurarAdelantamiento;
+	}
+
 	public void run() {
 		
 		while(!entorno.getParar() && !parar) {
@@ -106,9 +136,9 @@ public class Conductor extends Thread {
 		int y = antY;
 		int visionX = 0;
 		int visionY = 0;
-		for (int i=x-2;i<=x+2;i++) {
+		for (int i=x-5;i<=x+5;i++) {
 			visionY = 0;
-			for (int j=y-2;j<=y+2;j++) {
+			for (int j=y-5;j<=y+5;j++) {
 				vision[visionX][visionY] = entorno.getItem(i,j);
 				visionY = visionY+1;
 			}
@@ -131,33 +161,33 @@ public class Conductor extends Thread {
 		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
 			if (vehiculo.getVelocidad() <= anterior.getVelocidadVia() && 
 					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
-				if (estadoMental.getAnsiedad() == 1) 
+				if (estadoMental.getImpaciencia() == 1) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+10);
-				else if (estadoMental.getAnsiedad() == 2) 
+				else if (estadoMental.getImpaciencia() == 2) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+20);
-				else if (estadoMental.getAnsiedad() == 3) 
+				else if (estadoMental.getImpaciencia() == 3) 
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+40);
 			}
 		}
 		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
 			if (vehiculo.getVelocidad()<= anterior.getVelocidadVia() &&
-					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
-				if (estadoMental.getAnsiedad() == 1)
+					!mirarAdelante(3,Constantes.AUTOMOVIL)) {
+				if (estadoMental.getImpaciencia() == 1)
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+5);
-				else if (estadoMental.getAnsiedad() == 2)
+				else if (estadoMental.getImpaciencia() == 2)
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+10);
-				else if (estadoMental.getAnsiedad() == 3)
+				else if (estadoMental.getImpaciencia() == 3)
 					vehiculo.setVelocidad(anterior.getVelocidadVia()+15);
 			}
 		}
 		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
 			if (vehiculo.getVelocidad()>= anterior.getVelocidadVia() &&
-					!mirarAdelante(2,Constantes.AUTOMOVIL)) {
-				if (estadoMental.getAnsiedad() == 1)
+					!mirarAdelante(5,Constantes.AUTOMOVIL)) {
+				if (estadoMental.getImpaciencia() == 1)
 					vehiculo.setVelocidad(anterior.getVelocidadVia()-10);
-				else if (estadoMental.getAnsiedad() == 2)
+				else if (estadoMental.getImpaciencia() == 2)
 					vehiculo.setVelocidad(anterior.getVelocidadVia()-5);
-				else if (estadoMental.getAnsiedad() == 3)
+				else if (estadoMental.getImpaciencia() == 3)
 					vehiculo.setVelocidad(anterior.getVelocidadVia());
 			}
 		}
@@ -167,7 +197,7 @@ public class Conductor extends Thread {
 		
 		switch (entorno.getEleccion()) {
 		case 0:
-			if (mirarAdelante(2,Constantes.SEMAFORO)) 
+			if (mirarAdelante(1,Constantes.SEMAFORO)) 
 				tratarSemaforo();
 			else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
 				Punto p = vehiculo.pasoSemaforo(direccionActual,x,y);
@@ -194,7 +224,7 @@ public class Conductor extends Thread {
 				tratarIncorporacion();
 			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
 				tratarSalida();
-			System.out.println("Dirección: "+ direccionActual + " X: "+ x +" Y: " + y);
+			//System.out.println("Dirección: "+ direccionActual + " X: "+ x +" Y: " + y);
 			break;
 		case 2:
 			tratarVuelta();
@@ -216,52 +246,56 @@ public class Conductor extends Thread {
 	public void circularAutovia() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
+			if (anterior.getNumCarril() == 1 && 
+				mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+					tratarAdelantamiento();
+			else if (anterior.getNumCarril() == 2 &&
+					!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+					System.out.println("OK carril");
+					tratarVolverACarril();
+			}
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y+1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
-				y = y-1;
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					y = y-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else
-				x = x-1;
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					x = x-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
-				x = x+1;
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					x = x+1;
 		}	
 		direccionActual = anterior.getDireccion();
 	}
@@ -269,53 +303,57 @@ public class Conductor extends Thread {
 	public void circularCiudad() {
 		
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
+			if (anterior.getNumCarril() == 1 && 
+				mirarAdelante(2,Constantes.AUTOMOVIL) && 
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+					tratarAdelantamiento();
+			else if (anterior.getNumCarril() == 2 &&
+					!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+					System.out.println("OK carril");
+					tratarVolverACarril();
+			}
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y+1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
-				y = y-1;
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					y = y-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else
-				x = x-1;
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					x = x-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-			if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 1)
-				tratarAdelantamiento();
-			else if (!mirarAtras(2,Constantes.AUTOMOVIL) &&
-				!mirarDerecha(Constantes.AUTOMOVIL) &&
-				anterior.getNumCarril() == 2)
-				tratarVolverACarril();
-			else 
-				x = x+1;
-		}
+			if (anterior.getNumCarril() == 1 && 
+					mirarAdelante(2,Constantes.AUTOMOVIL) && 
+					!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL))
+						tratarAdelantamiento();
+				else if (anterior.getNumCarril() == 2 &&
+						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
+						System.out.println("OK carril");
+						tratarVolverACarril();
+				}
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
+					x = x+1;
+		}	
 		direccionActual = anterior.getDireccion();
 	}
 	
@@ -324,81 +362,89 @@ public class Conductor extends Thread {
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.IZQUIERDA;
-				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL) && 
-					anterior.getAdelantar()) {
+				if (anterior.getAdelantar() && 
+					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
 					y = y-1;
-				}
-				else {
-					tratarVolverACarril();
-					adelantarEnSec = false;
-				}
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
+					adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar())
+					adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
+					adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) {
 				adelantarEnSec = tratarAdelantamiento();
 			}
-			else 
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y+1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.DERECHA;
-				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL) &&
-					anterior.getAdelantar()) {
+				if (anterior.getAdelantar() && 
+					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
 					y = y+1;
-				}
-				else {
-					tratarVolverACarril();
-					adelantarEnSec = false;
-				}
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
+					adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar())
+					adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
+					adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) {
 				adelantarEnSec = tratarAdelantamiento();
 			}
-			else 
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ABAJO;
-				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL) &&
-					anterior.getAdelantar()) {
+				if (anterior.getAdelantar() && 
+					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
 					x = x+1;
-				}
-				else {
-					tratarVolverACarril();
-					adelantarEnSec = false;
-				}
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
+					adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar())
+					adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
+					adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
-				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) {
 				adelantarEnSec = tratarAdelantamiento();
 			}
-			else 
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				x = x-1;
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ARRIBA;
-				if (!mirarAdelante(2,Constantes.AUTOMOVIL) &&
-					mirarDerecha(Constantes.AUTOMOVIL) &&
-					anterior.getAdelantar()) {
+				if (anterior.getAdelantar() && 
+					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
 					x = x-1;
-				}
-				else {
-					tratarVolverACarril();
-					adelantarEnSec = false;
-				}
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
+					adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar())
+					adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
+					adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarIzquierda(Constantes.AUTOMOVIL)) {
+				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) && 
+				anterior.getAdelantar()) {
 				adelantarEnSec = tratarAdelantamiento();
 			}
-			else 
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				x = x+1;
 		}
 		direccionActual = anterior.getDireccion();
@@ -429,10 +475,10 @@ public class Conductor extends Thread {
 	public boolean tratarAdelantamiento() {
 		
 		boolean opcion = false;
-		if (estadoMental.deboAdelantar())
+		if (deboAdelantar())
 			opcion = true;
-		if (opcion && anterior.getAdelantar()) {
-			vehiculo.setVelocidad(vehiculo.getVelocidad()+estadoMental.velocidadAdelantamiento());
+		if (opcion) {
+			vehiculo.setVelocidad(vehiculo.getVelocidad()+velocidadAdelantamiento());
 			Punto p = vehiculo.adelantar(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
@@ -441,17 +487,17 @@ public class Conductor extends Thread {
 		return opcion;
 	}
 		
-	public void tratarVolverACarril() {
+	public boolean tratarVolverACarril() {
 			
-		boolean opcion = true;
-		if (estadoMental.deboVolverACarril())
-			opcion = true;
-		if (opcion) {
+		boolean opcion = false;
+		opcion = deboVolverACarril();
+		if (deboVolverACarril()) {
 			vehiculo.setVelocidad(anterior.getVelocidadVia());
 			Punto p = vehiculo.volverACarril(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
 		}
+		return !opcion;
 	}
 	
 	public void tratarIncorporacion() {
@@ -565,11 +611,20 @@ public class Conductor extends Thread {
 			}
 		}
 	}
+	
+	/*public boolean maniobraVolverEmergencia() {
+		
+		vehiculo.setVelocidad(anterior.getVelocidadVia());
+		Punto p = vehiculo.volverACarril(direccionActual,x,y);
+		x = p.getX();
+		y = p.getY();
+		return false;
+	}*/
  
 	public boolean probarSalida() {
 		
 		boolean encontrado = false;	
-		if (estadoMental.salir()) {
+		if (salir()) {
 			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
 						entorno.getItem(x+1,y).isSalida()) {
@@ -601,21 +656,32 @@ public class Conductor extends Thread {
 	public boolean mirarAdelante(int pos,String item) {
 		
 		boolean encontrado = false;
+		
 		if (direccionActual.equals(Constantes.DERECHA)) {
-			if (vision[pos][3].getTipo().equals(item))
-				encontrado = true;
+			for (int j=6;j<=5+pos && !encontrado;j++) {;
+				if (vision[5][j].getTipo().equals(item))
+					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			if (vision[pos][1].getTipo().equals(item))
-				encontrado = true;
+			for (int j=4;j>=5-pos && !encontrado;j--) {
+				System.out.print(vision[5][j].getTipo());
+				if (vision[5][j].getTipo().equals(item))
+					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.ARRIBA)) {
-			if (vision[1][pos].getTipo().equals(item))
-				encontrado = true;
+			for (int i=4;i>=5-pos && !encontrado;i--) {
+				if (vision[i][5].getTipo().equals(item))
+					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			if (vision[3][pos].getTipo().equals(item))
-				encontrado = true;
+			for (int i=6;i<5+pos && !encontrado;i++) {
+				System.out.print(vision[i][5].getTipo());
+				if (vision[i][5].getTipo().equals(item))
+					encontrado = true;
+			}
 		}
 		return encontrado;
 	}
@@ -624,86 +690,274 @@ public class Conductor extends Thread {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.DERECHA)) {
-			for (int j=0;j<2 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=4;j>=5-pos && !encontrado;j--) {
+				if (vision[5][j].getTipo().equals(item))
 					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			for (int j=3;j<5 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=6;j<=5+pos && !encontrado;j++) {
+				if (vision[5][j].getTipo().equals(item))
 					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.ARRIBA)) {
-			for (int i=3;i<5 && !encontrado;i++)
-				if (vision[i][pos].getTipo().equals(item))
+			for (int i=6;i<=5+pos && !encontrado;i++) {
+				if (vision[i][5].getTipo().equals(item))
 					encontrado = true;
+			}
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int i=0;i<2 && !encontrado;i++)
-				if (vision[i][pos].getTipo().equals(item))
+			for (int i=4;i>=5-pos && !encontrado;i++) {
+				if (vision[i][5].getTipo().equals(item))
 					encontrado = true;
+			}
 		}
 		return encontrado;
 	}
 	
-	public boolean mirarDerecha(String item) {
+	public boolean mirarDerecha(int pos,String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				for (int j=3;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+			for (int j=6;j<11 && !encontrado;j++)
+				if (vision[pos][j].getTipo().equals(item))
+					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				for (int j=0;j<2 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+			for (int j=0;j<5 && !encontrado;j++)
+				if (vision[pos][j].getTipo().equals(item))
+					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			for (int i=0;i<2 && !encontrado;i++)
-				for (int j=0;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+			for (int i=0;i<5 && !encontrado;i++)
+				if (vision [i][pos].getTipo().equals(item))
+					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			for (int i=3;i<5 && !encontrado;i++)
-				for (int j=0;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+			for (int i=6;i<11 && !encontrado;i++)
+				if (vision [i][pos].getTipo().equals(item))
+					encontrado = true;
 		}
 		return encontrado;
 	}
 	
-	public boolean mirarIzquierda(String item) {
+	public boolean mirarIzquierda(int pos,String item) {
 		
 		boolean encontrado = false;
-		if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				for (int j=3;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+		if (direccionActual.equals(Constantes.ARRIBA)) {
+			for (int j=0;j<5 && !encontrado;j++)
+				if (vision[pos][j].getTipo().equals(item))
+					encontrado = true;
 		}
-		else if (direccionActual.equals(Constantes.ARRIBA)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				for (int j=0;j<2 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
-		}
-		else if (direccionActual.equals(Constantes.DERECHA)) {
-			for (int i=0;i<2 && !encontrado;i++)
-				for (int j=0;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+		else if (direccionActual.equals(Constantes.ABAJO)) {
+			for (int j=6;j<11 && !encontrado;j++)
+				if (vision[pos][j].getTipo().equals(item))
+					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			for (int i=3;i<5 && !encontrado;i++)
-				for (int j=0;j<5 && !encontrado;j++)
-					if (vision[i][j].getTipo().equals(item))
-						encontrado = true;
+			for (int i=6;i<11 && !encontrado;i++)
+				if (vision [i][pos].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.DERECHA)) {
+			for (int i=0;i<5 && !encontrado;i++)
+				if (vision [i][pos].getTipo().equals(item))
+					encontrado = true;
 		}
 		return encontrado;
+	}
+	
+	public boolean mirarCarrilDerecho(int pos1,int pos2,String item) {
+		
+		boolean encontrado = false;
+		if (direccionActual.equals(Constantes.DERECHA)) {
+			for (int j=pos1;j<=pos2 && !encontrado;j++)
+				if (vision[6][j].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			for (int j=pos1;j<=pos2 && !encontrado;j++)
+				if (vision[4][j].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.ARRIBA)) {
+			for (int i=pos1;i<=pos2 && !encontrado;i++)
+				if (vision [i][6].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.ABAJO)) {
+			for (int i=pos1;i<=pos2 && !encontrado;i++)
+				if (vision [i][4].getTipo().equals(item))
+					encontrado = true;
+		}
+		return encontrado;
+	}
+	
+	public boolean mirarCarrilIzquierdo(int pos1,int pos2,String item) {
+		
+		boolean encontrado = false;
+		if (direccionActual.equals(Constantes.DERECHA)) {
+			for (int j=pos1;j<=pos2 && !encontrado;j++)
+				if (vision[4][j].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			for (int j=pos1;j<=pos2 && !encontrado;j++)
+				if (vision[6][j].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.ARRIBA)) {
+			for (int i=pos1;i>=pos2 && !encontrado;i++)
+				if (vision [i][4].getTipo().equals(item))
+					encontrado = true;
+		}
+		else if (direccionActual.equals(Constantes.ABAJO)) {
+			for (int i=pos1;i<=pos2 && !encontrado;i++)
+				if (vision [i][6].getTipo().equals(item))
+					encontrado = true;
+		}
+		return encontrado;
+	}
+	
+	public boolean deboAdelantar() {
+		
+		boolean opcion = false;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				intentoAdelantamiento = intentoAdelantamiento+1;
+				if (intentoAdelantamiento == 2) {
+					opcion = true;
+					intentoAdelantamiento = 0;
+				}
+				else 
+					opcion = false;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				intentoAdelantamiento = intentoAdelantamiento+1;
+				if (intentoAdelantamiento == 3) {
+					opcion = true;
+					intentoAdelantamiento = 0;
+				}
+				else 
+					opcion = false;
+			}
+				
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				intentoAdelantamiento = intentoAdelantamiento+1;
+				if (intentoAdelantamiento == 4) {
+					opcion = true;
+					intentoAdelantamiento = 0;
+				}
+				else 
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				intentoAdelantamiento = intentoAdelantamiento+1;
+				if (intentoAdelantamiento == 5) {
+					opcion = true;
+					intentoAdelantamiento = 0;
+				}
+				else 
+					opcion = false;
+			}
+		}
+		return opcion;
+	}
+	
+	public boolean deboVolverACarril() {
+		
+		boolean opcion = false;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				opcion = true;
+			}
+		}
+		if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				opcion = true;
+			}
+		}
+		if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) 
+				opcion = true;
+		return true;
+	}
+	
+	public Integer velocidadAdelantamiento() {
+		
+		Integer velocidad = 0;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				velocidad = 40;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				velocidad = 30;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				velocidad = 20;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				velocidad = 20;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				velocidad = 10;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				velocidad = 5;
+			}
+				
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				velocidad = 10;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				velocidad = 5;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				velocidad = 1;
+			}
+		}
+		return velocidad;
+	}
+
+	public boolean salir() {
+	
+		Integer opcion = new Integer(estadoMental.getRuta().get(0));
+		return opcion <= 0;
 	}
 	
 	public void finalizar() {
