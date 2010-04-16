@@ -14,14 +14,14 @@ public class Casilla extends JPanel {
 	private String tipo;
 	private String colorSemaforo;
 	private String tipoConductor;
-	private boolean inicio;
+	private String direccion;
 	
 	public Casilla() {
 	
 		tipo = "";
 		colorSemaforo = "";
 		tipoConductor = "";
-		inicio = false;
+		direccion = "";
 	}
 	
 	public String getTipoConductor() {
@@ -31,20 +31,16 @@ public class Casilla extends JPanel {
 	public void setTipoConductor(String tipoConductor) {
 		this.tipoConductor = tipoConductor;
 	}
-	
-	public void setInicio(boolean i) {
-		inicio = i;
-	}
 
 	public void pintarCasilla() {
 		
-	/*if (contenido.contains("HD"))
+	/*if (direccion.equals(Constantes.ABAJO))
 			this.setBackground(Color.BLACK);
-		else if (contenido.contains("HI"))
+		else if (direccion.equals(Constantes.ARRIBA))
 			this.setBackground(Color.PINK);
-		else if (contenido.contains("VB"))
+		else if (direccion.equals(Constantes.DERECHA))
 			this.setBackground(Color.RED);
-		else if (contenido.contains("VA"))
+		else if (direccion.equals(Constantes.IZQUIERDA))
 			this.setBackground(Color.BLUE);
 		/*if (contenido.contains("1"))
 		this.setBackground(Color.BLACK);
@@ -84,6 +80,14 @@ public class Casilla extends JPanel {
 			this.setBackground(Color.BLACK);
 	}
 	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
 	public String getTipo() {
 		
 		return tipo;

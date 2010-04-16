@@ -117,7 +117,7 @@ public class Autovia {
 				contenido[y][j].setNumCarril(1);
 				contenido[y][j].setVelocidadVia(VMAX);
 			}
-			for (int j=x1+1;j<x2;j++) {
+			for (int j=x1+1;j<x2-1;j++) {
 				contenido[y+1][j].setTipo(Constantes.AUTOVIA);
 				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
 				contenido[y+1][j].setSentido(Constantes.IZQUIERDA);
@@ -263,14 +263,14 @@ public class Autovia {
 			for (int i=x1-1;i<x2+2;i++) 
 				contenido[i][y+2].setTipo(Constantes.SEPARACION);
 			
-			for (int i=x1-2;i<x2+4;i++) {
+			for (int i=x1;i<x2+4;i++) {
 				contenido[i][y+3].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+3].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+3].setSentido(Constantes.IZQUIERDA);
 				contenido[i][y+3].setNumCarril(2);
 				contenido[i][y+3].setVelocidadVia(VMAX);
 			}
-			for (int i=x1-3;i<x2+5;i++) {
+			for (int i=x1+1;i<x2+5;i++) {
 				contenido[i][y+4].setTipo(Constantes.AUTOVIA);
 				contenido[i][y+4].setDireccion(Constantes.ARRIBA);
 				contenido[i][y+4].setSentido(Constantes.IZQUIERDA);
