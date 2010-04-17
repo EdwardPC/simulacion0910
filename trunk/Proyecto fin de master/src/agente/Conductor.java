@@ -1,6 +1,8 @@
 package agente;
 
-import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 import managerXML.Punto;
 import mundo.Coche;
@@ -11,6 +13,7 @@ import mundo.ItemsMundo;
 public class Conductor extends Thread {
 
 	private EstadoMental estadoMental;
+	private Comportamiento comportamiento;
 	private Coche vehiculo;
 	private Entorno entorno;
 	private ItemsMundo anterior;
@@ -22,14 +25,12 @@ public class Conductor extends Thread {
 	private Integer y;
 	private Integer antX;
 	private Integer antY;
-	private Integer intentoAdelantamiento;
-	private Integer tiempoEnCarrilIzquierdo;
-	private boolean apurarAdelantamiento;
 	
 	public Conductor(Entorno mundo,String tipo,Integer grado,Coche coche,Integer posX,Integer posY) {
 		
 		entorno = mundo;
 		estadoMental = new EstadoMental(tipo,grado,entorno.getEleccion());
+		comportamiento = new Comportamiento(estadoMental);
 		vehiculo = coche;
 		vehiculo.setTipoConductor(estadoMental.getTipoConductor());
 		antX = posX;
@@ -44,9 +45,6 @@ public class Conductor extends Thread {
 		direccionActual = "";
 		mundo.getItem(antX,antY).setTipo(Constantes.AUTOMOVIL);
 		mundo.getItem(antX,antY).setConductor(estadoMental.getTipoConductor());
-		intentoAdelantamiento = 0;
-		tiempoEnCarrilIzquierdo = 0;
-		apurarAdelantamiento = false;
 		adelantarEnSec = false;
 		parar = false;
 	}
@@ -69,30 +67,6 @@ public class Conductor extends Thread {
 	public ItemsMundo getAnterior() {
 		
 		return anterior;
-	}
-	
-	public Integer getIntentoAdelantamiento() {
-		return intentoAdelantamiento;
-	}
-
-	public void setIntentoAdelantamiento(Integer intentoAdelantamiento) {
-		this.intentoAdelantamiento = intentoAdelantamiento;
-	}
-
-	public Integer getTiempoEnCarrilIzquierdo() {
-		return tiempoEnCarrilIzquierdo;
-	}
-
-	public void setTiempoEnCarrilIzquierdo(Integer tiempoEnCarrilIzquierdo) {
-		this.tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo;
-	}
-
-	public boolean getApurarAdelantamiento() {
-		return apurarAdelantamiento;
-	}
-
-	public void setApurarAdelantamiento(boolean apurarAdelantamiento) {
-		this.apurarAdelantamiento = apurarAdelantamiento;
 	}
 
 	public void run() {
@@ -195,6 +169,7 @@ public class Conductor extends Thread {
 	
 	public void realizarActuacion() {
 		
+		direccionActual = anterior.getDireccion();
 		switch (entorno.getEleccion()) {
 		case 0:
 			if (mirarAdelante(1,Constantes.SEMAFORO)) 
@@ -224,7 +199,6 @@ public class Conductor extends Thread {
 				tratarIncorporacion();
 			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
 				tratarSalida();
-			//System.out.println("Dirección: "+ direccionActual + " X: "+ x +" Y: " + y);
 			break;
 		case 2:
 			tratarVuelta();
@@ -245,6 +219,7 @@ public class Conductor extends Thread {
 
 	public void circularAutovia() {
 		
+		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (anterior.getNumCarril() == 1 && 
 				mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -297,11 +272,12 @@ public class Conductor extends Thread {
 				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 					x = x+1;
 		}	
-		direccionActual = anterior.getDireccion();
+		//direccionActual = anterior.getDireccion();
 	}
 	
 	public void circularCiudad() {
 		
+		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (anterior.getNumCarril() == 1 && 
 				mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -354,30 +330,31 @@ public class Conductor extends Thread {
 				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 					x = x+1;
 		}	
-		direccionActual = anterior.getDireccion();
 	}
 	
 	public void circularSecundaria() {
 		
+		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.IZQUIERDA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
 					y = y-1;
-				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
 					adelantarEnSec = tratarVolverACarril();
-				else if (!anterior.getAdelantar())
+				else if (!anterior.getAdelantar() && 
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL))
 					adelantarEnSec = tratarVolverACarril();
-				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
+				else if (!mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL))
 					adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
-				anterior.getAdelantar()) {
+				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) 
 				adelantarEnSec = tratarAdelantamiento();
-			}
 			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y+1;
 		}	
@@ -386,20 +363,21 @@ public class Conductor extends Thread {
 				direccionActual = Constantes.DERECHA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
 					y = y+1;
-				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
-					adelantarEnSec = tratarVolverACarril();
-				else if (!anterior.getAdelantar())
-					adelantarEnSec = tratarVolverACarril();
-				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
-					adelantarEnSec = tratarVolverACarril();	
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
+						adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar() && 
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
-				anterior.getAdelantar()) {
+				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) 
 				adelantarEnSec = tratarAdelantamiento();
-			}
 			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				y = y-1;
 		}	
@@ -408,20 +386,21 @@ public class Conductor extends Thread {
 				direccionActual = Constantes.ABAJO;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
 					x = x+1;
-				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
-					adelantarEnSec = tratarVolverACarril();
-				else if (!anterior.getAdelantar())
-					adelantarEnSec = tratarVolverACarril();
-				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
-					adelantarEnSec = tratarVolverACarril();	
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
+						adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar() && 
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
-				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) &&
-				anterior.getAdelantar()) {
+				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
+				anterior.getAdelantar()) 
 				adelantarEnSec = tratarAdelantamiento();
-			}
 			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				x = x-1;
 		}	
@@ -430,24 +409,24 @@ public class Conductor extends Thread {
 				direccionActual = Constantes.ARRIBA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) 
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
 					x = x-1;
-				else if (mirarAdelante(5,Constantes.AUTOMOVIL)) 
-					adelantarEnSec = tratarVolverACarril();
-				else if (!anterior.getAdelantar())
-					adelantarEnSec = tratarVolverACarril();
-				else if (!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL))
-					adelantarEnSec = tratarVolverACarril();	
+				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
+						adelantarEnSec = tratarVolverACarril();
+				else if (!anterior.getAdelantar() && 
+					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();
+				else if (!mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL))
+						adelantarEnSec = tratarVolverACarril();	
 			}
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
-				!mirarCarrilIzquierdo(3,7,Constantes.AUTOMOVIL) && 
-				anterior.getAdelantar()) {
+				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) && 
+				anterior.getAdelantar()) 
 				adelantarEnSec = tratarAdelantamiento();
-			}
 			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
 				x = x+1;
 		}
-		direccionActual = anterior.getDireccion();
 	}
  	
 	
@@ -475,10 +454,10 @@ public class Conductor extends Thread {
 	public boolean tratarAdelantamiento() {
 		
 		boolean opcion = false;
-		if (deboAdelantar())
+		if (comportamiento.deboAdelantar())
 			opcion = true;
 		if (opcion) {
-			vehiculo.setVelocidad(vehiculo.getVelocidad()+velocidadAdelantamiento());
+			vehiculo.setVelocidad(vehiculo.getVelocidad()+comportamiento.velocidadAdelantamiento());
 			Punto p = vehiculo.adelantar(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
@@ -489,9 +468,8 @@ public class Conductor extends Thread {
 		
 	public boolean tratarVolverACarril() {
 			
-		boolean opcion = false;
-		opcion = deboVolverACarril();
-		if (deboVolverACarril()) {
+		boolean opcion = comportamiento.deboVolverACarril();
+		if (opcion) {
 			vehiculo.setVelocidad(anterior.getVelocidadVia());
 			Punto p = vehiculo.volverACarril(direccionActual,x,y);
 			x = p.getX();
@@ -554,12 +532,10 @@ public class Conductor extends Thread {
 				x = x+1;
 			}
 		}
-		direccionActual = anterior.getDireccion();
 	}
 	
 	public void tratarSalida() {
 		
-		System.out.println(anterior.getDireccion());
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (!(entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
 					!(entorno.getItem(x,y+1).getTipo().equals(Constantes.AUTOMOVIL))) {
@@ -575,14 +551,12 @@ public class Conductor extends Thread {
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (!(entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
 					!(entorno.getItem(x,y-1).getTipo().equals(Constantes.AUTOMOVIL))) {
-				System.out.println("Dentro giro");
 				if (anterior.getTramo() == 1)
 					x = x-1;
 				else 
 					parar = true;
 			}
 			else if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA)) {
-				System.out.println("ok sa");
 				y = y-1;
 			}
 		}
@@ -624,8 +598,13 @@ public class Conductor extends Thread {
 	public boolean probarSalida() {
 		
 		boolean encontrado = false;	
-		if (salir()) {
-			if (anterior.getDireccion().equals(Constantes.DERECHA)) {
+		if (comportamiento.salir()) {
+			if (mirarDerecha(5,1,Constantes.CARRIL_SALIDA)) {
+				System.out.println("FIND");
+				encontrado = true;
+			}
+		}
+			/*if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
 						entorno.getItem(x+1,y).isSalida()) {
 					encontrado = true;
@@ -649,7 +628,7 @@ public class Conductor extends Thread {
 					encontrado = true;
 				}
 			}
-		}
+		}*/
 		return encontrado;
 	}
 	
@@ -665,7 +644,6 @@ public class Conductor extends Thread {
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
 			for (int j=4;j>=5-pos && !encontrado;j--) {
-				System.out.print(vision[5][j].getTipo());
 				if (vision[5][j].getTipo().equals(item))
 					encontrado = true;
 			}
@@ -678,7 +656,6 @@ public class Conductor extends Thread {
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
 			for (int i=6;i<5+pos && !encontrado;i++) {
-				System.out.print(vision[i][5].getTipo());
 				if (vision[i][5].getTipo().equals(item))
 					encontrado = true;
 			}
@@ -716,53 +693,53 @@ public class Conductor extends Thread {
 		return encontrado;
 	}
 	
-	public boolean mirarDerecha(int pos,String item) {
+	public boolean mirarDerecha(int pos1,int pos2,String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
-			for (int j=6;j<11 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=6;j<=5+pos2 && !encontrado;j++)
+				if (vision[pos1][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int j=0;j<5 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=4;j>=5-pos2 && !encontrado;j--) 
+				if (vision[pos1][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				if (vision [i][pos].getTipo().equals(item))
+			for (int i=4;i>=5-pos2 && !encontrado;i--)
+				if (vision [i][pos1].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			for (int i=6;i<11 && !encontrado;i++)
-				if (vision [i][pos].getTipo().equals(item))
+			for (int i=6;i<=5+pos2 && !encontrado;i++)
+				if (vision [i][pos1].getTipo().equals(item))
 					encontrado = true;
 		}
 		return encontrado;
 	}
 	
-	public boolean mirarIzquierda(int pos,String item) {
+	public boolean mirarIzquierda(int pos1,int pos2,String item) {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
-			for (int j=0;j<5 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=4;j>=5-pos2 && !encontrado;j--) 
+				if (vision[pos1][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int j=6;j<11 && !encontrado;j++)
-				if (vision[pos][j].getTipo().equals(item))
+			for (int j=6;j<=5+pos2 && !encontrado;j++)
+				if (vision[pos1][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			for (int i=6;i<11 && !encontrado;i++)
-				if (vision [i][pos].getTipo().equals(item))
+			for (int i=6;i<=5+pos2 && !encontrado;i++)
+				if (vision [i][pos1].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			for (int i=0;i<5 && !encontrado;i++)
-				if (vision [i][pos].getTipo().equals(item))
+			for (int i=4;i>=5-pos2 && !encontrado;i--)
+				if (vision [i][pos1].getTipo().equals(item))
 					encontrado = true;
 		}
 		return encontrado;
@@ -818,146 +795,6 @@ public class Conductor extends Thread {
 					encontrado = true;
 		}
 		return encontrado;
-	}
-	
-	public boolean deboAdelantar() {
-		
-		boolean opcion = false;
-		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				intentoAdelantamiento = intentoAdelantamiento+1;
-				if (intentoAdelantamiento == 2) {
-					opcion = true;
-					intentoAdelantamiento = 0;
-				}
-				else 
-					opcion = false;
-			}
-		}
-		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				intentoAdelantamiento = intentoAdelantamiento+1;
-				if (intentoAdelantamiento == 3) {
-					opcion = true;
-					intentoAdelantamiento = 0;
-				}
-				else 
-					opcion = false;
-			}
-				
-		}
-		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				intentoAdelantamiento = intentoAdelantamiento+1;
-				if (intentoAdelantamiento == 4) {
-					opcion = true;
-					intentoAdelantamiento = 0;
-				}
-				else 
-					opcion = false;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				intentoAdelantamiento = intentoAdelantamiento+1;
-				if (intentoAdelantamiento == 5) {
-					opcion = true;
-					intentoAdelantamiento = 0;
-				}
-				else 
-					opcion = false;
-			}
-		}
-		return opcion;
-	}
-	
-	public boolean deboVolverACarril() {
-		
-		boolean opcion = false;
-		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				opcion = true;
-			}
-		}
-		if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				opcion = true;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				opcion = true;
-			}
-		}
-		if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) 
-				opcion = true;
-		return true;
-	}
-	
-	public Integer velocidadAdelantamiento() {
-		
-		Integer velocidad = 0;
-		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				velocidad = 40;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				velocidad = 30;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				velocidad = 20;
-			}
-		}
-		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				velocidad = 20;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				velocidad = 10;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				velocidad = 5;
-			}
-				
-		}
-		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
-			if (estadoMental.getImpaciencia() == 3) {
-				velocidad = 10;
-			}
-			else if (estadoMental.getImpaciencia() == 2) {
-				velocidad = 5;
-			}
-			else if (estadoMental.getImpaciencia() == 1) {
-				velocidad = 1;
-			}
-		}
-		return velocidad;
-	}
-
-	public boolean salir() {
-	
-		Integer opcion = new Integer(estadoMental.getRuta().get(0));
-		return opcion <= 0;
 	}
 	
 	public void finalizar() {
