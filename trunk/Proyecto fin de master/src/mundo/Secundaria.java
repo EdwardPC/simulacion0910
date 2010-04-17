@@ -2,10 +2,10 @@ package mundo;
 
 import java.util.ArrayList;
 
-import managerXML.Acceso;
-import managerXML.Contenido;
-import managerXML.Punto;
-import managerXML.Tramo;
+import manager.Acceso;
+import manager.Contenido;
+import manager.Punto;
+import manager.Tramo;
 
 public class Secundaria {
 
