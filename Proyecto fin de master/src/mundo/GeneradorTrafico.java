@@ -3,7 +3,7 @@ package mundo;
 import java.util.ArrayList;
 import java.util.Random;
 
-import managerXML.Punto;
+import manager.Punto;
 
 import agente.Conductor;
 

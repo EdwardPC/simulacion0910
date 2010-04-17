@@ -6,12 +6,12 @@ import java.util.Observable;
 
 import agente.Conductor;
 
-import managerXML.Acceso;
-import managerXML.Contenido;
-import managerXML.Punto;
-import managerXML.Tramo;
-import managerXML.XMLManager;
-import managerXML.Atributo;
+import manager.Acceso;
+import manager.Atributo;
+import manager.Contenido;
+import manager.Punto;
+import manager.Tramo;
+import manager.XMLManager;
 
 
 public class Entorno extends Observable {
