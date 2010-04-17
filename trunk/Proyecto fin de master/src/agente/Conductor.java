@@ -4,7 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-import managerXML.Punto;
+import manager.InfoSalida;
+import manager.Punto;
 import mundo.Coche;
 import mundo.Constantes;
 import mundo.Entorno;
@@ -183,8 +184,11 @@ public class Conductor extends Thread {
 				circularCiudad();
 			else if (anterior.getTipo().equals(Constantes.CRUCE)) 
 				vehiculo.atravesarCruce(direccionActual,x,y);
-			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
-				tratarIncorporacion();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+				Punto p = vehiculo.tratarIncorporacion(anterior,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
 			break;
 		case 1:
 			tratarVuelta();
@@ -195,10 +199,17 @@ public class Conductor extends Thread {
 			}
 			else if (anterior.getTipo().equals(Constantes.AUTOVIA)) 
 				circularAutovia();
-			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
-				tratarIncorporacion();
-			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
-				tratarSalida();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+				Punto p = vehiculo.tratarIncorporacion(anterior,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				InfoSalida info = vehiculo.tratarSalida(anterior,parar,x,y);
+				x = info.getX();
+				y = info.getY();
+				parar = info.getParar();
+			}
 			break;
 		case 2:
 			tratarVuelta();
@@ -209,17 +220,23 @@ public class Conductor extends Thread {
 			}
 			else if (anterior.getTipo().equals(Constantes.SECUNDARIA))
 				circularSecundaria();
-			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) 
-				tratarIncorporacion();
-			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA))
-				tratarSalida();
+			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
+				Punto p = vehiculo.tratarIncorporacion(anterior,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.CARRIL_SALIDA)) {
+				InfoSalida info = vehiculo.tratarSalida(anterior,parar,x,y);
+				x = info.getX();
+				y = info.getY();
+				parar = info.getParar();
+			}
 			break;
 		}
 	}
 
 	public void circularAutovia() {
 		
-		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (anterior.getNumCarril() == 1 && 
 				mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -284,12 +301,10 @@ public class Conductor extends Thread {
 					y = p.getY();
 				}
 		}	
-		//direccionActual = anterior.getDireccion();
 	}
 	
 	public void circularCiudad() {
 		
-		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (anterior.getNumCarril() == 1 && 
 				mirarAdelante(2,Constantes.AUTOMOVIL) && 
@@ -346,7 +361,6 @@ public class Conductor extends Thread {
 	
 	public void circularSecundaria() {
 		
-		//direccionActual = anterior.getDireccion();
 		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.IZQUIERDA;
@@ -520,114 +534,6 @@ public class Conductor extends Thread {
 			y = p.getY();
 		}
 		return !opcion;
-	}
-	
-	public void tratarIncorporacion() {
-		
-		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-			if (!(entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
-					!(entorno.getItem(x,y+1).getTipo().equals(Constantes.AUTOMOVIL)) && 
-					!(entorno.getItem(x+1,y).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 2)
-					x = x-1;
-				else 
-					x = x+1;
-			}
-			else if (entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_ENTRADA)) {
-				y = y+1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-			if (!(entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
-					!(entorno.getItem(x,y-1).getTipo().equals(Constantes.AUTOMOVIL)) && 
-					!(entorno.getItem(x+1,y).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 2)
-					x = x-1;
-				else 
-					x = x+1;
-			}
-			else if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_ENTRADA)) {
-				y = y-1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-			if (!(entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
-					!(entorno.getItem(x-1,y).getTipo().equals(Constantes.AUTOMOVIL)) && 
-					!(entorno.getItem(x,y-1).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 2)
-					y = y+1;
-				else 
-					y = y-1;
-			}
-			else if (entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_ENTRADA)) {
-				x = x-1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-			if (!(entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_ENTRADA)) &&
-					!(entorno.getItem(x+1,y).getTipo().equals(Constantes.AUTOMOVIL)) && 
-					!(entorno.getItem(x,y+1).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 2)
-					y = y-1;
-				else 
-					y = y+1;
-			}
-			else if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_ENTRADA)) {
-				x = x+1;
-			}
-		}
-	}
-	
-	public void tratarSalida() {
-		
-		if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-			if (!(entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
-					!(entorno.getItem(x,y+1).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 2)
-					x = x+1;
-				else 
-					parar = true;
-			}
-			else if (entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA)) {
-				y = y+1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-			if (!(entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
-					!(entorno.getItem(x,y-1).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 1)
-					x = x-1;
-				else 
-					parar = true;
-			}
-			else if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA)) {
-				y = y-1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-			if (!(entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
-					!(entorno.getItem(x-1,y).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 1)
-					y = y+1;
-				else 
-					parar = true;
-			}
-			else if (entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_SALIDA)) {
-				x = x-1;
-			}
-		}
-		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-			if (!(entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA)) &&
-					!(entorno.getItem(x+1,y).getTipo().equals(Constantes.AUTOMOVIL))) {
-				if (anterior.getTramo() == 1)
-					y = y-1;
-				else 
-					parar = true;
-			}
-			else if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA)) {
-				x = x+1;
-			}
-		}
 	}
 	
 	/*public boolean maniobraVolverEmergencia() {
