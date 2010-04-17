@@ -3,8 +3,6 @@ package agente;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mundo.Constantes;
-
 public class EstadoMental {
 
 	private ArrayList<String> ruta;
@@ -14,7 +12,7 @@ public class EstadoMental {
 	public EstadoMental(String tipo,Integer ansiedad,Integer eleccion) {
 		
 		tipoConductor = tipo;
-		impaciencia = 3;//ansiedad;
+		impaciencia = ansiedad;
 		seleccionRuta(eleccion);
 	}
 	
@@ -22,7 +20,7 @@ public class EstadoMental {
 		
 		ruta = new ArrayList<String>();
 		Random random = new Random();
-		Integer numVueltas = 1;//random.nextInt(10)+1;
+		Integer numVueltas = 10;//random.nextInt(10)+1;
 		switch(eleccion) {
 		case 0:
 			

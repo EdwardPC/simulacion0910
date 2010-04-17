@@ -7,14 +7,12 @@ public class Comportamiento {
 	private EstadoMental estadoMental;
 	private Integer intentoAdelantamiento;
 	private Integer tiempoEnCarrilIzquierdo;
-	private boolean apurarAdelantamiento;
 
 	public Comportamiento(EstadoMental estado) {
 		
 		estadoMental = estado;
 		intentoAdelantamiento = 0;
 		tiempoEnCarrilIzquierdo = 0;
-		apurarAdelantamiento = false;
 	}
 	
 	public Integer getIntentoAdelantamiento() {
@@ -31,14 +29,6 @@ public class Comportamiento {
 
 	public void setTiempoEnCarrilIzquierdo(Integer tiempoEnCarrilIzquierdo) {
 		this.tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo;
-	}
-
-	public boolean isApurarAdelantamiento() {
-		return apurarAdelantamiento;
-	}
-
-	public void setApurarAdelantamiento(boolean apurarAdelantamiento) {
-		this.apurarAdelantamiento = apurarAdelantamiento;
 	}
 	
 	public boolean deboAdelantar() {
@@ -104,15 +94,15 @@ public class Comportamiento {
 		return opcion;
 	}
 	
-	public boolean deboVolverACarril() {
+	public boolean deboVolverACarril(Integer peligrosidad) {
 		
 		boolean opcion = false;
 		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
 			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
+				opcion = resolverPeligrosidad(peligrosidad,Constantes.AGRESIVO,3);
 			}
 			else if (estadoMental.getImpaciencia() == 2) {
-				opcion = true;
+				opcion = resolverPeligrosidad(peligrosidad,Constantes.AGRESIVO,2);
 			}
 			else if (estadoMental.getImpaciencia() == 1) {
 				opcion = true;
@@ -120,7 +110,7 @@ public class Comportamiento {
 		}
 		if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
 			if (estadoMental.getImpaciencia() == 3) {
-				opcion = true;
+				opcion = resolverPeligrosidad(peligrosidad,Constantes.NORMAL,3);
 			}
 			else if (estadoMental.getImpaciencia() == 2) {
 				opcion = true;
@@ -131,9 +121,81 @@ public class Comportamiento {
 		}
 		if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) 
 				opcion = true;
-		return true;
+		return opcion;
 	}
 	
+	private boolean resolverPeligrosidad(Integer peligrosidad,String tipo,Integer grado) {
+		
+		boolean respuesta = false;
+		if (tipo.equals(Constantes.AGRESIVO)) {
+			if (grado == 3) {
+				if (peligrosidad == 1) {
+					if (tiempoEnCarrilIzquierdo < 3) {
+						respuesta = false;
+						tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo+1;
+					}
+					else {
+						respuesta = true;
+						tiempoEnCarrilIzquierdo = 0;
+					}
+				}
+				else if (peligrosidad == 2) {
+					if (tiempoEnCarrilIzquierdo < 1) {
+						respuesta = false;
+						tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo+1;
+					}
+					else {
+						respuesta = true;
+						tiempoEnCarrilIzquierdo = 0;
+					}
+				}
+				else if (peligrosidad == 3)
+					respuesta = true;
+			}
+			else if (grado == 2) {
+				if (peligrosidad == 1) {
+					if (tiempoEnCarrilIzquierdo < 2) {
+						respuesta = false;
+						tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo+1;
+					}
+					else {
+						respuesta = true;
+						tiempoEnCarrilIzquierdo = 0;
+					}
+				}
+				else if (peligrosidad == 2) {
+					if (tiempoEnCarrilIzquierdo < 1) {
+						respuesta = false;
+						tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo+1;
+					}
+					else {
+						respuesta = true;
+						tiempoEnCarrilIzquierdo = 0;
+					}
+				}
+				else if (peligrosidad == 3)
+					respuesta = true;
+			}
+		}
+		else if (tipo.equals(Constantes.NORMAL)) {
+			if (peligrosidad == 1) {
+				if (tiempoEnCarrilIzquierdo < 1) {
+					respuesta = false;
+					tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo+1;
+				}
+				else {
+					respuesta = true;
+					tiempoEnCarrilIzquierdo = 0;
+				}
+			}
+			else if (peligrosidad == 2) 
+				respuesta = true;
+			else if (peligrosidad == 3)
+				respuesta = true;
+		}
+		return respuesta;
+	}
+
 	public Integer velocidadAdelantamiento() {
 		
 		Integer velocidad = 0;
