@@ -133,16 +133,29 @@ public class Coche {
 			y = y-1;
 	}
 	
-	public Punto tomarSalida(ItemsMundo anterior,Integer x,Integer y) {
+	public Punto continuarCarril(String direccionActual,Integer x,Integer y) {
 		
-		System.out.println(anterior.getDireccion());
-		if (anterior.getDireccion().equals(Constantes.DERECHA)) 
+		if (direccionActual.equals(Constantes.DERECHA)) 
+			y = y+1;
+		else if (direccionActual.equals(Constantes.IZQUIERDA))
+			y = y-1;
+		else if (direccionActual.equals(Constantes.ARRIBA)) 
+			x = x-1;
+		else if (direccionActual.equals(Constantes.ABAJO))
+			x = x+1;
+		Punto posicion = new Punto(x,y);
+		return posicion;
+	}
+	
+	public Punto tomarSalida(String direccionActual,Integer x,Integer y) {
+		
+		if (direccionActual.equals(Constantes.DERECHA)) 
 				x = x+1;
-		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA))
+		else if (direccionActual.equals(Constantes.IZQUIERDA))
 				x = x-1;
-		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) 
+		else if (direccionActual.equals(Constantes.ARRIBA)) 
 				y = y+1;
-		else if (anterior.getDireccion().equals(Constantes.ABAJO))
+		else if (direccionActual.equals(Constantes.ABAJO))
 				y = y-1;
 		
 		Punto posicion = new Punto(x,y);

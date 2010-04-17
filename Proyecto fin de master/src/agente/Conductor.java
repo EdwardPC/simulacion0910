@@ -189,7 +189,7 @@ public class Conductor extends Thread {
 		case 1:
 			tratarVuelta();
 			if (probarSalida()) {
-				Punto p =  vehiculo.tomarSalida(anterior,x,y);
+				Punto p =  vehiculo.tomarSalida(direccionActual,x,y);
 				x = p.getX();
 				y = p.getY();
 			}
@@ -203,7 +203,7 @@ public class Conductor extends Thread {
 		case 2:
 			tratarVuelta();
 			if (probarSalida()) {
-				Punto p =  vehiculo.tomarSalida(anterior,x,y);
+				Punto p =  vehiculo.tomarSalida(direccionActual,x,y);
 				x = p.getX();
 				y = p.getY();
 			}
@@ -230,8 +230,11 @@ public class Conductor extends Thread {
 					System.out.println("OK carril");
 					tratarVolverACarril(1);
 			}
-			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-				y = y+1;
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+			}
 		}	
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (anterior.getNumCarril() == 1 && 
@@ -243,8 +246,11 @@ public class Conductor extends Thread {
 						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
-				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-					y = y-1;
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+						Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+						x = p.getX();
+						y = p.getY();
+				}
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (anterior.getNumCarril() == 1 && 
@@ -256,8 +262,11 @@ public class Conductor extends Thread {
 						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
-				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-					x = x-1;
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (anterior.getNumCarril() == 1 && 
@@ -269,8 +278,11 @@ public class Conductor extends Thread {
 						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
-				else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-					x = x+1;
+				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}
 		}	
 		//direccionActual = anterior.getDireccion();
 	}
@@ -340,8 +352,11 @@ public class Conductor extends Thread {
 				direccionActual = Constantes.IZQUIERDA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
-					y = y-1;
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}	
 				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
 					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
 					adelantarEnSec = tratarVolverACarril(3);
@@ -354,17 +369,23 @@ public class Conductor extends Thread {
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
 				anterior.getAdelantar()) 
-				adelantarEnSec = tratarAdelantamiento();
-			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-				y = y+1;
+					adelantarEnSec = tratarAdelantamiento();
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+			}
 		}	
 		else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.DERECHA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
-					y = y+1;
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}	
 				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
 					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
 						adelantarEnSec = tratarVolverACarril(3);
@@ -377,17 +398,23 @@ public class Conductor extends Thread {
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
 				anterior.getAdelantar()) 
-				adelantarEnSec = tratarAdelantamiento();
-			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-				y = y-1;
+					adelantarEnSec = tratarAdelantamiento();
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}			
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ABAJO;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
-					x = x+1;
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}	
 				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
 					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
 						adelantarEnSec = tratarVolverACarril(3);
@@ -400,17 +427,23 @@ public class Conductor extends Thread {
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) &&
 				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) &&
 				anterior.getAdelantar()) 
-				adelantarEnSec = tratarAdelantamiento();
-			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-				x = x-1;
+					adelantarEnSec = tratarAdelantamiento();
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+			}
 		}	
 		else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
 			if (adelantarEnSec) {
 				direccionActual = Constantes.ARRIBA;
 				if (anterior.getAdelantar() && 
 					!mirarAdelante(5,Constantes.AUTOMOVIL) &&
-					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) 
-					x = x-1;
+					mirarCarrilDerecho(2,8,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}
 				else if (mirarAdelante(5,Constantes.AUTOMOVIL) &&
 					!mirarCarrilDerecho(5,5,Constantes.AUTOMOVIL)) 
 						adelantarEnSec = tratarVolverACarril(3);
@@ -423,13 +456,14 @@ public class Conductor extends Thread {
 			else if (mirarAdelante(2,Constantes.AUTOMOVIL) && 
 				!mirarCarrilIzquierdo(2,8,Constantes.AUTOMOVIL) && 
 				anterior.getAdelantar()) 
-				adelantarEnSec = tratarAdelantamiento();
-			else if (!mirarAdelante(2,Constantes.AUTOMOVIL))
-				x = x+1;
+					adelantarEnSec = tratarAdelantamiento();
+			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+			}
 		}
 	}
- 	
-	
 	
  	public void tratarSemaforo() {
 		
@@ -463,6 +497,11 @@ public class Conductor extends Thread {
 			y = p.getY();
 			
 		}
+		else {
+			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+			x = p.getX();
+			y = p.getY();
+		}
 		return opcion;
 	}
 		
@@ -472,6 +511,11 @@ public class Conductor extends Thread {
 		if (opcion) {
 			vehiculo.setVelocidad(anterior.getVelocidadVia());
 			Punto p = vehiculo.volverACarril(direccionActual,x,y);
+			x = p.getX();
+			y = p.getY();
+		}
+		else {
+			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
 		}
