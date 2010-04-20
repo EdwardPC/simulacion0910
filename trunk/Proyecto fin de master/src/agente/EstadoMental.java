@@ -23,10 +23,10 @@ public class EstadoMental {
 		Integer numVueltas = 1;//random.nextInt(10)+1;
 		switch(eleccion) {
 		case 0:
-			ruta.add("Izquierda");
-			ruta.add("Abajo");
 			ruta.add("Derecha");
-			ruta.add("Abajo");
+			ruta.add("Izquierda");
+			ruta.add("Izquierda");
+			ruta.add("Derecha");
 			break;
 		case 1:
 			ruta.add(numVueltas.toString());

@@ -66,13 +66,13 @@
 		<posY>30</posY>
 	</callejon>
 	<callejon>
-		<sentido>1</sentido>
+		<sentido>2</sentido>
 		<posX1>7</posX1>
 		<posX2>48</posX2>
 		<posY>72</posY>
 	</callejon>
 	<callejon>
-		<sentido>2</sentido>
+		<sentido>1</sentido>
 		<posX1>53</posX1>
 		<posX2>92</posX2>
 		<posY>80</posY>
@@ -90,13 +90,13 @@
 		<posY>30</posY>
 	</callejon>
 	<callejon>
-		<sentido>3</sentido>
+		<sentido>4</sentido>
 		<posX1>7</posX1>
 		<posX2>48</posX2>
 		<posY>40</posY>
 	</callejon>
 	<callejon>
-		<sentido>4</sentido>
+		<sentido>3</sentido>
 		<posX1>53</posX1>
 		<posX2>92</posX2>
 		<posY>80</posY>
@@ -163,38 +163,6 @@
 		<posX>40</posX>
 		<posY>47</posY>
 	</stop>
-	<ceda>
-		<posX>7</posX>
-		<posY>72</posY>
-	</ceda>
-	<ceda>
-		<posX>91</posX>
-		<posY>80</posY>
-	</ceda>
-	<ceda>
-		<posX>91</posX>
-		<posY>30</posY>
-	</ceda>
-	<ceda>
-		<posX>7</posX>
-		<posY>40</posY>
-	</ceda>
-	<ceda>
-		<posX>80</posX>
-		<posY>91</posY>
-	</ceda>
-	<ceda>
-		<posX>30</posX>
-		<posY>91</posY>
-	</ceda>
-	<ceda>
-		<posX>72</posX>
-		<posY>7</posY>
-	</ceda>
-	<ceda>
-		<posX>40</posX>
-		<posY>7</posY>
-	</ceda>
 	<cruceS>
 		<posX>72</posX>
 		<posY>30</posY>
