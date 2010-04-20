@@ -31,7 +31,194 @@ public class Comportamiento {
 		this.tiempoEnCarrilIzquierdo = tiempoEnCarrilIzquierdo;
 	}
 	
+	public boolean deboCeder(Integer peligrosidad) {
+		
+		boolean opcion = false;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = false;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = false;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = false;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = false;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+			}
+		}
+		return opcion;
+	}
+	
+	public boolean deboParar(Integer peligrosidad) {
+		
+		boolean opcion = false;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = false;
+				else if (peligrosidad == 1)
+					opcion = false;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = false;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = false;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = true;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (estadoMental.getImpaciencia() == 3) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = false;
+			}
+			else if (estadoMental.getImpaciencia() == 2) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = true;
+			}
+			else if (estadoMental.getImpaciencia() == 1) {
+				if (peligrosidad == 3)
+					opcion = true;
+				else if (peligrosidad == 2)
+					opcion = true;
+				else if (peligrosidad == 1)
+					opcion = true;
+				else if (peligrosidad == 0)
+					opcion = true;
+			}
+		}
+		return opcion;
+	}
+	
 	public boolean deboAdelantar() {
+		
 		boolean opcion = false;
 		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
 			if (estadoMental.getImpaciencia() == 3) {
