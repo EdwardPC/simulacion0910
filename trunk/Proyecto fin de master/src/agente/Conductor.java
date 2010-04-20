@@ -546,31 +546,30 @@ public class Conductor extends Thread {
 		if (indexRuta < estadoMental.getRuta().size())
 			instruccionActual = estadoMental.getRuta().get(indexRuta);
 		else 
-			finalizar();
+			parar = true;
 	}
+	
 	public boolean tratarCambioDireccion() {
 		
-		//System.out.println(instruccionActual+" "+entorno.getItem(x+1,y).getDireccion());
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
 			if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual) && 
-				!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x,y+1).getTipo())) 
+				entorno.getItem(x,y+1).getTipo().equals(Constantes.CALLEJON))	
 				encontrado = true;
 		}	
 		else if (direccionActual.equals(Constantes.ABAJO)) {
 			if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual) && 
-					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x,y-1).getTipo())) 
+				entorno.getItem(x,y-1).getTipo().equals(Constantes.CALLEJON))
 				encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual) && 
-					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x-1,y).getTipo()))
+			if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual) && 
+				entorno.getItem(x+1,y).getTipo().equals(Constantes.CALLEJON)) 
 				encontrado = true;
-			
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual) && 
-					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x+1,y).getTipo()))
+			if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual) && 
+				entorno.getItem(x-1,y).getTipo().equals(Constantes.CALLEJON))
 				encontrado = true;
 		}	
 		return encontrado;
@@ -628,9 +627,11 @@ public class Conductor extends Thread {
  			}
  		}
  		else {
+ 			System.out.println("Direccion antes: "+direccionActual);
  			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
  			x = p.getX();
  			y = p.getY();
+ 			System.out.println("Direccion despues: "+direccionActual);
  		}
  	}
  	
@@ -728,49 +729,13 @@ public class Conductor extends Thread {
 		return !opcion;
 	}
 	
-	/*public boolean maniobraVolverEmergencia() {
-		
-		vehiculo.setVelocidad(anterior.getVelocidadVia());
-		Punto p = vehiculo.volverACarril(direccionActual,x,y);
-		x = p.getX();
-		y = p.getY();
-		return false;
-	}*/
- 
 	public boolean probarSalida() {
 		
 		boolean encontrado = false;	
 		if (comportamiento.salir()) {
-			if (mirarDerecha(5,1,Constantes.CARRIL_SALIDA)) {
-				System.out.println("FIND");
+			if (mirarDerecha(5,1,Constantes.CARRIL_SALIDA)) 
 				encontrado = true;
-			}
 		}
-			/*if (anterior.getDireccion().equals(Constantes.DERECHA)) {
-				if (entorno.getItem(x+1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x+1,y).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.IZQUIERDA)) {
-				if (entorno.getItem(x-1,y).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x-1,y).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.ARRIBA)) {
-				if (entorno.getItem(x,y+1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x,y+1).isSalida()) {
-					encontrado = true;
-				}
-			}
-			else if (anterior.getDireccion().equals(Constantes.ABAJO)) {
-				if (entorno.getItem(x,y-1).getTipo().equals(Constantes.CARRIL_SALIDA) &&
-						entorno.getItem(x,y-1).isSalida()) {
-					encontrado = true;
-				}
-			}
-		}*/
 		return encontrado;
 	}
 	
