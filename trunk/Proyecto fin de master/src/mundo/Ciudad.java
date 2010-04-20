@@ -303,11 +303,15 @@ public class Ciudad {
 	private void semaforos(int x1,int x2,int y,int sentido) {
 		
 		if (sentido == 1)
-			for (int i=x1;i<x2;i++)
+			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SEMAFORO);
+				contenido[i][y].setDireccion("");
+			}
 		else if (sentido == 2)
-			for (int j=x1;j<x2;j++)
+			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.SEMAFORO);
+				contenido[y][j].setDireccion("");
+			}
 	}
 	
 	private void stops(int x,int y) {
@@ -328,8 +332,11 @@ public class Ciudad {
 	private void cruces(int x1,int x2,int y1,int y2) {
 		
 		for (int i=x1;i<x2;i++) 
-			for(int j=y1;j<y2;j++)
+			for(int j=y1;j<y2;j++) {
 				contenido[i][j].setTipo(Constantes.CRUCE);
+				contenido[i][j].setDireccion("");
+				contenido[i][j].setNumCarril(0);
+			}
 		
 	}
  }
