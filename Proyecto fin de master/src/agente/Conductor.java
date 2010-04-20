@@ -1,5 +1,6 @@
 package agente;
 
+import manager.InfoGiro;
 import manager.InfoSalida;
 import manager.Punto;
 import mundo.Coche;
@@ -18,6 +19,9 @@ public class Conductor extends Thread {
 	private String direccionActual;
 	private boolean adelantarEnSec;
 	private boolean parar;
+	private String instruccionActual;
+	private Integer indexRuta;
+	private Integer carrilCruce;
 	private Integer x;
 	private Integer y;
 	private Integer antX;
@@ -40,6 +44,9 @@ public class Conductor extends Thread {
 		anterior.setConductor(mundo.getItem(antX,antY).getConductor());
 		anterior.setAdelantar(mundo.getItem(antX,antY).getAdelantar());
 		direccionActual = "";
+		indexRuta = 0;
+		carrilCruce = 0;
+		instruccionActual = estadoMental.getRuta().get(indexRuta);
 		mundo.getItem(antX,antY).setTipo(Constantes.AUTOMOVIL);
 		mundo.getItem(antX,antY).setConductor(estadoMental.getTipoConductor());
 		adelantarEnSec = false;
@@ -166,25 +173,71 @@ public class Conductor extends Thread {
 	
 	public void realizarActuacion() {
 		
-		direccionActual = anterior.getDireccion();
+		if (!anterior.getDireccion().equals("")) 
+			direccionActual = anterior.getDireccion();
+		//System.out.println(direccionActual +" "+anterior.getTipo());
 		switch (entorno.getEleccion()) {
 		case 0:
-			if (mirarAdelante(1,Constantes.SEMAFORO)) 
+			if (anterior.getNumCarril() != 0)
+				carrilCruce = anterior.getNumCarril();
+			
+			if (anterior.getTipo().equals(Constantes.CRUCE)) {
+				if (tratarPasoCruce()) {
+					InfoSalida p = vehiculo.atravesarCruce(direccionActual,instruccionActual,carrilCruce,x,y);
+					x = p.getX();
+					y = p.getY();
+					if (p.getParar()) {
+						indexRuta = indexRuta+1;
+						instruccionActual = estadoMental.getRuta().get(indexRuta);
+					}
+				}
+				else {
+					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+				}
+			}
+			else if (mirarAdelante(1,Constantes.SEMAFORO)) 
 				tratarSemaforo();
 			else if (anterior.getTipo().equals(Constantes.SEMAFORO)) {
-				Punto p = vehiculo.pasoSemaforo(direccionActual,x,y);
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.CEDA_EL_PASO)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
+			else if (anterior.getTipo().equals(Constantes.STOP)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
 				x = p.getX();
 				y = p.getY();
 			}
 			else if (anterior.getTipo().contains(Constantes.CALLE))
-				circularCiudad();
-			else if (anterior.getTipo().equals(Constantes.CRUCE)) 
-				vehiculo.atravesarCruce(direccionActual,x,y);
+				if (tratarCambioDireccion()) {
+					InfoGiro p = vehiculo.girar(direccionActual,x,y);
+					x = p.getX();
+					y = p.getY();
+					direccionActual = p.getDireccion();
+					indexRuta = indexRuta+1;
+					instruccionActual = estadoMental.getRuta().get(indexRuta);
+				}
+				else
+					circularCiudad();
+			else if (anterior.getTipo().equals(Constantes.CRUCE_SIMPLE)) 
+				tratarCeda();
+			else if (anterior.getTipo().equals(Constantes.CEDA_EL_PASO))
+				tratarCeda();
+			else if (anterior.getTipo().equals(Constantes.STOP))
+				tratarStop();
 			else if (anterior.getTipo().equals(Constantes.CARRIL_ENTRADA)) {
 				Punto p = vehiculo.tratarIncorporacion(anterior,x,y);
 				x = p.getX();
 				y = p.getY();
 			}
+			else 
+				System.out.println("No puedo: "+anterior.getTipo());
 			break;
 		case 1:
 			tratarVuelta();
@@ -499,6 +552,33 @@ public class Conductor extends Thread {
 		}
 	}
 	
+	public boolean tratarCambioDireccion() {
+		
+		System.out.println(instruccionActual+" "+entorno.getItem(x+1,y).getDireccion());
+		boolean encontrado = false;
+		if (instruccionActual.equals(Constantes.DERECHA)) {
+			if (direccionActual.equals(Constantes.ARRIBA)) {
+				if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual)) 
+					encontrado = true;
+			}	
+			else if (direccionActual.equals(Constantes.ABAJO)) {
+				if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual)) 
+					encontrado = true;
+			}
+			else if (direccionActual.equals(Constantes.DERECHA)) {
+				if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual)) {
+					encontrado = true;
+					System.out.println("OK d");
+				}
+			}
+			else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+				if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual)) 
+					encontrado = true;
+			}
+		}
+		return encontrado;
+	}
+	
  	public void tratarSemaforo() {
 		
  		if (direccionActual.equals(Constantes.ABAJO)) {
@@ -518,6 +598,101 @@ public class Conductor extends Thread {
 				y = y-1;
 		}	
 	}
+ 	
+ 	public void tratarCeda() {
+ 		
+ 		boolean encontradoAd = false;
+ 		boolean encontradoIz = false;
+ 		boolean encontradoDer = false;
+ 		boolean encontradoPeligroso = false;
+ 		encontradoAd = mirarAdelante(1,Constantes.AUTOMOVIL);
+ 		encontradoIz = mirarIzquierda(6,4,Constantes.AUTOMOVIL);
+ 		encontradoDer = mirarDerecha(6,2,Constantes.AUTOMOVIL);
+ 		encontradoPeligroso = mirarIzquierda(6,2,Constantes.AUTOMOVIL);
+ 		if (encontradoAd || encontradoPeligroso) {
+ 			if (!comportamiento.deboCeder(3)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+	 			x = p.getX();
+	 			y = p.getY();
+ 			}
+ 		}
+ 		else if (encontradoIz) {
+ 			if (!comportamiento.deboCeder(2)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+	 			x = p.getX();
+	 			y = p.getY();
+ 			}
+ 		}
+ 		else if (encontradoDer) {
+ 			if (!comportamiento.deboCeder(1)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+ 	 			x = p.getX();
+ 	 			y = p.getY();
+ 			}
+ 		}
+ 		else {
+ 			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+ 			x = p.getX();
+ 			y = p.getY();
+ 		}
+ 	}
+ 	
+ 	public void tratarStop() {
+ 		
+ 		boolean encontradoAd = false;
+ 		boolean encontradoIz = false;
+ 		boolean encontradoDer = false;
+ 		boolean encontradoPeligroso = false;
+ 		encontradoAd = mirarAdelante(1,Constantes.AUTOMOVIL);
+ 		encontradoIz = mirarIzquierda(6,4,Constantes.AUTOMOVIL);
+ 		encontradoDer = mirarDerecha(6,2,Constantes.AUTOMOVIL);
+ 		encontradoPeligroso = mirarIzquierda(6,2,Constantes.AUTOMOVIL);
+ 		if (encontradoAd || encontradoPeligroso) {
+ 			if (!comportamiento.deboParar(3)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+	 			x = p.getX();
+	 			y = p.getY();
+ 			}
+ 		}
+ 		else if (encontradoIz) {
+ 			if (!comportamiento.deboParar(2)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+	 			x = p.getX();
+	 			y = p.getY();
+ 			}
+ 		}
+ 		else if (encontradoDer) {
+ 			if (!comportamiento.deboParar(1)) {
+ 				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+ 	 			x = p.getX();
+ 	 			y = p.getY();
+ 			}
+ 		}
+ 		else if (!comportamiento.deboParar(0)){
+ 			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+ 			x = p.getX();
+ 			y = p.getY();
+ 		}
+ 	}
+ 	
+ 	public boolean tratarPasoCruce() {
+ 		
+ 		boolean opcion = false;
+ 		if (direccionActual.equals(Constantes.DERECHA) || 
+ 			direccionActual.equals(Constantes.IZQUIERDA)) {
+ 			if (instruccionActual.equals(Constantes.ARRIBA) ||
+ 				instruccionActual.equals(Constantes.ABAJO))
+ 				opcion = true;
+ 		
+ 		}
+ 		else if (direccionActual.equals(Constantes.ARRIBA) || 
+ 				direccionActual.equals(Constantes.ABAJO)) {
+ 				if (instruccionActual.equals(Constantes.DERECHA) ||
+ 						instruccionActual.equals(Constantes.IZQUIERDA))
+ 					opcion = true;
+ 		}
+ 		return opcion;
+ 	}
 
 	public boolean tratarAdelantamiento() {
 		
@@ -625,7 +800,7 @@ public class Conductor extends Thread {
 			}
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			for (int i=6;i<5+pos && !encontrado;i++) {
+			for (int i=6;i<=5+pos && !encontrado;i++) {
 				if (vision[i][5].getTipo().equals(item))
 					encontrado = true;
 			}
@@ -692,24 +867,35 @@ public class Conductor extends Thread {
 	public boolean mirarIzquierda(int pos1,int pos2,String item) {
 		
 		boolean encontrado = false;
+		int pos11 = 0;
+		int pos12 = 0;
+		if (pos1 > 5) {
+			pos11 = pos1;
+			int aux = pos1-5;
+			pos12 = 5-aux;
+		}
+		else {
+			pos11 = pos1;
+			pos12 = pos1;
+		}
 		if (direccionActual.equals(Constantes.ARRIBA)) {
 			for (int j=4;j>=5-pos2 && !encontrado;j--) 
-				if (vision[pos1][j].getTipo().equals(item))
+				if (vision[pos12][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.ABAJO)) {
 			for (int j=6;j<=5+pos2 && !encontrado;j++)
-				if (vision[pos1][j].getTipo().equals(item))
+				if (vision[pos11][j].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
 			for (int i=6;i<=5+pos2 && !encontrado;i++)
-				if (vision [i][pos1].getTipo().equals(item))
+				if (vision [i][pos12].getTipo().equals(item))
 					encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
 			for (int i=4;i>=5-pos2 && !encontrado;i--)
-				if (vision [i][pos1].getTipo().equals(item))
+				if (vision [i][pos11].getTipo().equals(item))
 					encontrado = true;
 		}
 		return encontrado;
