@@ -305,12 +305,12 @@ public class Ciudad {
 		if (sentido == 1)
 			for (int i=x1;i<x2;i++) {
 				contenido[i][y].setTipo(Constantes.SEMAFORO);
-				contenido[i][y].setDireccion("");
+				//contenido[i][y].setDireccion("");
 			}
 		else if (sentido == 2)
 			for (int j=x1;j<x2;j++) {
 				contenido[y][j].setTipo(Constantes.SEMAFORO);
-				contenido[y][j].setDireccion("");
+				//contenido[y][j].setDireccion("");
 			}
 	}
 	
@@ -326,7 +326,7 @@ public class Ciudad {
 	
 	private void crucesS(int x,int y) {
 		
-		contenido[x][y].setTipo(Constantes.CRUCE);
+		contenido[x][y].setTipo(Constantes.CRUCE_SIMPLE);
 	}
 	
 	private void cruces(int x1,int x2,int y1,int y2) {

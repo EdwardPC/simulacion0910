@@ -175,21 +175,19 @@ public class Conductor extends Thread {
 		
 		if (!anterior.getDireccion().equals("")) 
 			direccionActual = anterior.getDireccion();
-		//System.out.println(direccionActual +" "+anterior.getTipo());
+
 		switch (entorno.getEleccion()) {
 		case 0:
 			if (anterior.getNumCarril() != 0)
 				carrilCruce = anterior.getNumCarril();
-			
+			System.out.println(direccionActual +" "+instruccionActual+" "+anterior.getTipo());
 			if (anterior.getTipo().equals(Constantes.CRUCE)) {
 				if (tratarPasoCruce()) {
 					InfoSalida p = vehiculo.atravesarCruce(direccionActual,instruccionActual,carrilCruce,x,y);
 					x = p.getX();
 					y = p.getY();
-					if (p.getParar()) {
-						indexRuta = indexRuta+1;
-						instruccionActual = estadoMental.getRuta().get(indexRuta);
-					}
+					if (p.getParar()) 
+						avanzarRuta();
 				}
 				else {
 					Punto p = vehiculo.continuarCarril(direccionActual,x,y);
@@ -204,29 +202,19 @@ public class Conductor extends Thread {
 				x = p.getX();
 				y = p.getY();
 			}
-			else if (anterior.getTipo().equals(Constantes.CEDA_EL_PASO)) {
-				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
-				x = p.getX();
-				y = p.getY();
-			}
-			else if (anterior.getTipo().equals(Constantes.STOP)) {
-				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
-				x = p.getX();
-				y = p.getY();
-			}
 			else if (anterior.getTipo().contains(Constantes.CALLE))
 				if (tratarCambioDireccion()) {
-					InfoGiro p = vehiculo.girar(direccionActual,x,y);
+					InfoGiro p = vehiculo.girar(direccionActual,instruccionActual,x,y);
 					x = p.getX();
 					y = p.getY();
 					direccionActual = p.getDireccion();
-					indexRuta = indexRuta+1;
-					instruccionActual = estadoMental.getRuta().get(indexRuta);
+					avanzarRuta();
 				}
 				else
 					circularCiudad();
-			else if (anterior.getTipo().equals(Constantes.CRUCE_SIMPLE)) 
+			else if (anterior.getTipo().equals(Constantes.CRUCE_SIMPLE)) {
 				tratarCeda();
+			}
 			else if (anterior.getTipo().equals(Constantes.CEDA_EL_PASO))
 				tratarCeda();
 			else if (anterior.getTipo().equals(Constantes.STOP))
@@ -552,30 +540,39 @@ public class Conductor extends Thread {
 		}
 	}
 	
+	public void avanzarRuta() {
+		
+		indexRuta = indexRuta+1;
+		if (indexRuta < estadoMental.getRuta().size())
+			instruccionActual = estadoMental.getRuta().get(indexRuta);
+		else 
+			finalizar();
+	}
 	public boolean tratarCambioDireccion() {
 		
-		System.out.println(instruccionActual+" "+entorno.getItem(x+1,y).getDireccion());
+		//System.out.println(instruccionActual+" "+entorno.getItem(x+1,y).getDireccion());
 		boolean encontrado = false;
-		if (instruccionActual.equals(Constantes.DERECHA)) {
-			if (direccionActual.equals(Constantes.ARRIBA)) {
-				if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual)) 
-					encontrado = true;
-			}	
-			else if (direccionActual.equals(Constantes.ABAJO)) {
-				if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual)) 
-					encontrado = true;
-			}
-			else if (direccionActual.equals(Constantes.DERECHA)) {
-				if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual)) {
-					encontrado = true;
-					System.out.println("OK d");
-				}
-			}
-			else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-				if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual)) 
-					encontrado = true;
-			}
+		if (direccionActual.equals(Constantes.ARRIBA)) {
+			if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual) && 
+				!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x,y+1).getTipo())) 
+				encontrado = true;
+		}	
+		else if (direccionActual.equals(Constantes.ABAJO)) {
+			if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual) && 
+					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x,y-1).getTipo())) 
+				encontrado = true;
 		}
+		else if (direccionActual.equals(Constantes.DERECHA)) {
+			if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual) && 
+					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x-1,y).getTipo()))
+				encontrado = true;
+			
+		}
+		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
+			if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual) && 
+					!entorno.getItem(x,y).getTipo().equals(entorno.getItem(x+1,y).getTipo()))
+				encontrado = true;
+		}	
 		return encontrado;
 	}
 	

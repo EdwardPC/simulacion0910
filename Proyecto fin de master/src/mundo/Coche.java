@@ -120,9 +120,18 @@ public class Coche {
  		return punto;
  	}
 
-	public InfoGiro girar(String direccionActual,int x,int y) {
+	public InfoGiro girar(String direccion,String instruccion,int x,int y) {
 		
-		InfoGiro posicion = new InfoGiro(x,y,direccionActual);
+		if (instruccion.equals(Constantes.DERECHA)) 
+			y = y+1;
+		else if (instruccion.equals(Constantes.IZQUIERDA)) 
+			y = y-1;
+		else if (instruccion.equals(Constantes.ARRIBA)) 
+			x = x-1;
+		else if (instruccion.equals(Constantes.ABAJO)) 
+			x = x+1;
+		direccion = instruccion;
+		InfoGiro posicion = new InfoGiro(x,y,direccion);
 		return posicion; 
 	}
 	
@@ -131,7 +140,7 @@ public class Coche {
 		
 		boolean finCruce = false;
 		if (direccion.equals(Constantes.ABAJO)) {
-			System.out.println("Cont: "+contadorCruce);
+			//System.out.println("Cont: "+contadorCruce);
 			if (instruccion.equals(Constantes.DERECHA)) {
 				if (numCarril == 1) {
 					y = y-1;
@@ -201,11 +210,132 @@ public class Coche {
 				}
 			}
 			else if (instruccion.equals(Constantes.IZQUIERDA)) {
-				//x = x-1;
-				//y = y-1;
+				if (numCarril == 1) {
+					if (contadorCruce < 4) {
+						x = x-1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						y = y-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce < 3) {
+						x = x-1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						y = y-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
 			}
 		}
-		
+		else if (direccion.equals(Constantes.IZQUIERDA)) {
+			if (instruccion.equals(Constantes.ARRIBA)) {
+				if (numCarril == 1) {
+					x = x-1;
+					finCruce = true;
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce == 0) {
+						x = x-1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else if (contadorCruce == 1) {
+						x = x-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}	
+				}
+			}
+			else if (instruccion.equals(Constantes.ABAJO)) {
+				if (numCarril == 1) {
+					if (contadorCruce < 4) {
+						x = x+1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						x = x+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce < 3) {
+						x = x+1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						x = x+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+			}
+		}	
+		else if (direccion.equals(Constantes.DERECHA)) {
+			if (instruccion.equals(Constantes.ABAJO)) {
+				if (numCarril == 1) {
+					x = x+1;
+					finCruce = true;
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce == 0) {
+						x = x+1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else if (contadorCruce == 1) {
+						x = x+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}	
+				}
+			}
+			else if (instruccion.equals(Constantes.ARRIBA)) {
+				if (numCarril == 1) {
+					if (contadorCruce < 4) {
+						x = x-1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						x = x-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce < 3) {
+						x = x-1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						x = x-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+			}	
+		}
 		InfoSalida posicion = new InfoSalida(x,y,finCruce);
 		return posicion;
 	}
