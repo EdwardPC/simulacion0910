@@ -126,7 +126,7 @@ public class Entorno extends Observable {
 			secundaria.generarSecundaria();
 			break;
 		}
-		if (!encontrarInicios()) {
+		if (!encontrarInicios() && !margenesCorrectos()) {
 			setParar(true);
 			actualizar(1);
 		}
@@ -145,6 +145,27 @@ public class Entorno extends Observable {
 					encontrado = true;
 				}
 		return encontrado;
+	}
+	
+	public boolean margenesCorrectos() {
+		
+		Boolean encontrado1 = false;
+		Boolean encontrado2 = false;
+		for (int i=0;i<longitud && !encontrado1;i++)
+			for (int j=0;j<6 && !encontrado1;j++)
+				if (!contenido[i][j].getTipo().equals(Constantes.CAMPO) &&
+						!contenido[i][j].getTipo().equals(Constantes.EDIFICIO) &&
+						!contenido[i][j].getTipo().equals(Constantes.BORDE) &&
+						!contenido[i][j].getTipo().equals(Constantes.TIERRA))
+						encontrado1 = true;
+		for (int i=0;i<6 && !encontrado2;i++)
+			for (int j=0;j<longitud && !encontrado2;j++)
+				if (!contenido[i][j].getTipo().equals(Constantes.CAMPO) &&
+						!contenido[i][j].getTipo().equals(Constantes.EDIFICIO) &&
+						!contenido[i][j].getTipo().equals(Constantes.BORDE) &&
+						!contenido[i][j].getTipo().equals(Constantes.TIERRA))
+						encontrado2 = true;			
+		return (encontrado1 == false && encontrado2 == false);
 	}
 	
 	public void salida(int x1,int x2,int x3,int x4,int y1,int y2,

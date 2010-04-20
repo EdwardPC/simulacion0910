@@ -27,6 +27,7 @@ public class Constantes {
 	public static final String BORDE = "Borde";
 	public static final String CAMPO = "Campo";
 	public static final String TIERRA = "Tierra";
+	public static final String CRUCE_SIMPLE = "Cruce_simple";
 	public static final String CRUCE = "Cruce";
 	public static final String STOP = "Stop";
 	public static final String CEDA_EL_PASO = "Ceda";

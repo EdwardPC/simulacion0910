@@ -1,5 +1,6 @@
 package mundo;
 
+import manager.InfoGiro;
 import manager.InfoSalida;
 import manager.Punto;
 
@@ -10,6 +11,7 @@ public class Coche {
 	private Entorno entorno;
 	private Integer velocidad;
 	private Integer velMaxVehiculo;
+	private Integer contadorCruce;
 	private String tipoConductor;
 	
 	
@@ -19,7 +21,7 @@ public class Coche {
 		entorno = mundo;
 		velMaxVehiculo = velMax;
 		velocidad = velIni;
-		
+		contadorCruce = 0;
 	}
 	
 	public String getTipoConductor() {
@@ -118,20 +120,94 @@ public class Coche {
  		return punto;
  	}
 
-	public void girar() {
+	public InfoGiro girar(String direccionActual,int x,int y) {
 		
+		InfoGiro posicion = new InfoGiro(x,y,direccionActual);
+		return posicion; 
 	}
 	
-	public void atravesarCruce(String direccionActual,int x,int y) {
+	public InfoSalida atravesarCruce(String direccion,String instruccion,int numCarril,int x,int y) {
 		
-		if (direccionActual.equals(Constantes.ABAJO)) 
-			x = x+1;
-		else if (direccionActual.equals(Constantes.ARRIBA))
-			x = x-1;
-		else if (direccionActual.equals(Constantes.DERECHA)) 
-			y = y+1;
-		else if (direccionActual.equals(Constantes.IZQUIERDA))
-			y = y-1;
+		
+		boolean finCruce = false;
+		if (direccion.equals(Constantes.ABAJO)) {
+			System.out.println("Cont: "+contadorCruce);
+			if (instruccion.equals(Constantes.DERECHA)) {
+				if (numCarril == 1) {
+					y = y-1;
+					finCruce = true;
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce == 0) {
+						x = x+1;
+						y = y-1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else if (contadorCruce == 1) {
+						y = y-1;
+						contadorCruce = 0;
+						finCruce = true;
+					}	
+				}
+			}
+			else if (instruccion.equals(Constantes.IZQUIERDA)) {
+				if (numCarril == 1) {
+					if (contadorCruce < 4) {
+						x = x+1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						y = y+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce < 3) {
+						x = x+1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else {
+						y = y+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}
+				}
+			}
+		}
+		else if (direccion.equals(Constantes.ARRIBA)) {
+			if (instruccion.equals(Constantes.DERECHA)) {
+				if (numCarril == 1) {
+					y = y+1;
+					finCruce = true;
+				}
+				else if (numCarril == 2) {
+					if (contadorCruce == 0) {
+						x = x-1;
+						y = y+1;
+						contadorCruce = contadorCruce+1;
+						finCruce = false;
+					}
+					else if (contadorCruce == 1) {
+						y = y+1;
+						contadorCruce = 0;
+						finCruce = true;
+					}	
+				}
+			}
+			else if (instruccion.equals(Constantes.IZQUIERDA)) {
+				//x = x-1;
+				//y = y-1;
+			}
+		}
+		
+		InfoSalida posicion = new InfoSalida(x,y,finCruce);
+		return posicion;
 	}
 	
 	public Punto continuarCarril(String direccionActual,Integer x,Integer y) {
