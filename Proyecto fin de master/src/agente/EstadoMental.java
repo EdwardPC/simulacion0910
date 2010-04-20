@@ -27,6 +27,7 @@ public class EstadoMental {
 			ruta.add("Izquierda");
 			ruta.add("Izquierda");
 			ruta.add("Derecha");
+			ruta.add("Arriba");
 			break;
 		case 1:
 			ruta.add(numVueltas.toString());

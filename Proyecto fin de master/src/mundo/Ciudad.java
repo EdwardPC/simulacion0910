@@ -327,6 +327,7 @@ public class Ciudad {
 	private void crucesS(int x,int y) {
 		
 		contenido[x][y].setTipo(Constantes.CRUCE_SIMPLE);
+		contenido[x][y].setDireccion("");
 	}
 	
 	private void cruces(int x1,int x2,int y1,int y2) {
