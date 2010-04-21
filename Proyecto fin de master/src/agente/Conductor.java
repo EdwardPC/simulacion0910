@@ -627,11 +627,9 @@ public class Conductor extends Thread {
  			}
  		}
  		else {
- 			System.out.println("Direccion antes: "+direccionActual);
  			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
  			x = p.getX();
  			y = p.getY();
- 			System.out.println("Direccion despues: "+direccionActual);
  		}
  	}
  	

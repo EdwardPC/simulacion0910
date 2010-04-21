@@ -12,7 +12,7 @@ public class EstadoMental {
 	public EstadoMental(String tipo,Integer ansiedad,Integer eleccion) {
 		
 		tipoConductor = tipo;
-		impaciencia = 3;//ansiedad;
+		impaciencia = 1;//ansiedad;
 		seleccionRuta(eleccion);
 	}
 	

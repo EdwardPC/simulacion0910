@@ -7,12 +7,14 @@ public class Comportamiento {
 	private EstadoMental estadoMental;
 	private Integer intentoAdelantamiento;
 	private Integer tiempoEnCarrilIzquierdo;
+	private Integer tiempoEspera;
 
 	public Comportamiento(EstadoMental estado) {
 		
 		estadoMental = estado;
 		intentoAdelantamiento = 0;
 		tiempoEnCarrilIzquierdo = 0;
+		tiempoEspera = 0;
 	}
 	
 	public Integer getIntentoAdelantamiento() {
@@ -178,8 +180,16 @@ public class Comportamiento {
 					opcion = true;
 				else if (peligrosidad == 1)
 					opcion = true;
-				else if (peligrosidad == 0)
-					opcion = true;
+				else if (peligrosidad == 0) {
+					if (tiempoEspera < 1) {
+						opcion = true;
+						tiempoEspera = tiempoEspera+1;
+					}
+					else {
+						opcion = false;
+						tiempoEspera = 0;
+					}
+				}
 			}
 		}
 		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
@@ -200,8 +210,16 @@ public class Comportamiento {
 					opcion = true;
 				else if (peligrosidad == 1)
 					opcion = true;
-				else if (peligrosidad == 0)
-					opcion = true;
+				else if (peligrosidad == 0) {
+					if (tiempoEspera < 2) {
+						opcion = true;
+						tiempoEspera = tiempoEspera+1;
+					}
+					else {
+						opcion = false;
+						tiempoEspera = 0;
+					}
+				}
 			}
 			else if (estadoMental.getImpaciencia() == 1) {
 				if (peligrosidad == 3)
@@ -210,8 +228,16 @@ public class Comportamiento {
 					opcion = true;
 				else if (peligrosidad == 1)
 					opcion = true;
-				else if (peligrosidad == 0)
-					opcion = true;
+				else if (peligrosidad == 0) {
+					if (tiempoEspera < 3) {
+						opcion = true;
+						tiempoEspera = tiempoEspera+1;
+					}
+					else {
+						opcion = false;
+						tiempoEspera = 0;
+					}
+				}
 			}
 		}
 		return opcion;
