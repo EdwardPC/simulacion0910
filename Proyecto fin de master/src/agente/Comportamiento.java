@@ -170,8 +170,16 @@ public class Comportamiento {
 					opcion = true;
 				else if (peligrosidad == 1)
 					opcion = true;
-				else if (peligrosidad == 0)
-					opcion = false;
+				else if (peligrosidad == 0) {
+					if (tiempoEspera < 2) {
+						opcion = true;
+						tiempoEspera = tiempoEspera+1;
+					}
+					else {
+						opcion = false;
+						tiempoEspera = 0;
+					}
+				}
 			}
 			else if (estadoMental.getImpaciencia() == 1) {
 				if (peligrosidad == 3)
@@ -181,7 +189,7 @@ public class Comportamiento {
 				else if (peligrosidad == 1)
 					opcion = true;
 				else if (peligrosidad == 0) {
-					if (tiempoEspera < 1) {
+					if (tiempoEspera < 4) {
 						opcion = true;
 						tiempoEspera = tiempoEspera+1;
 					}
@@ -211,7 +219,7 @@ public class Comportamiento {
 				else if (peligrosidad == 1)
 					opcion = true;
 				else if (peligrosidad == 0) {
-					if (tiempoEspera < 2) {
+					if (tiempoEspera < 4) {
 						opcion = true;
 						tiempoEspera = tiempoEspera+1;
 					}
@@ -229,7 +237,7 @@ public class Comportamiento {
 				else if (peligrosidad == 1)
 					opcion = true;
 				else if (peligrosidad == 0) {
-					if (tiempoEspera < 3) {
+					if (tiempoEspera < 5) {
 						opcion = true;
 						tiempoEspera = tiempoEspera+1;
 					}
@@ -240,6 +248,8 @@ public class Comportamiento {
 				}
 			}
 		}
+		if (!opcion)
+			tiempoEspera = 0;
 		return opcion;
 	}
 	
@@ -451,8 +461,7 @@ public class Comportamiento {
 
 	public boolean salir() {
 	
-		Integer opcion = new Integer(estadoMental.getRuta().get(0));
-		return opcion <= 0;
+		return estadoMental.getRuta().get(0).getNumVueltas() <= 0;
 	}
 
 }
