@@ -253,6 +253,54 @@ public class Comportamiento {
 		return opcion;
 	}
 	
+	public boolean deboSaltarSemaforo(String color) {
+		
+		boolean opcion = false;
+		if (estadoMental.getTipoConductor().equals(Constantes.AGRESIVO)) {
+			if (color.equals(Constantes.VERDE))
+				opcion = true;
+			else if (color.equals(Constantes.AMARILLO))
+				opcion = true;
+			else if (color.equals(Constantes.ROJO)) {
+				if (estadoMental.getImpaciencia() == 3)
+					opcion = true;
+				else if (estadoMental.getImpaciencia() == 2)
+					opcion = false;
+				else if (estadoMental.getImpaciencia() == 1)
+					opcion = false;
+			}
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.NORMAL)) {
+			if (color.equals(Constantes.VERDE))
+				opcion = true;
+			else if (color.equals(Constantes.AMARILLO)) {
+				if (estadoMental.getImpaciencia() == 3)
+					opcion = true;
+				else if (estadoMental.getImpaciencia() == 2)
+					opcion = true;
+				else if (estadoMental.getImpaciencia() == 1)
+					opcion = false;
+			}
+			else if (color.equals(Constantes.ROJO)) 
+				opcion = false;
+		}
+		else if (estadoMental.getTipoConductor().equals(Constantes.MODERADO)) {
+			if (color.equals(Constantes.VERDE))
+				opcion = true;
+			else if (color.equals(Constantes.AMARILLO)) {
+				if (estadoMental.getImpaciencia() == 3)
+					opcion = true;
+				else if (estadoMental.getImpaciencia() == 2)
+					opcion = false;
+				else if (estadoMental.getImpaciencia() == 1)
+					opcion = false;
+			}
+			else if (color.equals(Constantes.ROJO)) 
+				opcion = false;
+		}
+		return opcion;
+	}
+	
 	public boolean deboAdelantar() {
 		
 		boolean opcion = false;

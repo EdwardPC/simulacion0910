@@ -162,72 +162,7 @@ public class SemaforosManager extends Thread {
 			getSemaforo();
 			factorRojo = obtenerFactorRojo();
 			factorAmarillo = obtenerFactorAmarillo();
-			
-			/*
-			for (int i=0;i<longitud;i++)
-				for (int j=0;j<longitud;j++) {
-					ItemsMundo item = contenido[i][j];
-					if (item.getTipo().equals(Constantes.SEMAFORO))
-							if (item.getDireccion().equals(Constantes.DERECHA) ||
-									item.getDireccion().equals(Constantes.IZQUIERDA))
-								item.setColorSemaforo(Constantes.ROJO);
-				}
-			try {
-				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			for (int i=0;i<longitud;i++)
-				for (int j=0;j<longitud;j++) {
-					ItemsMundo item = contenido[i][j];
-					if (item.getTipo().equals(Constantes.SEMAFORO))
-						if (item.getDireccion().equals(Constantes.ARRIBA) ||
-								item.getDireccion().equals(Constantes.ABAJO))
-							item.setColorSemaforo(Constantes.VERDE);
-				}
-			try {
-				SemaforosManager.sleep(4000 - matriz.getVelocidadSimulacion());
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			for (int i=0;i<longitud;i++)
-				for (int j=0;j<longitud;j++) {
-					ItemsMundo item = contenido[i][j];
-					if (item.getTipo().equals(Constantes.SEMAFORO))
-						if (item.getDireccion().equals(Constantes.ARRIBA) ||
-								item.getDireccion().equals(Constantes.ABAJO))
-							item.setColorSemaforo(Constantes.AMARILLO);
-				}
-			try {
-				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			for (int i=0;i<longitud;i++)
-				for (int j=0;j<longitud;j++) {
-					ItemsMundo item = contenido[i][j];
-					if (item.getTipo().equals(Constantes.SEMAFORO))
-						if (item.getDireccion().equals(Constantes.ARRIBA) ||
-								item.getDireccion().equals(Constantes.ABAJO))
-							item.setColorSemaforo(Constantes.ROJO);
-				}
-			try {
-				SemaforosManager.sleep(1000 - matriz.getVelocidadSimulacion());
-			}
-			catch(Exception e) {
-				e.printStackTrace();
-			}
-			for (int i=0;i<longitud;i++)
-				for (int j=0;j<longitud;j++) {
-					ItemsMundo item = contenido[i][j];
-					if (item.getTipo().equals(Constantes.SEMAFORO))
-						if (item.getDireccion().equals(Constantes.DERECHA) ||
-								item.getDireccion().equals(Constantes.IZQUIERDA))
-							item.setColorSemaforo(Constantes.VERDE);
-				}*/
+			matriz.actualizar(0);
 		}
 		finalizar();
 	}
