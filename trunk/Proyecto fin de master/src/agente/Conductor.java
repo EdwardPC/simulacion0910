@@ -578,21 +578,38 @@ public class Conductor extends Thread {
 	
  	public void tratarSemaforo() {
 		
- 		if (direccionActual.equals(Constantes.ABAJO)) {
-			if (entorno.getItem(x+1,y).getColorSemaforo().equals(Constantes.VERDE))
-				x = x+1;
+ 		String color = "";
+ 		if (direccionActual.equals(Constantes.ABAJO)) { 
+ 			color = entorno.getItem(x+1,y).getColorSemaforo();
+			if (comportamiento.deboSaltarSemaforo(color)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
 		}
 		else if (direccionActual.equals(Constantes.ARRIBA)) {
-			if (entorno.getItem(x-1,y).getColorSemaforo().equals(Constantes.VERDE))
-				x = x-1;
+			color = entorno.getItem(x-1,y).getColorSemaforo();
+			if (comportamiento.deboSaltarSemaforo(color)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			if (entorno.getItem(x,y+1).getColorSemaforo().equals(Constantes.VERDE))
-				y = y+1;
+			color = entorno.getItem(x,y+1).getColorSemaforo();
+			if (comportamiento.deboSaltarSemaforo(color)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			if (entorno.getItem(x,y-1).getColorSemaforo().equals(Constantes.VERDE))
-				y = y-1;
+			color = entorno.getItem(x,y-1).getColorSemaforo();
+			if (comportamiento.deboSaltarSemaforo(color)) {
+				Punto p = vehiculo.continuarCarril(direccionActual,x,y);
+				x = p.getX();
+				y = p.getY();
+			}
 		}	
 	}
  	
