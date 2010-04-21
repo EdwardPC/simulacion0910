@@ -3,6 +3,7 @@ package agente;
 import manager.InfoGiro;
 import manager.InfoSalida;
 import manager.Punto;
+import manager.Ruta;
 import mundo.Coche;
 import mundo.Constantes;
 import mundo.Entorno;
@@ -19,7 +20,7 @@ public class Conductor extends Thread {
 	private String direccionActual;
 	private boolean adelantarEnSec;
 	private boolean parar;
-	private String instruccionActual;
+	private Ruta instruccionActual;
 	private Integer indexRuta;
 	private Integer carrilCruce;
 	private Integer x;
@@ -127,10 +128,10 @@ public class Conductor extends Thread {
 	public void tratarVuelta() {
 		
 		if (entorno.getItem(x,y).getComienzoVuelta()) {
-			Integer vueltas = new Integer(estadoMental.getRuta().get(0));
+			
+			Integer vueltas = estadoMental.getRuta().get(0).getNumVueltas();
 			vueltas = vueltas-1;
-			estadoMental.getRuta().remove(0);
-			estadoMental.getRuta().add(vueltas.toString());
+			estadoMental.getRuta().get(0).setNumVueltas(vueltas);
 		}
 	}
 	
@@ -180,10 +181,10 @@ public class Conductor extends Thread {
 		case 0:
 			if (anterior.getNumCarril() != 0)
 				carrilCruce = anterior.getNumCarril();
-			System.out.println(direccionActual +" "+instruccionActual+" "+anterior.getTipo());
+			//System.out.println(direccionActual +" "+instruccionActual+" "+anterior.getTipo());
 			if (anterior.getTipo().equals(Constantes.CRUCE)) {
 				if (tratarPasoCruce()) {
-					InfoSalida p = vehiculo.atravesarCruce(direccionActual,instruccionActual,carrilCruce,x,y);
+					InfoSalida p = vehiculo.atravesarCruce(direccionActual,instruccionActual.getAccion(),carrilCruce,x,y);
 					x = p.getX();
 					y = p.getY();
 					if (p.getParar()) 
@@ -204,7 +205,7 @@ public class Conductor extends Thread {
 			}
 			else if (anterior.getTipo().contains(Constantes.CALLE))
 				if (tratarCambioDireccion()) {
-					InfoGiro p = vehiculo.girar(direccionActual,instruccionActual,x,y);
+					InfoGiro p = vehiculo.girar(direccionActual,instruccionActual.getAccion(),x,y);
 					x = p.getX();
 					y = p.getY();
 					direccionActual = p.getDireccion();
@@ -553,23 +554,23 @@ public class Conductor extends Thread {
 		
 		boolean encontrado = false;
 		if (direccionActual.equals(Constantes.ARRIBA)) {
-			if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual) && 
-				entorno.getItem(x,y+1).getTipo().equals(Constantes.CALLEJON))	
+			if (entorno.getItem(x,y+1).getDireccion().equals(instruccionActual.getAccion()) && 
+				entorno.getItem(x,y+1).getTipo().equals(instruccionActual.getTipoCalzada()))	
 				encontrado = true;
 		}	
 		else if (direccionActual.equals(Constantes.ABAJO)) {
-			if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual) && 
-				entorno.getItem(x,y-1).getTipo().equals(Constantes.CALLEJON))
+			if (entorno.getItem(x,y-1).getDireccion().equals(instruccionActual.getAccion()) && 
+				entorno.getItem(x,y-1).getTipo().equals(instruccionActual.getTipoCalzada()))
 				encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.DERECHA)) {
-			if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual) && 
-				entorno.getItem(x+1,y).getTipo().equals(Constantes.CALLEJON)) 
+			if (entorno.getItem(x+1,y).getDireccion().equals(instruccionActual.getAccion()) && 
+				entorno.getItem(x+1,y).getTipo().equals(instruccionActual.getTipoCalzada())) 
 				encontrado = true;
 		}
 		else if (direccionActual.equals(Constantes.IZQUIERDA)) {
-			if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual) && 
-				entorno.getItem(x-1,y).getTipo().equals(Constantes.CALLEJON))
+			if (entorno.getItem(x-1,y).getDireccion().equals(instruccionActual.getAccion()) && 
+				entorno.getItem(x-1,y).getTipo().equals(instruccionActual.getTipoCalzada()))
 				encontrado = true;
 		}	
 		return encontrado;
@@ -676,15 +677,17 @@ public class Conductor extends Thread {
  		boolean opcion = false;
  		if (direccionActual.equals(Constantes.DERECHA) || 
  			direccionActual.equals(Constantes.IZQUIERDA)) {
- 			if (instruccionActual.equals(Constantes.ARRIBA) ||
- 				instruccionActual.equals(Constantes.ABAJO))
+ 			if (instruccionActual.getTipoCalzada().equals(Constantes.CRUCE) && 
+ 				(instruccionActual.getAccion().equals(Constantes.ARRIBA) ||
+ 				instruccionActual.getAccion().equals(Constantes.ABAJO)))
  				opcion = true;
  		
  		}
  		else if (direccionActual.equals(Constantes.ARRIBA) || 
  				direccionActual.equals(Constantes.ABAJO)) {
- 				if (instruccionActual.equals(Constantes.DERECHA) ||
- 						instruccionActual.equals(Constantes.IZQUIERDA))
+ 				if (instruccionActual.getTipoCalzada().equals(Constantes.CRUCE) && 
+ 					(instruccionActual.getAccion().equals(Constantes.DERECHA) ||
+ 					instruccionActual.getAccion().equals(Constantes.IZQUIERDA)))
  					opcion = true;
  		}
  		return opcion;
@@ -702,7 +705,7 @@ public class Conductor extends Thread {
 			y = p.getY();
 			
 		}
-		else {
+		else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
 			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();

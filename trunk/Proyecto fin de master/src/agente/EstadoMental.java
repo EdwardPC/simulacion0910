@@ -3,9 +3,12 @@ package agente;
 import java.util.ArrayList;
 import java.util.Random;
 
+import manager.Ruta;
+import mundo.Constantes;
+
 public class EstadoMental {
 
-	private ArrayList<String> ruta;
+	private ArrayList<Ruta> ruta;
 	private String tipoConductor;
 	private Integer impaciencia;
 	
@@ -13,36 +16,43 @@ public class EstadoMental {
 		
 		tipoConductor = tipo;
 		impaciencia = 1;//ansiedad;
+		ruta = new ArrayList<Ruta>();
 		seleccionRuta(eleccion);
 	}
 	
 	private void seleccionRuta(Integer eleccion) {
 		
-		ruta = new ArrayList<String>();
 		Random random = new Random();
-		Integer numVueltas = 1;//random.nextInt(10)+1;
+		Integer numVueltas = 10;//random.nextInt(10)+1;
 		switch(eleccion) {
 		case 0:
-			ruta.add("Derecha");
-			ruta.add("Izquierda");
-			ruta.add("Izquierda");
-			ruta.add("Derecha");
-			ruta.add("Arriba");
+			Ruta ruta1 = new Ruta(Constantes.CRUCE,Constantes.DERECHA);
+			Ruta ruta2 = new Ruta(Constantes.CALLEJON,Constantes.DERECHA);
+			Ruta ruta3 = new Ruta(Constantes.CRUCE,Constantes.IZQUIERDA);
+			Ruta ruta4 = new Ruta(Constantes.CALLEJON,Constantes.IZQUIERDA);
+			Ruta ruta5 = new Ruta(Constantes.CALLEJON,Constantes.ABAJO);
+			ruta.add(ruta1);
+			ruta.add(ruta2);
+			ruta.add(ruta3);
+			ruta.add(ruta4);
+			ruta.add(ruta5);
 			break;
 		case 1:
-			ruta.add(numVueltas.toString());
+			Ruta ruta6 = new Ruta(numVueltas);
+			ruta.add(ruta6);
 			break;
 		case 2:
-			ruta.add(numVueltas.toString());
+			Ruta ruta7 = new Ruta(numVueltas);
+			ruta.add(ruta7);
 			break;
 		}
 	}
 
-	public ArrayList<String> getRuta() {
+	public ArrayList<Ruta> getRuta() {
 		return ruta;
 	}
 
-	public void setRuta(ArrayList<String> ruta) {
+	public void setRuta(ArrayList<Ruta> ruta) {
 		this.ruta = ruta;
 	}
 
