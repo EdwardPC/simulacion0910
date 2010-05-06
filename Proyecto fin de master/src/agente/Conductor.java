@@ -101,7 +101,7 @@ public class Conductor extends Thread {
 	public void tomarPosicion() {
 		
 		if (!anterior.getTipo().equals(Constantes.AUTOMOVIL)) {
-			vehiculo.devolverOriginal(antX,antY,anterior.getTipo(),anterior.getConductor());
+			vehiculo.devolverOriginal(antX,antY,anterior);
 			
 		}
 		vehiculo.tomarPosicion(anterior,x,y);
@@ -181,7 +181,6 @@ public class Conductor extends Thread {
 		case 0:
 			if (anterior.getNumCarril() != 0)
 				carrilCruce = anterior.getNumCarril();
-			//System.out.println(direccionActual +" "+instruccionActual+" "+anterior.getTipo());
 			if (anterior.getTipo().equals(Constantes.CRUCE)) {
 				if (tratarPasoCruce()) {
 					InfoSalida p = vehiculo.atravesarCruce(direccionActual,instruccionActual.getAccion(),carrilCruce,x,y);
@@ -286,7 +285,6 @@ public class Conductor extends Thread {
 					tratarAdelantamiento();
 			else if (anterior.getNumCarril() == 2 &&
 					!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
-					System.out.println("OK carril");
 					tratarVolverACarril(1);
 			}
 			else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
@@ -302,7 +300,6 @@ public class Conductor extends Thread {
 						tratarAdelantamiento();
 				else if (anterior.getNumCarril() == 2 &&
 						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
-						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
 				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
@@ -318,7 +315,6 @@ public class Conductor extends Thread {
 						tratarAdelantamiento();
 				else if (anterior.getNumCarril() == 2 &&
 						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
-						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
 				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
@@ -334,7 +330,6 @@ public class Conductor extends Thread {
 						tratarAdelantamiento();
 				else if (anterior.getNumCarril() == 2 &&
 						!mirarCarrilDerecho(3,7,Constantes.AUTOMOVIL)) {
-						System.out.println("OK carril");
 						tratarVolverACarril(1);
 				}
 				else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
@@ -935,7 +930,7 @@ public class Conductor extends Thread {
 	
 	public void finalizar() {
 		
-		vehiculo.devolverOriginal(antX,antY,anterior.getTipo(),anterior.getConductor());
+		vehiculo.devolverOriginal(antX,antY,anterior);
 		entorno.actualizar(0);
 		try {
 			

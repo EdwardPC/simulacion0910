@@ -20,6 +20,7 @@ public class Entorno extends Observable {
 	private GeneradorTrafico generador;
 	private SemaforosManager semaforosManager;
 	private Boolean parar;
+	private Boolean tipoVehiculos;
 
 	private Integer eleccion;
 	private XMLManager manager;
@@ -30,6 +31,7 @@ public class Entorno extends Observable {
 	private Integer limite1;
 	private Integer limite2;
 	private Integer velocidadSimulacion;
+	private Integer impaciencia;
 
 	private ArrayList<Punto> inicios;
 	private ArrayList<Tramo> tramos;
@@ -53,10 +55,32 @@ public class Entorno extends Observable {
 	private File ficheroCampo;
 	private File ficheroMapa;
 	
+	private String obtenerDireccion(int dir) {
+		
+		String valor = null;
+		switch(dir) {
+		case 0:
+			valor = Constantes.ARRIBA;
+			break;
+		case 1:
+			valor = Constantes.ABAJO;
+			break;
+		case 2:
+			valor = Constantes.IZQUIERDA;
+			break;
+		case 3:
+			valor = Constantes.DERECHA;
+			break;
+		}
+		return valor;
+	}
+	
 	public void inicializar() {
 		
 		parar = false;
+		tipoVehiculos = false;
 		velocidadSimulacion = 0;
+		impaciencia = 0;
 		manager = new XMLManager();
 		ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
 		ficheroCampo = new File("./xml/mapas/Paisaje1.xml");
@@ -202,26 +226,6 @@ public class Entorno extends Observable {
 		}
 		contenido[iniciox][inicioy].setInicio(true);
 	}
-	
-	public String obtenerDireccion(int dir) {
-		
-		String valor = null;
-		switch(dir) {
-		case 0:
-			valor = Constantes.ARRIBA;
-			break;
-		case 1:
-			valor = Constantes.ABAJO;
-			break;
-		case 2:
-			valor = Constantes.IZQUIERDA;
-			break;
-		case 3:
-			valor = Constantes.DERECHA;
-			break;
-		}
-		return valor;
-	}
 
 	public void simular() {
 	
@@ -245,6 +249,24 @@ public class Entorno extends Observable {
 		agresivos = agre;
 		normales = norm;
 		moderados = mod;
+	}
+	
+	public void obtenerTipoVehiculos(boolean seleccion) {
+		
+		tipoVehiculos = seleccion;
+	}
+
+	public void obtenerImpaciencia(Integer seleccion) {
+		
+		impaciencia = seleccion;
+	}
+	
+	public Integer getImpaciencia() {
+		return impaciencia;
+	}
+
+	public Boolean getTipoVehiculos() {
+		return tipoVehiculos;
 	}
 
 	public ArrayList<Tramo> getTramos() {
