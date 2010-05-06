@@ -280,6 +280,12 @@ public class Vista extends JFrame implements Observer {
 			Cargador cargador = new Cargador();
 			JOptionPane.showMessageDialog(getParent(),cargador,"Elegir los conductores: ",JOptionPane.INFORMATION_MESSAGE);
 			controlador.pasarConductores(cargador.getNumAgresivos(),cargador.getNumNormales(),cargador.getNumModerados());
+			CargadorImpaciencia impaciencia = new CargadorImpaciencia();
+			JOptionPane.showMessageDialog(getParent(),impaciencia,"Elegir la impaciencia de los conductores: ",JOptionPane.INFORMATION_MESSAGE);
+			controlador.pasarImpaciencia(impaciencia.seleccion());
+			CargadorCoches coches = new CargadorCoches();
+			JOptionPane.showMessageDialog(getParent(),coches,"Elegir el tipo de vehículo: ",JOptionPane.INFORMATION_MESSAGE);
+			controlador.pasarTipoVehiculos(coches.seleccion());
 		}
 	}
 	class OyenteComenzar implements ActionListener {

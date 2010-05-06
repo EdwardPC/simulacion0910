@@ -41,12 +41,18 @@ public class Coche {
 	
 	public void setVelocidad(Integer velocidad) {
 		
-		this.velocidad = velocidad;
+		if (velocidad <= velMaxVehiculo)
+			this.velocidad = velocidad;
+		else
+			this.velocidad = velMaxVehiculo;
 	}
 	
 	public void acelerar(Integer vel) {
 		
-		velocidad = velocidad+vel;
+		if (velocidad+vel <= velMaxVehiculo)
+			velocidad = velocidad+vel;
+		else
+			velocidad = velMaxVehiculo;
 	}
 	
 	public void frenar(Integer vel) {
@@ -481,10 +487,11 @@ public class Coche {
 		return info;
 	}
 
-	public void devolverOriginal(int x,int y,String tipo,String conductor) {
+	public void devolverOriginal(int x,int y,ItemsMundo anterior) {
 		
-		entorno.getItem(x,y).setTipo(tipo);
-		entorno.getItem(x,y).setConductor(conductor);
+		entorno.getItem(x,y).setTipo(anterior.getTipo());
+		entorno.getItem(x,y).setConductor(anterior.getConductor());
+		entorno.getItem(x,y).setColorSemaforo(anterior.getColorSemaforo());
 	}
 	
 	public void tomarPosicion(ItemsMundo anterior, int x,int y) {

@@ -12,6 +12,8 @@ public class GeneradorTrafico extends Thread {
 	private static final Integer VCiudad = 30;
 	private static final Integer VAuto = 120;
 	private static final Integer VSec = 100;
+	private static final Integer vMax1 = 150;
+	private static final Integer vMax2 = 220;
 	
 	private Integer eleccion;
 	private Entorno entorno;
@@ -19,7 +21,8 @@ public class GeneradorTrafico extends Thread {
 	private Integer normales;
 	private Integer agresivos;
 	private Integer vIni;
-	private ArrayList<Punto> inicios;;
+	private Integer vMax;
+	private ArrayList<Punto> inicios;
 	
 	public GeneradorTrafico(Entorno mundo) {
 		
@@ -30,11 +33,14 @@ public class GeneradorTrafico extends Thread {
 		agresivos = entorno.getAgresivos();
 		inicios = entorno.getInicios();
 		vIni = 0;
+		if (!mundo.getTipoVehiculos())
+			vMax = vMax1;
+		else
+			vMax = vMax2;
 	}
 	
 	public void run() {
 			
-		Random impaciencia = new Random();
 		if (eleccion == 0)
 			vIni = VCiudad;
 		else if (eleccion == 1) 
@@ -47,8 +53,8 @@ public class GeneradorTrafico extends Thread {
 			if (moderados > 0) {
 				for (int i=0;i<inicios.size();i++) {
 					Punto p = inicios.get(i);
-					Coche coche = new Coche(entorno,vIni,vIni);
-					Conductor conductor = new Conductor(entorno,Constantes.MODERADO,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					Coche coche = new Coche(entorno,vIni,vMax);
+					Conductor conductor = new Conductor(entorno,Constantes.MODERADO,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
 					entorno.actualizar(0);
 					conductor.start();	
@@ -65,8 +71,8 @@ public class GeneradorTrafico extends Thread {
 			else if (normales > 0) {
 				for (int i=0;i<inicios.size();i++) {
 					Punto p = inicios.get(i);
-					Coche coche = new Coche(entorno,vIni,vIni);
-					Conductor conductor = new Conductor(entorno,Constantes.NORMAL,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					Coche coche = new Coche(entorno,vIni,vMax);
+					Conductor conductor = new Conductor(entorno,Constantes.NORMAL,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
 					entorno.actualizar(0);
 					conductor.start();
@@ -83,8 +89,8 @@ public class GeneradorTrafico extends Thread {
 			else if (agresivos > 0) {
 				for (int i=0;i<inicios.size();i++) {
 					Punto p = inicios.get(i);
-					Coche coche = new Coche(entorno,vIni,vIni);
-					Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,impaciencia.nextInt(3)+1,coche,p.getX(),p.getY());
+					Coche coche = new Coche(entorno,vIni,vMax);
+					Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
 					entorno.actualizar(0);
 					conductor.start();

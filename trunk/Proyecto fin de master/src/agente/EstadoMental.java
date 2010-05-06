@@ -15,7 +15,13 @@ public class EstadoMental {
 	public EstadoMental(String tipo,Integer ansiedad,Integer eleccion) {
 		
 		tipoConductor = tipo;
-		impaciencia = 1;//ansiedad;
+		if (ansiedad == 4) {
+			Random imp = new Random();
+			impaciencia = imp.nextInt(3)+1;
+		}
+		else
+			impaciencia = ansiedad;
+		System.out.println("oK est"+impaciencia);
 		ruta = new ArrayList<Ruta>();
 		seleccionRuta(eleccion);
 	}

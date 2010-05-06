@@ -43,7 +43,19 @@ public class Controlador {
 		Integer moderados = numModerados.intValue();
 		matriz.obtenerConductores(agresivos,normales,moderados);
 	}
+	
+	public void pasarImpaciencia(Integer seleccion) {
+		
+		matriz.obtenerImpaciencia(seleccion);
+		
+	}
 
+	public void pasarTipoVehiculos(boolean seleccion) {
+		
+		matriz.obtenerTipoVehiculos(seleccion);
+		
+	}
+	
 	public void setVelocidad(int value) {
 		
 		matriz.setVelocidadSimulacion(value);
