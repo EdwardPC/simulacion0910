@@ -24,13 +24,13 @@
 		<posY>92</posY>
 	</horizontal>
 	<horizontal>
-		<sentido>3</sentido>
-		<posX1>6</posX1>
-		<posX2>48</posX2>
-		<posY>6</posY>
+		<sentido>1</sentido>
+		<posX1>5</posX1>
+		<posX2>49</posX2>
+		<posY>5</posY>
 	</horizontal>
 	<horizontal>
-		<sentido>4</sentido>
+		<sentido>2</sentido>
 		<posX1>7</posX1>
 		<posX2>49</posX2>
 		<posY>92</posY>
@@ -48,16 +48,16 @@
 		<posY>93</posY>
 	</vertical>
 	<vertical>
-		<sentido>3</sentido>
+		<sentido>1</sentido>
 		<posX1>7</posX1>
 		<posX2>49</posX2>
 		<posY>6</posY>
 	</vertical>
 	<vertical>
-		<sentido>4</sentido>
-		<posX1>6</posX1>
-		<posX2>48</posX2>
-		<posY>92</posY>
+		<sentido>2</sentido>
+		<posX1>5</posX1>
+		<posX2>49</posX2>
+		<posY>93</posY>
 	</vertical>
 	<callejon>
 		<sentido>1</sentido>

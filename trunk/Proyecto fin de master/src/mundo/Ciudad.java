@@ -184,32 +184,6 @@ public class Ciudad {
 				contenido[y+1][j].setVelocidadVia(40);
 			}
 		}
-		else if (sentido == 3) {
-			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE);
-				contenido[y][j].setDireccion(Constantes.DERECHA);
-				contenido[y][j].setNumCarril(1);
-			}
-			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y-1][j].setTipo(Constantes.CALLE);
-				contenido[y-1][j].setDireccion(Constantes.DERECHA);
-				contenido[y-1][j].setNumCarril(2);
-			}
-		}
-		else if (sentido == 4) {
-			for (int j=x1;j<x2;j++) {
-				contenido[y][j].setTipo(Constantes.CALLE);
-				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
-				contenido[y][j].setNumCarril(1);
-				contenido[y][j].setVelocidadVia(40);
-			}
-			for (int j=x1-1;j<x2+1;j++) {
-				contenido[y+1][j].setTipo(Constantes.CALLE);
-				contenido[y+1][j].setDireccion(Constantes.IZQUIERDA);
-				contenido[y+1][j].setNumCarril(2);
-				contenido[y+1][j].setVelocidadVia(40);
-			}
-		}
 	}
 	
 	private void calleVertical(int x1,int x2,int y,int sentido) {
@@ -240,34 +214,6 @@ public class Ciudad {
 				contenido[i][y-1].setDireccion(Constantes.ABAJO);
 				contenido[i][y-1].setNumCarril(1);
 				contenido[i][y-1].setVelocidadVia(40);
-			}
-		}
-		else if (sentido == 3) {
-			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE);
-				contenido[i][y].setDireccion(Constantes.ARRIBA);
-				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(40);
-			}
-			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y-1].setTipo(Constantes.CALLE);
-				contenido[i][y-1].setDireccion(Constantes.ARRIBA);
-				contenido[i][y-1].setNumCarril(2);
-				contenido[i][y-1].setVelocidadVia(40);
-			}
-		}
-		else if (sentido == 4) {
-			for (int i=x1;i<x2;i++) {
-				contenido[i][y].setTipo(Constantes.CALLE);
-				contenido[i][y].setDireccion(Constantes.ABAJO);
-				contenido[i][y].setNumCarril(1);
-				contenido[i][y].setVelocidadVia(40);
-			}
-			for (int i=x1-1;i<x2+1;i++) {
-				contenido[i][y+1].setTipo(Constantes.CALLE);
-				contenido[i][y+1].setDireccion(Constantes.ABAJO);
-				contenido[i][y+1].setNumCarril(2);
-				contenido[i][y+1].setVelocidadVia(40);
 			}
 		}
 	}
