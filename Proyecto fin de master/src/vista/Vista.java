@@ -278,14 +278,39 @@ public class Vista extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent arg0) {
 			
 			Cargador cargador = new Cargador();
-			JOptionPane.showMessageDialog(getParent(),cargador,"Elegir los conductores: ",JOptionPane.INFORMATION_MESSAGE);
-			controlador.pasarConductores(cargador.getNumAgresivos(),cargador.getNumNormales(),cargador.getNumModerados());
-			CargadorImpaciencia impaciencia = new CargadorImpaciencia();
-			JOptionPane.showMessageDialog(getParent(),impaciencia,"Elegir la impaciencia de los conductores: ",JOptionPane.INFORMATION_MESSAGE);
-			controlador.pasarImpaciencia(impaciencia.seleccion());
-			CargadorCoches coches = new CargadorCoches();
-			JOptionPane.showMessageDialog(getParent(),coches,"Elegir el tipo de vehículo: ",JOptionPane.INFORMATION_MESSAGE);
-			controlador.pasarTipoVehiculos(coches.seleccion());
+			Integer eleccion = 0;
+			Object[] opciones = {"Aceptar"};
+			eleccion = JOptionPane.showOptionDialog(getParent(),
+				   cargador,
+				    "Elegir los conductores de cada entrada: ",
+				    JOptionPane.YES_OPTION,
+				    JOptionPane.PLAIN_MESSAGE,
+				    null,opciones,
+				    opciones[0]);
+			if (eleccion == JOptionPane.OK_OPTION) {
+				controlador.pasarConductores(cargador.getNumAgresivos(),cargador.getNumNormales(),cargador.getNumModerados());
+				CargadorImpaciencia impaciencia = new CargadorImpaciencia();
+				eleccion = JOptionPane.showOptionDialog(getParent(),
+						   impaciencia,
+						    "Elegir la impaciencia conductores: ",
+						    JOptionPane.YES_OPTION,
+						    JOptionPane.PLAIN_MESSAGE,
+						    null,opciones,
+						    opciones[0]);
+				if (eleccion == JOptionPane.OK_OPTION) {
+					controlador.pasarImpaciencia(impaciencia.seleccion());
+					CargadorCoches coches = new CargadorCoches();
+					eleccion = JOptionPane.showOptionDialog(getParent(),
+							   coches,
+							   "Elegir el tipo de vehículo: ",
+							    JOptionPane.YES_OPTION,
+							    JOptionPane.PLAIN_MESSAGE,
+							    null,opciones,
+							    opciones[0]);
+					if (eleccion == JOptionPane.OK_OPTION)
+						controlador.pasarTipoVehiculos(coches.seleccion());
+				}
+			}
 		}
 	}
 	class OyenteComenzar implements ActionListener {

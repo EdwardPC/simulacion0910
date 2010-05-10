@@ -32,7 +32,7 @@ public class EstadoMental {
 		Integer numVueltas = 10;//random.nextInt(10)+1;
 		switch(eleccion) {
 		case 0:
-			Ruta ruta1 = new Ruta(Constantes.CRUCE,Constantes.DERECHA);
+			Ruta ruta1 = new Ruta(Constantes.CRUCE,Constantes.ARRIBA);
 			Ruta ruta2 = new Ruta(Constantes.CALLEJON,Constantes.DERECHA);
 			Ruta ruta3 = new Ruta(Constantes.CRUCE,Constantes.IZQUIERDA);
 			Ruta ruta4 = new Ruta(Constantes.CALLEJON,Constantes.IZQUIERDA);
