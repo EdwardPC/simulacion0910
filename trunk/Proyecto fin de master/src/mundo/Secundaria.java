@@ -238,5 +238,55 @@ public class Secundaria {
 				contenido[i][y+1].setVelocidadVia(VMAX);
 			}
 		}
+		else if (sentido == 7) {
+			for (int j=x1;j<x1+5;j++)
+				contenido[y][j].setAdelantar(false);
+			for (int j=x2-3;j<x2+2;j++)
+				contenido[y][j].setAdelantar(false);
+			
+			for (int j=x1;j<x2+2;j++) {
+				contenido[y][j].setTipo(Constantes.SECUNDARIA);
+				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.DERECHA);
+				contenido[y][j].setVelocidadVia(VMAX);
+			}
+			
+			for (int j=x1-2;j<x1+3;j++)
+				contenido[y+1][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y+1][j].setAdelantar(false);
+			
+			for (int j=x1-2;j<x2;j++) {
+				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
+				contenido[y+1][j].setDireccion(Constantes.DERECHA);
+				contenido[y+1][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y+1][j].setVelocidadVia(VMAX);
+			}
+		}
+		else if (sentido == 8) {
+			for (int j=x1;j<x1+5;j++)
+				contenido[y][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y][j].setAdelantar(false);
+			
+			for (int j=x1;j<x2;j++) {
+				contenido[y][j].setTipo(Constantes.SECUNDARIA);
+				contenido[y][j].setDireccion(Constantes.IZQUIERDA);
+				contenido[y][j].setSentido(Constantes.IZQUIERDA);
+				contenido[y][j].setVelocidadVia(VMAX);
+			}
+			
+			for (int j=x1;j<x1+5;j++)
+				contenido[y+1][j].setAdelantar(false);
+			for (int j=x2-5;j<x2;j++)
+				contenido[y+1][j].setAdelantar(false);
+			
+			for (int j=x1;j<x2;j++) {
+				contenido[y+1][j].setTipo(Constantes.SECUNDARIA);
+				contenido[y+1][j].setDireccion(Constantes.DERECHA);
+				contenido[y+1][j].setSentido(Constantes.DERECHA);
+				contenido[y+1][j].setVelocidadVia(VMAX);
+			}
+		}
 	}
 }
