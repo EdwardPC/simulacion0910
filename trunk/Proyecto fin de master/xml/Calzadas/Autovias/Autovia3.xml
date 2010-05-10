@@ -1,0 +1,48 @@
+<autovia>
+<tramo>
+	<sentido>3</sentido>
+	<posX1>70</posX1>
+	<posX2>90</posX2>
+	<posY>10</posY>
+</tramo>
+<tramo>
+	<sentido>3</sentido>
+	<posX1>10</posX1>
+	<posX2>50</posX2>
+	<posY>10</posY>
+</tramo>
+
+<tramo>
+	<sentido>4</sentido>
+	<posX1>50</posX1>
+	<posX2>70</posX2>
+	<posY>30</posY>
+</tramo>
+
+<tramo>
+	<sentido>7</sentido>
+	<posX1>15</posX1>
+	<posX2>30</posX2>
+	<posY>46</posY>
+</tramo>
+<tramo>
+	<sentido>8</sentido>
+	<posX1>14</posX1>
+	<posX2>30</posX2>
+	<posY>70</posY>
+</tramo>
+<entrada>
+	<posX1>85</posX1>
+	<posX2>95</posX2>
+	<posX3>16</posX3>
+	<posX4>22</posX4>
+	<posY1>15</posY1>
+	<posY2>94</posY2>
+	<iniX>94</iniX>
+	<iniY>21</iniY>
+	<tram1>1</tram1>
+	<tram2>2</tram2>
+	<direccion1>0</direccion1>
+	<direccion2>2</direccion2>
+</entrada>
+</autovia>
