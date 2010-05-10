@@ -313,6 +313,7 @@ public class Vista extends JFrame implements Observer {
 			}
 		}
 	}
+	
 	class OyenteComenzar implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
