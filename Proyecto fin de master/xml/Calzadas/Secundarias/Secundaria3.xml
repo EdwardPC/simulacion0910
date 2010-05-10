@@ -1,0 +1,49 @@
+<secundaria>
+<tramo>
+	<sentido>4</sentido>
+	<posX1>6</posX1>
+	<posX2>27</posX2>
+	<posY>6</posY>
+</tramo>
+<tramo>
+	<sentido>7</sentido>
+	<posX1>8</posX1>
+	<posX2>23</posX2>
+	<posY>26</posY>
+</tramo>
+<tramo>
+	<sentido>3</sentido>
+	<posX1>27</posX1>
+	<posX2>70</posX2>
+	<posY>23</posY>
+</tramo>
+<tramo>
+	<sentido>8</sentido>
+	<posX1>7</posX1>
+	<posX2>24</posX2>
+	<posY>70</posY>
+</tramo>
+
+<tramo>
+	<sentido>4</sentido>
+	<posX1>70</posX1>
+	<posX2>85</posX2>
+	<posY>6</posY>
+</tramo>
+<entrada>
+	<posX1>82</posX1>
+	<posX2>95</posX2>
+	<posX3>9</posX3>
+	<posX4>15</posX4>
+	<posY1>8</posY1>
+	<posY2>94</posY2>
+	<iniX>94</iniX>
+	<iniY>14</iniY>
+	<tram1>1</tram1>
+	<tram2>2</tram2>
+	<direccion1>0</direccion1>
+	<direccion2>2</direccion2>
+</entrada>
+
+
+</secundaria>
