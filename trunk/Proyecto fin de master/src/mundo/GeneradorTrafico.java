@@ -3,6 +3,7 @@ package mundo;
 import java.util.ArrayList;
 import java.util.Random;
 
+import manager.Estadisticas;
 import manager.Punto;
 
 import agente.Conductor;
@@ -23,10 +24,12 @@ public class GeneradorTrafico extends Thread {
 	private Integer vIni;
 	private Integer vMax;
 	private ArrayList<Punto> inicios;
+	private Estadisticas estadisticas;
 	
 	public GeneradorTrafico(Entorno mundo) {
 		
 		entorno = mundo;
+		estadisticas = entorno.getEstadisticas();
 		eleccion = entorno.getEleccion();
 		moderados = entorno.getModerados();
 		normales = entorno.getNormales();
@@ -56,6 +59,8 @@ public class GeneradorTrafico extends Thread {
 					Coche coche = new Coche(entorno,vIni,vMax);
 					Conductor conductor = new Conductor(entorno,Constantes.MODERADO,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
+					estadisticas.setConductores(estadisticas.getConductores()+1);
+					estadisticas.setModerados(estadisticas.getModerados()+1);
 					entorno.actualizar(0);
 					conductor.start();	
 				}
@@ -74,6 +79,8 @@ public class GeneradorTrafico extends Thread {
 					Coche coche = new Coche(entorno,vIni,vMax);
 					Conductor conductor = new Conductor(entorno,Constantes.NORMAL,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
+					estadisticas.setConductores(estadisticas.getConductores()+1);
+					estadisticas.setNormales(estadisticas.getNormales()+1);
 					entorno.actualizar(0);
 					conductor.start();
 				}
@@ -92,6 +99,8 @@ public class GeneradorTrafico extends Thread {
 					Coche coche = new Coche(entorno,vIni,vMax);
 					Conductor conductor = new Conductor(entorno,Constantes.AGRESIVO,entorno.getImpaciencia(),coche,p.getX(),p.getY());
 					entorno.getConductores().add(conductor);
+					estadisticas.setConductores(estadisticas.getConductores()+1);
+					estadisticas.setAgresivos(estadisticas.getAgresivos()+1);
 					entorno.actualizar(0);
 					conductor.start();
 				}

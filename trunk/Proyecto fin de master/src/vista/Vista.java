@@ -23,7 +23,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
@@ -46,6 +48,7 @@ public class Vista extends JFrame implements Observer {
 	private JMenu ayudaSimulacion;
 
 	private JMenuItem cargarSimulacion;
+	private JMenuItem parametrosSimulacion;
 	private JMenuItem lanzarSimulacion;
 	private JMenuItem finalizarSimulacion;
 	private JMenuItem visualizarEstadisticas;
@@ -131,19 +134,21 @@ public class Vista extends JFrame implements Observer {
 		opcionesSimulacion = new JMenu();
 		estadisticasSimulacion = new JMenu();
 		ayudaSimulacion = new JMenu();
-		cargarSimulacion = new JMenuItem("Cargar la simulación");
-		lanzarSimulacion = new JMenuItem("Lanzar la simulación");
-		finalizarSimulacion = new JMenuItem("Finalizar la simulación");
+		cargarSimulacion = new JMenuItem("Cargar la simulacion");
+		parametrosSimulacion = new JMenuItem("Indicar parametros");
+		lanzarSimulacion = new JMenuItem("Lanzar la simulacion");
+		finalizarSimulacion = new JMenuItem("Finalizar la simulacion");
 		visualizarEstadisticas = new JMenuItem("Visualizar los resultados");
 		mostrarAyuda = new JMenuItem("Consultar manual");
-		mostrarCreditos = new JMenuItem("Créditos");
-		opcionesSimulacion.setText("Opciones de simulación");
-		estadisticasSimulacion.setText("Estadísticas de simulación");
+		mostrarCreditos = new JMenuItem("Creditos");
+		opcionesSimulacion.setText("Opciones de simulacion");
+		estadisticasSimulacion.setText("Estadisticas de simulacion");
 		ayudaSimulacion.setText("Ayuda");
 		barraDeMenu.add(opcionesSimulacion);
 		barraDeMenu.add(estadisticasSimulacion);
 		barraDeMenu.add(ayudaSimulacion);
 		opcionesSimulacion.add(cargarSimulacion);
+		opcionesSimulacion.add(parametrosSimulacion);
 		opcionesSimulacion.add(lanzarSimulacion);
 		opcionesSimulacion.add(finalizarSimulacion);
 		estadisticasSimulacion.add(visualizarEstadisticas);
@@ -154,9 +159,9 @@ public class Vista extends JFrame implements Observer {
 	
 	private void inicializarLeyendas() {
 	
-		lsemaforoR = new JLabel(" Semáforo Rojo: ");
-		lsemaforoA = new JLabel(" Semáforo Amarillo: ");
-		lsemaforoV = new JLabel(" Semáforo Verde: ");
+		lsemaforoR = new JLabel(" Semaforo Rojo: ");
+		lsemaforoA = new JLabel(" Semaforo Amarillo: ");
+		lsemaforoV = new JLabel(" Semaforo Verde: ");
 		lcedas = new JLabel(" Ceda el paso: ");
 		lstops = new JLabel(" Stop: ");
 		lagresivos = new JLabel(" Agresivos: ");
@@ -195,8 +200,8 @@ public class Vista extends JFrame implements Observer {
 		cargar = new JButton("Cargar");
 		comenzar = new JButton("Simular");
 		finalizar = new JButton("Finalizar");
-		coches = new JButton("Coches");
-		lvelocidad = new JLabel("Velocidad de simulación:");
+		coches = new JButton("Parametros");
+		lvelocidad = new JLabel("Velocidad de simulacion:");
 		velocidad = new JSlider(0,100,0);
 		//comenzar.setEnabled(false);
 		//finalizar.setEnabled(false);
@@ -221,15 +226,17 @@ public class Vista extends JFrame implements Observer {
 		oyenteVelocidad = new OyenteVelocidad();
 		
 		cargarSimulacion.addActionListener(oyenteCargar);
+		cargar.addActionListener(oyenteCargar);
+		coches.addActionListener(oyenteCoches);
+		parametrosSimulacion.addActionListener(oyenteCoches);
+		comenzar.addActionListener(oyenteComenzar);
+		lanzarSimulacion.addActionListener(oyenteComenzar);
+		finalizar.addActionListener(oyenteFinalizar);
+		finalizarSimulacion.addActionListener(oyenteFinalizar);
+		
 		visualizarEstadisticas.addActionListener(oyenteEstadisticas);
 		mostrarAyuda.addActionListener(oyenteAyuda);
 		mostrarCreditos.addActionListener(oyenteCreditos);
-		cargar.addActionListener(oyenteCargar);
-		coches.addActionListener(oyenteCoches);
-		comenzar.addActionListener(oyenteComenzar);
-		finalizar.addActionListener(oyenteFinalizar);
-		lanzarSimulacion.addActionListener(oyenteComenzar);
-		finalizarSimulacion.addActionListener(oyenteFinalizar);
 		velocidad.addChangeListener(oyenteVelocidad);
 	}
 	
@@ -292,7 +299,7 @@ public class Vista extends JFrame implements Observer {
 				CargadorImpaciencia impaciencia = new CargadorImpaciencia();
 				eleccion = JOptionPane.showOptionDialog(getParent(),
 						   impaciencia,
-						    "Elegir la impaciencia conductores: ",
+						    "Elegir la impaciencia de los conductores: ",
 						    JOptionPane.YES_OPTION,
 						    JOptionPane.PLAIN_MESSAGE,
 						    null,opciones,
@@ -302,7 +309,7 @@ public class Vista extends JFrame implements Observer {
 					CargadorCoches coches = new CargadorCoches();
 					eleccion = JOptionPane.showOptionDialog(getParent(),
 							   coches,
-							   "Elegir el tipo de vehículo: ",
+							   "Elegir el tipo de vehiculo: ",
 							    JOptionPane.YES_OPTION,
 							    JOptionPane.PLAIN_MESSAGE,
 							    null,opciones,
@@ -330,7 +337,6 @@ public class Vista extends JFrame implements Observer {
 
 		public void actionPerformed(ActionEvent e) {
 			
-			System.out.println("Finalizar");
 			controlador.getMatriz().setParar(true);
 			//finalizar.setEnabled(false);
 			//cargar.setEnabled(true);
@@ -342,6 +348,8 @@ public class Vista extends JFrame implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			
 			System.out.println("Estadisticas");
+			PanelEstadisticas estadisticas = new PanelEstadisticas(controlador.getMatriz().getEstadisticas());
+			JOptionPane.showMessageDialog(null,estadisticas,"Estadisticas de la simulacion",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -349,7 +357,8 @@ public class Vista extends JFrame implements Observer {
 		
 		public void actionPerformed(ActionEvent e) {
 			
-			System.out.println("Ayuda");
+			PanelAyuda ayuda = new PanelAyuda();
+			JOptionPane.showMessageDialog(null,ayuda,"Manual de usuario",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	
@@ -374,11 +383,10 @@ public class Vista extends JFrame implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		
 		Integer valor = (Integer)arg1;
-		//System.out.println("Actualizo update");
 		if (valor == 0)
 			trafico.dibujarMapa();
 		else if (valor == 1)
-			JOptionPane.showMessageDialog(null,"El mapa cargado presenta problemas en su diseño.","Error en mapa",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null,"El mapa cargado presenta problemas en su realizacion.","Error en mapa",JOptionPane.INFORMATION_MESSAGE);
 		
 	}
 }

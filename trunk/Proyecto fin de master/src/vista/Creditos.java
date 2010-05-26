@@ -15,9 +15,9 @@ public class Creditos extends JPanel {
 	
 	public Creditos() {
 		setLayout(new GridLayout(3,1));
-		proyecto = new JLabel("Proyecto fin de m·ster: Agentes Inteligentes");
+		proyecto = new JLabel("Proyecto fin de m√°ster: Agentes Inteligentes");
 		espacio = new JLabel("");
-		autor = new JLabel("Autor: Alberto Fern·ndez Isabel");
+		autor = new JLabel("Autor: Alberto Fern√°ndez Isabel");
 		add(proyecto);
 		add(espacio);
 		add(autor);
