@@ -314,8 +314,19 @@ public class Vista extends JFrame implements Observer {
 							    JOptionPane.PLAIN_MESSAGE,
 							    null,opciones,
 							    opciones[0]);
-					if (eleccion == JOptionPane.OK_OPTION)
+					if (eleccion == JOptionPane.OK_OPTION) {
 						controlador.pasarTipoVehiculos(coches.seleccion());
+						CargadorLongitud longitud = new CargadorLongitud();
+						eleccion = JOptionPane.showOptionDialog(getParent(),
+								   longitud,
+								   "Elegir el tipo de vehiculo: ",
+								    JOptionPane.YES_OPTION,
+								    JOptionPane.PLAIN_MESSAGE,
+								    null,opciones,
+								    opciones[0]);
+						if (eleccion == JOptionPane.OK_OPTION)
+							controlador.pasarLongitudSimulacion(longitud.seleccion());
+					}
 				}
 			}
 		}
