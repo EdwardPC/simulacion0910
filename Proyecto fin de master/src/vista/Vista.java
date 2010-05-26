@@ -319,7 +319,7 @@ public class Vista extends JFrame implements Observer {
 						CargadorLongitud longitud = new CargadorLongitud();
 						eleccion = JOptionPane.showOptionDialog(getParent(),
 								   longitud,
-								   "Elegir el tipo de vehiculo: ",
+								   "Elegir la longitud de la simulacion: ",
 								    JOptionPane.YES_OPTION,
 								    JOptionPane.PLAIN_MESSAGE,
 								    null,opciones,

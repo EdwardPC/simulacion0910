@@ -71,7 +71,6 @@ public class Entorno extends Observable {
 		velocidadSimulacion = 0;
 		impaciencia = 0;
 		longitudSimulacion = 0;
-		estadisticas.resetear();
 		manager = new XMLManager();
 		ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
 		ficheroCampo = new File("./xml/mapas/Paisaje1.xml");
@@ -219,6 +218,7 @@ public class Entorno extends Observable {
 
 	public void simular() {
 	
+		estadisticas.resetear();
 		generador = new GeneradorTrafico(this);
 		generador.start();
 		if (eleccion == 0) {
@@ -249,6 +249,17 @@ public class Entorno extends Observable {
 	public void obtenerImpaciencia(Integer seleccion) {
 		
 		impaciencia = seleccion;
+	}
+	
+	public Integer getLongitudSimulacion() {
+		
+		return longitudSimulacion;
+	}
+	
+	public void setLongidudSimulacion(Integer seleccion) {
+	
+		longitudSimulacion = seleccion;
+		
 	}
 	
 	public Estadisticas getEstadisticas() {
@@ -550,15 +561,4 @@ public class Entorno extends Observable {
 		}
 		return valor;
 	}
-
-	public Integer getLongitudSimulacion() {
-		
-		return longitudSimulacion;
-	}
-	public void setLongidudSimulacion(Integer seleccion) {
-	
-		longitudSimulacion = seleccion;
-		
-	}
-	
 }
