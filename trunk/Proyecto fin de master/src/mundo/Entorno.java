@@ -32,6 +32,7 @@ public class Entorno extends Observable {
 	private Integer limite1;
 	private Integer limite2;
 	private Integer velocidadSimulacion;
+	private Integer longitudSimulacion;
 	private Integer impaciencia;
 
 	private ArrayList<Punto> inicios;
@@ -60,7 +61,7 @@ public class Entorno extends Observable {
 	
 	public Entorno() {
 	
-		estadisticas = new Estadisticas();	
+		estadisticas = new Estadisticas();
 	}
 	
 	public void inicializar() {
@@ -69,6 +70,7 @@ public class Entorno extends Observable {
 		tipoVehiculos = false;
 		velocidadSimulacion = 0;
 		impaciencia = 0;
+		longitudSimulacion = 0;
 		estadisticas.resetear();
 		manager = new XMLManager();
 		ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
@@ -547,6 +549,16 @@ public class Entorno extends Observable {
 			break;
 		}
 		return valor;
+	}
+
+	public Integer getLongitudSimulacion() {
+		
+		return longitudSimulacion;
+	}
+	public void setLongidudSimulacion(Integer seleccion) {
+	
+		longitudSimulacion = seleccion;
+		
 	}
 	
 }

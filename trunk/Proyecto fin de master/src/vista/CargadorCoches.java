@@ -6,6 +6,8 @@ import javax.swing.JRadioButton;
 
 public class CargadorCoches extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JRadioButton lentos;
 	private JRadioButton rapidos;
 	private ButtonGroup grupo;

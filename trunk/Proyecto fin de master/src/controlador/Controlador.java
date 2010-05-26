@@ -56,6 +56,12 @@ public class Controlador {
 		
 	}
 	
+	public void pasarLongitudSimulacion(Integer seleccion) {
+		
+		matriz.setLongidudSimulacion(seleccion);
+		
+	}
+	
 	public void setVelocidad(int value) {
 		
 		matriz.setVelocidadSimulacion(value);
