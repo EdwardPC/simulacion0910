@@ -34,7 +34,7 @@ public class Conductor extends Thread {
 		
 		entorno = mundo;
 		estadisticas = mundo.getEstadisticas();
-		estadoMental = new EstadoMental(tipo,grado,entorno.getEleccion());
+		estadoMental = new EstadoMental(tipo,grado,entorno.getEleccion(),entorno.getLongitudSimulacion());
 		comportamiento = new Comportamiento(estadoMental);
 		vehiculo = coche;
 		vehiculo.setTipoConductor(estadoMental.getTipoConductor());
@@ -539,6 +539,10 @@ public class Conductor extends Thread {
 		}
 	}
 	
+	public EstadoMental getEstadoMental() {
+		return estadoMental;
+	}
+
 	public void avanzarRuta() {
 		
 		indexRuta = indexRuta+1;
@@ -749,6 +753,9 @@ public class Conductor extends Thread {
 		
 		boolean encontrado = false;	
 		if (comportamiento.salir()) {
+			for (int i=0;i<entorno.getConductores().size();i++)
+				if (entorno.getConductores().get(i).getEstadoMental().getRuta().get(0).getNumVueltas() > 0)
+					entorno.getConductores().get(i).getEstadoMental().getRuta().get(0).setNumVueltas(0);
 			if (mirarDerecha(5,1,Constantes.CARRIL_SALIDA)) 
 				encontrado = true;
 		}

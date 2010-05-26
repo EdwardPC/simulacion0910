@@ -21,9 +21,9 @@ public class Cargador extends JPanel {
 	public Cargador() {
 		
 		setLayout(new GridLayout(3,2));
-		agresivos = new JLabel("Número de agresivos: ");
-		normales = new JLabel("Número de normales: ");
-		moderados = new JLabel("Número de moderados: ");
+		agresivos = new JLabel("Numero de agresivos: ");
+		normales = new JLabel("Numero de normales: ");
+		moderados = new JLabel("Numero de moderados: ");
 		Double current = new Double(0);
 	    Double min = new Double(0);
 	    Double max = new Double(20);
