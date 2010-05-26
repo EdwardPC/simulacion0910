@@ -1,5 +1,6 @@
 package agente;
 
+import manager.Estadisticas;
 import manager.InfoGiro;
 import manager.InfoSalida;
 import manager.Punto;
@@ -17,6 +18,7 @@ public class Conductor extends Thread {
 	private Entorno entorno;
 	private ItemsMundo anterior;
 	private ItemsMundo[][] vision;
+	private Estadisticas estadisticas;
 	private String direccionActual;
 	private boolean adelantarEnSec;
 	private boolean parar;
@@ -31,6 +33,7 @@ public class Conductor extends Thread {
 	public Conductor(Entorno mundo,String tipo,Integer grado,Coche coche,Integer posX,Integer posY) {
 		
 		entorno = mundo;
+		estadisticas = mundo.getEstadisticas();
 		estadoMental = new EstadoMental(tipo,grado,entorno.getEleccion());
 		comportamiento = new Comportamiento(estadoMental);
 		vehiculo = coche;
@@ -224,8 +227,8 @@ public class Conductor extends Thread {
 				x = p.getX();
 				y = p.getY();
 			}
-			else 
-				System.out.println("No puedo: "+anterior.getTipo());
+			else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
+				estadisticas.setAccidentes(estadisticas.getAccidentes()+1);
 			break;
 		case 1:
 			tratarVuelta();
@@ -248,7 +251,7 @@ public class Conductor extends Thread {
 				parar = info.getParar();
 			}
 			else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
-				System.out.println("Direccion: "+direccionActual+" x: "+x+",y: "+y);
+				estadisticas.setAccidentes(estadisticas.getAccidentes()+1);
 			break;
 		case 2:
 			tratarVuelta();
@@ -271,7 +274,7 @@ public class Conductor extends Thread {
 				parar = info.getParar();
 			}
 			else if (anterior.getTipo().equals(Constantes.AUTOMOVIL))
-				System.out.println("Direccion: "+direccionActual+" x: "+x+",y: "+y);
+				estadisticas.setAccidentes(estadisticas.getAccidentes()+1);
 			break;
 		}
 	}
@@ -715,7 +718,6 @@ public class Conductor extends Thread {
 			Punto p = vehiculo.adelantar(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
-			
 		}
 		else if (!mirarAdelante(2,Constantes.AUTOMOVIL)) {
 			Punto p = vehiculo.continuarCarril(direccionActual,x,y);
@@ -733,6 +735,7 @@ public class Conductor extends Thread {
 			Punto p = vehiculo.volverACarril(direccionActual,x,y);
 			x = p.getX();
 			y = p.getY();
+			estadisticas.setAdelantamientos(estadisticas.getAdelantamientos()+1);
 		}
 		else {
 			Punto p = vehiculo.continuarCarril(direccionActual,x,y);

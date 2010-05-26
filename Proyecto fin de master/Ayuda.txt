@@ -1,0 +1,17 @@
+                ------- MANUAL DE USUARIO ----------
+
+Esta aplicación consta de un menú y una serie de botones que realizan 
+las mismas operaciones pudiendo elegir una forma u otra según se desee.
+
+Para realizar una simulación completa debe seguir los siguientes pasos:
+1. Cargar un entorno:
+	Pulse el botón 'Cargar' o en su defecto la opción del menú 	'Opciones de simulación' -> 'Cargar la simulación'. Aparecerá una 	ventana con tres carpetas, elija una de ellas para cargar un 	entorno del tipo deseado. Finalmente aparecerá un mapa nuevo en 	la aplicación.
+2. Elegir los parámetros de configuración:
+	Pulse el botón 'Parámetros' o en su defecto la opción del menú 	'Opciones de simulación' -> 'Indicar parámetros'. Se abrirán una 	serie de ventanas para configurar la simulación. Primeramente 	deberá elegir el número de conductores de cada tipo implicados en 	la simulación, después deberá elegir el estado de ánimo que 	tendrán para finalmente elegir el tipo de vehículo deseado.
+3. Realizar la simulación:
+	Pulse el botón simular o en su defecto la opción del menú 	'Opciones de simulación' -> 'Lanzar simulación'. De esta manera 	comenzarán a aparecer los coches en el entorno.
+	Durante la simulación se podrá modificar la velocidad de la misma 	moviendo la barra deslizadora 'Velocidad de simulación'.
+4. Finalizar la simulación:
+	Si no desea que la simulación acabe sola deberá pulsar el botón 	finalizar o en su defecto la opción del menú 'Opciones de 	simulación' -> 'Finalizar la simulación'. De esta manera la 	simulación acabará.
+5. Observar estadísticas:
+	En el menú elegir la opción 'Estadísticas de simulación' -> 	'Visualizar resultados' y se mostrará una ventana con los datos 	más relevantes.

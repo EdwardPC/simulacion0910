@@ -9,6 +9,7 @@ import agente.Conductor;
 import manager.Acceso;
 import manager.Atributo;
 import manager.Contenido;
+import manager.Estadisticas;
 import manager.Punto;
 import manager.Tramo;
 import manager.XMLManager;
@@ -55,32 +56,20 @@ public class Entorno extends Observable {
 	private File ficheroCampo;
 	private File ficheroMapa;
 	
-	private String obtenerDireccion(int dir) {
-		
-		String valor = null;
-		switch(dir) {
-		case 0:
-			valor = Constantes.ARRIBA;
-			break;
-		case 1:
-			valor = Constantes.ABAJO;
-			break;
-		case 2:
-			valor = Constantes.IZQUIERDA;
-			break;
-		case 3:
-			valor = Constantes.DERECHA;
-			break;
-		}
-		return valor;
+	private Estadisticas estadisticas;
+	
+	public Entorno() {
+	
+		estadisticas = new Estadisticas();	
 	}
 	
 	public void inicializar() {
-		
+	
 		parar = false;
 		tipoVehiculos = false;
 		velocidadSimulacion = 0;
 		impaciencia = 0;
+		estadisticas.resetear();
 		manager = new XMLManager();
 		ficheroMapa = new File("./xml/Mapas/Inicializa1.xml");
 		ficheroCampo = new File("./xml/mapas/Paisaje1.xml");
@@ -103,7 +92,6 @@ public class Entorno extends Observable {
 					contenido[i][j] = new ItemsMundo(Constantes.TIERRA,false);
 			}
 	}
-	
 	
 	public void rellenarMatriz(Integer tipo,File fichero) {
 		
@@ -261,6 +249,10 @@ public class Entorno extends Observable {
 		impaciencia = seleccion;
 	}
 	
+	public Estadisticas getEstadisticas() {
+		return estadisticas;
+	}
+
 	public Integer getImpaciencia() {
 		return impaciencia;
 	}
@@ -535,6 +527,26 @@ public class Entorno extends Observable {
 	public ArrayList<Punto> getComienzoVueltas() {
 		
 		return comienzoVueltas;
+	}
+	
+	private String obtenerDireccion(int dir) {
+		
+		String valor = null;
+		switch(dir) {
+		case 0:
+			valor = Constantes.ARRIBA;
+			break;
+		case 1:
+			valor = Constantes.ABAJO;
+			break;
+		case 2:
+			valor = Constantes.IZQUIERDA;
+			break;
+		case 3:
+			valor = Constantes.DERECHA;
+			break;
+		}
+		return valor;
 	}
 	
 }
